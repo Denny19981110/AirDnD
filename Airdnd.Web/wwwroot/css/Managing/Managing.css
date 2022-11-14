@@ -1,0 +1,172 @@
+﻿h1, h2, h3, h4, h5, h6, p
+span, tt, td, a {
+    font-family: 'Noto Serif TC', serif;
+    text-decoration: none;
+    color: black;
+}
+
+.hosting-header {
+    display: flex;
+    margin-top: 3rem;
+    justify-content: space-between;
+}
+
+    .hosting-header .hh-num {
+        display: flex;
+    }
+
+.hh-btn-box .hh-btn {
+    padding: 10px 15px;
+    margin-left: 1rem;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+    .hh-btn-box .hh-btn:hover {
+        background-color: rgb(240, 240, 240);
+        transition: 0.3s;
+        color: black;
+    }
+
+/* -----------nav start----------- */
+.hosting-navbar {
+    display: flex;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+    .hosting-navbar .hn-item {
+        padding: 0 0.5rem;
+        margin: 0 2rem 0 0;
+        border: 1px solid #dee2e6;
+        border-radius: 15px;
+        cursor: pointer;
+        justify-content: center;
+    }
+
+        .hosting-navbar .hn-item:hover {
+            border: 1px solid black;
+            transition: 0.5s;
+        }
+
+    .hosting-navbar .hn-search {
+        background-color: rgb(240, 240, 240);
+    }
+
+    .hosting-navbar .hn-item .fa-magnifying-glass {
+        color: rgb(200, 200, 200);
+    }
+
+    .hosting-navbar .hn-item .searchbar {
+        background-color: rgb(240, 240, 240);
+        border: none;
+    }
+
+.hn-item992 {
+    display: none;
+}
+
+.ht-item-768 {
+    display: none;
+}
+
+
+/* -----------nav end----------- */
+
+.hosting-title {
+    display: flex;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+    .hosting-title .ht-item span {
+        font-size: 10px;
+    }
+
+    .hosting-title .ht-item i {
+        font-size: 10px;
+        color: rgb(220, 220, 220);
+    }
+
+.hosting-content {
+    display: flex;
+    padding-top: 1rem;
+}
+.hosting-content-group {
+    height:295px;
+    height:300px;
+    overflow:auto;
+}
+    .hosting-content-group ::-webkit-scrollbar {
+        display: none;
+    }
+
+    .hosting-content .ht-item {
+        display: flex;
+        align-items: center;
+    }
+
+        .hosting-content .ht-item .fa-circle-check {
+            color: green;
+            margin-right: 0.3rem;
+        }
+
+        .hosting-content .ht-item img {
+            border-radius: 4px;
+            margin-right: 0.5rem;
+        }
+
+.ht-item input {
+    margin-right: 1rem;
+}
+
+/*footer*/
+.footer-bottom {
+    width:80%;
+    position:fixed;
+    bottom:0;
+}
+
+@media screen and (max-width: 992px) {
+    .hosting-navbar .hn-item {
+        display: none;
+    }
+
+    .hosting-navbar .hn-item992,
+    .hosting-navbar .hn-search {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hosting-header {
+        min-width: none;
+    }
+
+    .hosting-title .ht-item,
+    .hosting-content .ht-item {
+        display: none;
+    }
+
+    .hosting-content .ht-item-768,
+    .hosting-content .ht-768,
+    .hosting-title .ht-item-768 {
+        display: flex;
+        align-items: center;
+    }
+
+        .hosting-content .ht-item-768 span {
+            min-width: 100px;
+        }
+
+    .hosting-title {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .hosting-content {
+        display: flex;
+        justify-content: space-between;
+    }
+
+}

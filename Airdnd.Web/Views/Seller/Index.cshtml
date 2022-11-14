@@ -1,0 +1,161 @@
+﻿@{
+	Layout = "_Layout";
+	ViewData["Title"] = "Index";
+}
+
+<div class="banner">
+	<h2>今天</h2>
+	<div class="task">
+		<p>填妥重要詳情</p>
+		<span>必須完成才能發布</span>
+	</div>
+</div>
+<div class="orders">
+	<h2>您的預定</h2>
+	<div id="tab" class="container">
+		<!-- Tabs with card integration -->
+		<div>
+			<b-card no-body>
+				<b-tabs card>
+					<b-tab no-body title="即將入住">
+						<table class="coming">
+							<tr>
+								<th>訂單編號</th>
+								<th>房源名稱</th>
+								<th>住客姓名</th>
+								<th>入住日期</th>
+								<th>退房日期</th>
+								<th>總價格</th>
+							</tr>
+							<tbody v-for="item in coming">
+								<tr>
+									<td>{{ item.orderId }}</td>
+									<td>{{ item.roomname }}</td>
+									<td>{{ item.customerName }}</td>
+									<td>{{ item.dateStart | dateFormat }}</td>
+									<td>{{ item.dateEnd | dateFormat }}</td>
+									<td>${{ item.totalprice | moneyFormat }}</td>
+								</tr>
+							</tbody>
+
+						</table>
+
+					</b-tab>
+
+					<b-tab no-body title="目前接待中">
+						<table class="checkIn">
+							<tr>
+								<th>訂單編號</th>
+								<th>房源名稱</th>
+								<th>住客姓名</th>
+								<th>入住日期</th>
+								<th>退房日期</th>
+								<th>總價格</th>
+							</tr>
+							<tbody v-for="item in checkIn">
+								<tr>
+									<td>{{ item.orderId }}</td>
+									<td>{{ item.roomname }}</td>
+									<td>{{ item.customerName }}</td>
+									<td>{{ item.dateStart | dateFormat}}</td>
+									<td>{{ item.dateEnd | dateFormat }}</td>
+									<td>${{ item.totalprice | moneyFormat}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</b-tab>
+
+					<b-tab no-body title="即將退房">
+						<table class="checkOut">
+							<tr>
+								<th>訂單編號</th>
+								<th>房源名稱</th>
+								<th>住客姓名</th>
+								<th>入住日期</th>
+								<th>退房日期</th>
+								<th>總價格</th>
+							</tr>
+							<tbody v-for="item in checkOut">
+								<tr>
+									<td>{{ item.orderId }}</td>
+									<td>{{ item.roomname }}</td>
+									<td>{{ item.customerName }}</td>
+									<td>{{ item.dateStart | dateFormat}}</td>
+									<td>{{ item.dateEnd | dateFormat}}</td>
+									<td>${{ item.totalprice | moneyFormat }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</b-tab>
+				</b-tabs>
+			</b-card>
+		</div>
+	</div>
+</div>
+<div class="news">
+	<h2>出租祕訣與最新消息</h2>
+	<div class="article">
+		<a href="https://www.airbnb.com.tw/resources/hosting-homes/a/how-to-make-your-listing-stand-out-321"
+			class="item col-5">
+			<div class="pic"><img
+					src="https://bs-aircnc-front.azurewebsites.net/Img/HostHomePage/%E5%A6%82%E4%BD%95%E8%AE%93%E6%88%BF%E6%BA%90%E8%84%AB%E7%A9%8E%E8%80%8C%E5%87%BA.webp"
+					alt=""></div>
+			<p>如何讓房源脫穎而出</p>
+		</a>
+		<a href="https://www.airbnb.com.tw/resources/hosting-homes/a/writing-an-effective-description-of-your-place-13"
+			class="item col-5">
+			<div class="pic"><img
+					src="https://bs-aircnc-front.azurewebsites.net/Img/HostHomePage/%E4%BF%AE%E9%A3%BE%E6%BD%A4%E8%89%B2%E6%88%BF%E6%BA%90%E6%8F%8F%E8%BF%B0.webp"
+					alt=""></div>
+			<p class="text-white text-center">修飾潤色房源描述</p>
+		</a>
+		<a href="https://www.airbnb.com.tw/resources/hosting-homes/a/understanding-calendar-and-booking-settings-16"
+			class="item col-5">
+			<div class="pic"><img
+					src="https://bs-aircnc-front.azurewebsites.net/Img/HostHomePage/%E4%BA%86%E8%A7%A3%E6%97%A5%E6%9B%86%E5%92%8C%E9%A0%90%E5%AE%9A%E8%A8%AD%E5%AE%9A.webp"
+					alt=""></div>
+			<p>了解日曆和預訂設定</p>
+		</a>
+		<a href="https://www.airbnb.com.tw/resources/hosting-homes/a/create-a-guidebook-to-share-your-local-tips-23"
+			class="item col-5">
+			<div class="pic"><img
+					src="https://bs-aircnc-front.azurewebsites.net/Img/HostHomePage/%E5%BB%BA%E7%AB%8B%E3%80%8A%E5%9C%A8%E5%9C%B0%E6%8C%87%E5%8D%97%E3%80%8B%EF%BC%8C%E5%88%86%E4%BA%AB%E7%95%B6%E5%9C%B0%E6%94%BB%E7%95%A5.webp"
+					alt=""></div>
+			<p>建立《在地指南》，分享當地政略</p>
+		</a>
+	</div>
+</div>
+
+@section header{
+<partial name="_HeaderBackPartial" />
+}
+
+@section footer{
+<partial name="_FooterDefaultPartial" />
+}
+
+
+@section topCSS{
+<link rel="stylesheet" href="~/css/Seller/index/index.css">
+<!-- Load required Bootstrap and BootstrapVue CSS -->
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+}
+@section topJS{
+<!-- Load polyfills to support older browsers -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"
+	crossorigin="anonymous"></script>
+
+<!-- Load Vue followed by BootstrapVue -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
+
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+<!-- Load the following for BootstrapVueIcons support -->
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+
+}
+@section endJS{
+<script src="~/lib/axios/axios.min.js"></script>
+<script src="~/js/SellerRoomInfo/index.js"></script>
+}

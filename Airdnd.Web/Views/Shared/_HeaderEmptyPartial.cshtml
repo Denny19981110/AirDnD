@@ -1,0 +1,30 @@
+﻿<header>
+	<div class="container header-wrap">
+		<div class="logo-wrap"><a class="logo" asp-controller="Home" asp-action="Index"><img src="~/Image/airdnd_logo.png" alt="Logo"></a></div>
+		<i onclick="toggleMenu()" class=" toggle-bar fa-solid fa-bars"></i>
+		<div class="toggle-menu d-md-flex align-items-md-center justify-content-md-between">
+			<div class="main"></div>
+			<ul class="aside d-md-flex menu">
+				<li><a asp-controller="Seller" asp-action="Index">切換至出租模式</a></li>
+				<li><i class="fa-solid fa-earth-asia"></i></li>
+				<li class="dropdownbox">
+					<i class="fa-solid fa-chevron-down"></i>User
+					<ul>
+						<li><a href="javascript:;">訊息</a></li>
+						<li><a href="javascript:;">通知</a></li>
+						<li><a asp-controller="Trip" asp-action="Index">旅程</a></li>
+						<li><a asp-controller="UserWishList" asp-action="UserWishList">心願單</a></li>
+						<hr class="mb-1 mt-1">
+						<li><a href="javascript:;">管理房源</a></li>
+						<li><a href="javascript:;">舉辦體驗</a></li>
+						<li><a href="javascript:;">推薦新房東</a></li>
+						<li><a asp-controller="UserAccountPage" asp-action="Index">帳號</a></li>
+						<hr class="mb-1 mt-1">
+						<li><a href="javascript:;">協助</a></li>
+						<li><a href="/Login/Logout">登出</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</header>

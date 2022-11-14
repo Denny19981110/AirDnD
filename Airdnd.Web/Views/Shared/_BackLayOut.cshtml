@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 負責頁面-->
+    <title>@ViewData["Title"] - AirDnD</title>
+    @*CSS RESET*@
+    <link rel="stylesheet" href="~/css/CSS_reset/reset.css" />
+    @*bootstrap*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*fontawesome*@
+    <script src="https://kit.fontawesome.com/e95c98306e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/fontawesome/fontawesome.css" />
+    @*google font*@
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&display=swap"
+          rel="stylesheet">
+    @*CSS*@
+    <link rel="stylesheet" href="~/css/_UserCommon/layout.css" />
+    <!-- ICO-->
+    <link href="~/assert/common/logosnail.ico" rel="shortcut icon" type="image/x-icon" />
+    <!--給大家放自己的CSS-->
+    @await RenderSectionAsync("topCSS", required: false)
+    @await RenderSectionAsync("topJS", required: false)
+</head>
+
+<body>
+    <header>
+        <div class="container header-wrap">
+            <div class="logo-wrap"><div class="logo"><img src="~/assert/common/airdnd_logo.png" alt=""></div></div>
+            <i onclick="toggleMenu()" class=" toggle-bar fa-solid fa-bars"></i>
+            <div class="toggle-menu dl-fx dl-md">
+                <ul class="main d-md-flex menu">
+                    <li><a asp-controller="Seller" asp-action="Index">今天</a></li>
+                    <li><a href="javascript:;">收件匣</a></li>
+                    <li><a asp-controller="Calendar" asp-action="Calendar">日曆</a></li>
+                    <li><a href="javascript:;">深入分析</a></li>
+                    <li class="dropdownbox">
+                        <i class="fa-solid fa-chevron-down"></i>選單
+                        <ul>
+                            <li><a asp-controller="ManagingRoom" asp-action="Index">房源</a></li>
+                            <li><a href="javascript:;">預定</a></li>
+                            <li><a asp-controller="RoomSource" asp-action="Index">建立新房源</a></li>
+                            <li><a href="javascript:;">在地指南</a></li>
+                            <li><a href="javascript:;">交易紀錄</a></li>
+                            <li><a href="javascript:;">瀏覽出租資源</a></li>
+                            <li><a href="javascript:;">與附近房東交流</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="aside2 d-md-flex menu">
+                    <li class="dropdownbox">
+                        <i class="fa-solid fa-chevron-down"></i>User
+                        <ul>
+                            <li><a href="javascript:;">個人資料</a></li>
+                            <li><a href="javascript:;">帳號</a></li>
+                            <li><a href="/Login/Logout">登出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    @RenderBody()
+    <footer>
+        <div class="container">
+            <div class="footer-top d-md-flex">
+                <div class="container mt-3 mt-md-0 ">
+                    <p class="title">用戶支援</p>
+                    <a href="javascript:;">說明中心</a>
+                    <a href="javascript:;">AirCover</a>
+                    <a href="javascript:;">安全資訊</a>
+                    <a href="javascript:;">支援身心障礙人士</a>
+                    <a href="javascript:;">退訂選項</a>
+                    <a href="javascript:;">我們的新冠肺炎因應措施</a>
+                    <a href="javascript:;">回報社區問題</a>
+                </div>
+                <div class="container mt-3 mt-md-0">
+                    <p class="title">社區</p>
+                    <a href="javascript:;">Airbnb.org：救災住宿</a>
+                    <a href="javascript:;">支援阿富汗難民</a>
+                    <a href="javascript:;">消弭歧視</a>
+                </div>
+                <div class="container mt-3 mt-md-0">
+                    <p class="title">出租房源</p>
+                    <a href="javascript:;">開始出租／舉辦體驗</a>
+                    <a href="javascript:;">專為房東提供的 AirCover</a>
+                    <a href="javascript:;">瀏覽待客資源</a>
+                    <a href="javascript:;">前往我們的社區論壇</a>
+                    <a href="javascript:;">落實負責任出租和舉辦體驗的方法</a>
+                </div>
+                <div class="container mt-3 mt-md-0">
+                    <p class="title">Airbnb
+                    <p>
+                        <a href="javascript:;">Airbnb 新聞中心</a>
+                        <a href="javascript:;">了解新功能</a>
+                        <a href="javascript:;">來自 Airbnb 創辦人的信</a>
+                        <a href="javascript:;">工作機會</a>
+                        <a href="javascript:;">投資人</a>
+                </div>
+            </div>
+            <div class="footer-bottom d-md-flex justify-content-md-between">
+                <div class="d-flex align-content-center bfa">
+                    <p><i class="fa-regular fa-copyright"></i>2022 Airbnb, Inc</p>
+                    <a href="javascript:;">隱私</a>
+                    <a href="javascript:;">相關條款</a>
+                    <a href="javascript:;">網站地圖</a>
+                </div>
+                <div class="d-flex">
+                    <div class="d-flex">
+                        <p><i class="fa-solid fa-earth-asia"></i>繁體中文 (TW)</p>
+                        <p><i class="fa-solid fa-dollar-sign"></i>TWD</p>
+                    </div>
+                    <div class="social d-flex">
+                        <i class="fa-brands fa-square-twitter"></i>
+                        <i class="fa-brands fa-line"></i>
+                        <i class="fa-brands fa-square-facebook"></i>
+                        <i class="fa-brands fa-line"></i>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </footer>
+    @await RenderSectionAsync("endJS", required: false)
+    <!-- 放在body結尾 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+            crossorigin="anonymous"></script>
+    <script>
+        function toggleMenu() {
+            console.log(111);
+            document.querySelectorAll(".toggle-menu").forEach((e) => {
+                e.classList.toggle("toggle-menu-active");
+            });
+        }
+    </script>
+</body>
+
+</html>

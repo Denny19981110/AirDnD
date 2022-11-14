@@ -1,0 +1,52 @@
+header {
+  margin-bottom: 40px;
+}
+.container {
+  padding-left: 24px;
+  padding-right: 24px;
+  max-width: 1032px;
+}
+.guide>a,
+.guide>i,
+.guide>p{
+  color: black;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bolder;
+  text-decoration: none;
+}
+.guide>i{
+  margin-top: 4px;
+}
+.guide-title h1{
+  font-size: 32px;
+  font-weight: bolder;
+}
+img.shield {
+    width: 50px;
+    margin-bottom: 1em;
+}
+h2{
+  font-weight: bolder;
+  font-size: 25px;
+}
+h4{
+  font-size: 1em;
+  font-weight: bolder;
+}
+p,
+span{
+  color: rgb(119, 119, 119);
+}
+button{
+  color: #008489;
+}
+
+@media screen and (max-width: 768px) {
+    .presentation{
+        display: none;
+    }
+    .safety-container {
+        width: 100vw;
+    }
+}

@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@section endJs{
+    <!-- End of Main Content -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Excel https://cdn.sheetjs.com/-->
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <!--  -->
+    <script src="~/js/Member/vue.js"></script>
+}
+@section topCSS{
+    <!-- Load required Bootstrap and BootstrapVue CSS -->
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+    <!-- Load polyfills to support older browsers -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"
+        crossorigin="anonymous"></script>
+    <!-- Load Vue followed by BootstrapVue -->
+    <!-- <script src="https://unpkg.com/vue@latest/dist/vue.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+    <!-- Load the following for BootstrapVueIcons support -->
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+
+    <!-- font icon -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        .b-avatar .b-avatar-badge{
+            background-color: #0d6efd;
+            color: #fff;
+        }
+    </style>
+}
+   <div v-cloak id="app" style="height: 100%;" class="container">
+        <div class="my-2">
+            <div class="row">
+                <div class="col-10">
+                    <b-form-group label="關鍵字搜尋" label-for="filter-input" label-cols-sm="6" label-align-sm="right"
+                        label-size="sm" class="mb-0">
+                        <b-input-group size="sm">
+                            <b-form-input id="filter-input" v-model="filter" type="search" placeholder="請輸入關鍵字">
+                            </b-form-input>
+
+                            <b-input-group-append>
+                                <b-button :disabled="!filter" v-on:click="filter = ''">Clear</b-button>
+                            </b-input-group-append>
+                        </b-input-group>
+                    </b-form-group>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <b-button class="my-3 " variant="outline-success" v-b-tooltip.hover title="點我下載高清無碼會員全紀錄" v-on:click="Exceler()">匯出Excel</b-button>
+            <p class="mb-0 ms-3">
+                <span class="material-symbols-outlined">
+                cake
+                </span>
+                <span>當月壽星</span>
+            </p>
+            <p class="mb-0 ms-3">
+                <span class="material-symbols-outlined">
+                    grade
+                    </span>
+                <span>本年新進會員</span>
+            </p>
+        </div>
+        <div class="card mb-4">
+            <b-table striped hover id="table" :fields="fields" :items="memberList" label-sort-asc="" label-sort-desc=""
+                label-sort-clear="" :per-page="perPage" :current-page="currentPage" :filter="filter"
+                :filter-included-fields="filterOn" v-on:filtered="onFiltered">
+
+                <template #cell(name)="row">
+                    
+                    <b-avatar class="me-2"  :src="row.item.avatarUrl"></b-avatar>
+                    <span>{{row.item.name}}</span>
+                </template>
+                <template #cell(connect)="row">
+                    <a style="cursor: pointer" :href="`tel:${row.item.phone}`" v-if="row.item.phone!=null" target="_blank" rel="noopener noreferrer nofollow">
+                        <span class="material-symbols-outlined " variant="primary">
+                            phone_in_talk
+                        </span>
+                    </a>
+                    <a v-else style="cursor: none">
+                        <span class="material-symbols-outlined" variant="secondary">
+                            phone_in_talk
+                        </span>
+                    </a>
+                    <a style="cursor: pointer" :href="`mailto:${row.item.email}`" v-if="row.item.email!=null" target="_blank" rel="noopener noreferrer nofollow">
+                        <span class="material-symbols-outlined" variant="primary">
+                            mail
+                        </span>
+                    </a>
+                    <a v-else style="cursor: none">
+                        <span class="material-symbols-outlined" variant="secondary">
+                            mail
+                        </span>
+                    </a>
+                    
+                </template>
+                <!--詳細-->
+                <template #cell(Tag)="row">
+                        <span v-if="birthdayNow(row.item.birthday)" class="material-symbols-outlined">
+                        cake
+                        </span>
+                        <span v-if="newMember(row.item.createDate)" class="material-symbols-outlined">
+                            grade
+                        </span>
+                </template>
+                <!--詳細-->
+                <template #cell(Detail)="row">
+                    <b-button v-on:click="row.toggleDetails" class="detail-btn">詳細資料</b-button>
+                </template>
+
+                <!-- 停用帳號
+            <template #cell(Terminate)="row">
+                <b-button :disabled="checkDelete(row.item.isDelete)" v-on:click="deleteAccount(row.item.userId)" class="btn-danger">停用</b-button>
+            </template> -->
+
+                <!-- 查看詳情的card -->
+                <template #row-details="row">
+                    <b-list-group>
+                        <b-list-group-item v-for="(value, index) in Object.entries(row.item).slice(7,10)"
+                            :key="value.userAccountId" v-html=`${value[0]}：${value[1]}`></b-list-group-item>
+                    </b-list-group>
+                </template>
+
+            </b-table>
+
+            <!-- 分頁功能 -->
+            <div class="mt-3">
+                <b-pagination v-model="currentPage" :total-rows="totalRows" align="center" :per-page="perPage"
+                    aria-controls="my-table">
+                </b-pagination>
+            </div>
+        </div>
+
+    </div>

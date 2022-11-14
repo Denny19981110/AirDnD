@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "訂單管理後台";
+}
+
+
+
+<div id="app" class="container">
+    <div class="my-2">
+        <div class="row">
+            <div class="col-10">
+                <b-form-group label="關鍵字搜尋" label-for="filter-input" label-cols-sm="6" label-align-sm="right"
+                              label-size="sm" class="mb-0">
+                    <b-input-group size="sm">
+                        <b-form-input id="filter-input" v-model="filter" type="search" placeholder="請輸入關鍵字">
+                        </b-form-input>
+
+                    </b-input-group>
+                </b-form-group>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="card mb-4">
+        <b-table 
+        id="table" 
+        striped 
+        hover
+        :fields="fields" 
+        :items="orderList"
+        :per-page="perPage"
+        :current-page="currentPage" 
+        label-sort-asc=""
+        label-sort-desc=""
+        label-sort-clear="" 
+        :filter="filter" 
+        :filter-included-fields=" filterOn"
+        v-on:filtered="onFiltered"
+        >
+            <!--詳細按鈕-->
+            <template #cell(detail)="row">
+                <button class="btn btn-secondary" v-on:click="row.toggleDetails">詳細</button>
+			</template>
+            <!--撥款按鈕-->
+            <template #cell(grant)="row">
+                <button class="btn btn-danger" v-on:click="grant(row.item)" v-if="row.item.tranStatus == 2">
+						撥款
+				</button>
+            </template>
+
+            <!--訂單詳細-->
+            <template #row-details="row">
+				<b-card>
+					<ul>
+						<li v-for="(item,key) in row.item " :key="key" v-if="key!='_showDetails'">{{ key }}： {{ item }}</li>
+					</ul>
+				</b-card>
+			</template>
+        </b-table>
+
+
+         <!-- 分頁功能 -->
+            <div class="mt-3">
+                <b-pagination v-model="currentPage" :total-rows="totalRows" align="center" :per-page="perPage"
+                    aria-controls="my-table">
+                </b-pagination>
+            </div>
+
+    </div>
+
+
+</div>
+
+
+@section endJS{
+<script src="~/js/Transaction/Transaction.js"></script>
+}
+

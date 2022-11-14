@@ -1,0 +1,200 @@
+﻿@using Airdnd.Web.ViewModels
+@using Airdnd.Web.ViewModels.Base
+@using Airdnd.Web.ViewModels.Partial
+@using Microsoft.AspNetCore.Http
+@model WishlistVM
+
+@{
+	ViewData["Title"] = "心願清單";
+	int userId = ViewBag.userId;
+	var wishlist = Model;
+	bool isWishlistExist;
+	bool isOwner;
+	if( wishlist != null )
+	{
+		isWishlistExist = wishlist.WishlistDetail.Count != 0;
+		isOwner = userId == wishlist.UserAcountId;
+	}
+	else
+	{
+		isWishlistExist = false;
+		isOwner = false;
+	}
+	IEnumerable<MapDto> modelLoc = new List<MapDto>();
+	if( isWishlistExist )
+	{
+		modelLoc = Model.WishlistDetail?.Select(w => new MapDto { Id = w.Id, ListingName = w.ListingName, Location = w.Location, Price = w.Price });
+	}
+	else
+	{
+		Location loc = new Location { Lat = 23.8, Lng = 121.97 };
+		modelLoc.Append(new MapDto { Location = loc });
+	}
+
+}
+
+<div class="full-container">
+
+	<div class="container-set">
+		@if( isOwner )
+		{
+			<section class="head-section">
+				<h1 class="wishlist-name" data-id="@Model.WishlistID">@wishlist.WishlistName</h1>
+				<div class="btn-container btn-set-wishlist">
+					<i class="fa-solid fa-ellipsis"></i>
+				</div>
+			</section>
+		}
+
+		@if( isOwner && isWishlistExist )
+		{
+			<section class="item-section">
+
+				<div class="card-group row">
+					@foreach( var item in wishlist.WishlistDetail )
+					{
+						string likeCheck;
+						@if( item.IsWish == true )
+						{
+							likeCheck = "like-check";
+						}
+						else
+						{
+							likeCheck = string.Empty;
+						}
+						<div class="col-12 card-container">
+
+							<div class="like-btn @likeCheck" data-id="@item.Id">
+
+								<i class="fa-solid fa-heart"></i>
+
+							</div>
+
+							<a href="../House/@(item.ListingName)" class="card-contain">
+								<div class="hot-product-marker img-box">
+									<div class="btn-box">
+									</div>
+									<div class="swiper img-swiper">
+										<div class="swiper-wrapper">
+											@foreach( var img in item.ImgPath )
+											{
+												<div class="swiper-slide">
+													<img src="@Url.Content(img)" class="swiper item-img">
+												</div>
+											}
+
+										</div>
+										<div class="swiper-button-next"></div>
+										<div class="swiper-button-prev"></div>
+										<div class="swiper-pagination"></div>
+									</div>
+								</div>
+								<div class="info-group">
+									<div class="info">
+										<h2 class="item-name">@item.ListingName</h2>
+										<span class="info-sub item-loc">@(item.PropertyTitle)</span>
+										<!-- border bottom -->
+										<div class="more-info">
+											<span class="info-sub item-allow">@(item.GuestExpected)位</span>
+											<span class="info-sub item-rooms">@(item.Bedrooms)間臥室</span>
+											<span class="info-sub item-beds">@(item.Beds)張床</span>
+											<span class="info-sub item-bath">@(item.Bathrooms)間衛浴</span>
+										</div>
+										<span class="item-price">@(item.PriceGet)&nbsp;TWD&nbsp;晚</span>
+										<span class="item-rate"><i class="fa-solid fa-star"></i>&nbsp;@(item.Rating)</span>
+									</div>
+								</div>
+							</a>
+						</div>
+					}
+
+				</div>
+			</section>
+		}
+		else
+		{
+			<div class="wish-not-allow">
+				<div class="alert-icon"><i class="fa-solid fa-exclamation"></i></div>
+				<h2 class="warning-title">此心願單尚未建立或未與你分享</h2>
+			</div>
+		}
+
+	</div>
+
+	<section class="map-section">
+		<div class="map-container" id="map"></div>
+	</section>
+</div>
+
+<partial name="~/Views/Partial/_WishlistPartial.cshtml" model="userId" />
+@section header{
+
+	@if( User.Identity.IsAuthenticated )
+	{
+		<partial name="_HeaderEmptyPartial" />
+	}
+	else
+	{
+		<partial name="_HeaderLoginPartial" />
+	}
+}
+
+	@section footer{
+	<partial name="_FooterMinPartial" />
+}
+	@section linkCSS{
+	<!-- css-->
+	<link rel="stylesheet" href="~/lib/Swiper/swiper-bundle.min.css" />
+	<!-- leaflet map -->
+	<link rel="stylesheet" href="~/lib/leaflet/leaflet.css" />
+	<link rel="stylesheet" href="~/lib/leaflet/MarkerCluster.Default.css" />
+}
+	@section topCSS{
+	<link rel="stylesheet" href="~/css/Wishlist/Wishlist.css" />
+	<link rel="stylesheet" href="~/css/Partial/Lightbox.css">
+}
+	@section linkJS{
+	<script src="~/js/Login/loginVue.js"></script>
+	<!-- Swiper -->
+	<script src="~/lib/Swiper/swiper-bundle.min.js"></script>
+	<!-- jquery -->
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<!-- leaflet -->
+	<script src="~/lib/leaflet/leaflet.js"></script>
+	<script src="~/lib/leaflet/leaflet.markercluster.js"></script>
+	<script src="~/js/Home/lightbox.js"></script>
+
+	<script src="~/js/Home/Home.js"></script>
+	<script src="~/js/Home/swiper.js"></script>
+	<script src="~/js/Wishlist/Wishlist.js"></script>
+}
+	@section endJS{
+	<script>
+		let searchData = {
+			location: '',
+			guest: {
+				adult: 1,
+				child: 0,
+				baby: 0
+			}
+		}
+		const userId = @userId ;
+		var swiper = new Swiper(".img-swiper", {
+			loop: true,
+			spaceBetween: 30,
+			centeredSlides: true,
+			pagination: {
+				el: ".swiper-pagination",
+				clickable: true,
+			},
+			navigation: {
+				nextEl: ".swiper-button-next",
+				prevEl: ".swiper-button-prev",
+			},
+		});
+		let locGroup = []
+
+		locGroup = JSON.parse('@Html.Raw(Json.Serialize(modelLoc))')
+	</script>
+	<script src="~/js/Search/map.js"></script>
+}

@@ -1,0 +1,150 @@
+﻿@using Airdnd.Web.ViewModels
+@model IEnumerable<TransactionViewModel>
+
+@{
+    ViewData["Title"] = "CompletedTransaction";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+
+    <div class="main-box">
+        <!-- 新增收款方式 start -->
+        <div class="row">
+            <div class="payment-notify col-12 col-sm-10 col-md-8">
+                <div class="payment-notify-text">
+                    <div class="pn-icon-container">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="pn-text-container">
+                        <p class="pn-new">新增收款方式</p>
+                        <p>你必須設定收款方式，才能收取款項。</p>
+                    </div>
+                </div>
+                <div class="payment-notify-link">
+                    <a href="#">了解詳情</a>
+                    <a href="#" class="pn-start">開始吧</a>
+                </div>
+            </div>
+
+        </div>
+        <!-- 新增收款方式 end -->
+
+        <div class="transaction-title">
+            <h2>交易紀錄</h2>
+        </div>
+
+        <!-- 交易紀錄導覽列 start -->
+        <div class="col-12 col-sm-10 col-md-8 ">
+            <div class="nav-tab">
+                <a href="#" class="nav-com">已發放的收款</a>
+                <a href="../Transaction/Future" class="nav-rdy">即將入帳的收款</a>
+                <a href="../Transaction/GrossEarning" class="nav-ttl">總收入</a>
+            </div>
+        </div>
+        <!-- 交易紀錄導覽列 end -->
+
+        <div class="row">
+            <div class="date-group-container col-10">
+                <div class="date-group col-10 col-md-5">
+                    <div class="text col-1">
+                        <span>自:</span>
+                    </div>
+                    <div class="month col-6 ">
+                        @Html.DropDownList("Month",new SelectList(
+                            new[]{"一月","二月","三月","四月","五月","六月",
+                                "七月","八月","九月","十月","十一月","十二月"}), 
+                            new { @class = "form-select"})
+                    </div>
+                    <div class="year col-4 ">
+                        <select name="start-year" class="form-select" id="">
+                            <option value="">2022</option>
+                            <option value="">2021</option>
+                            <option value="">2020</option>
+                            <option value="">2019</option>
+                            <option value="">2018</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="date-group col-10 col-md-5">
+                    <div class="text col-1">
+                        <span>至:</span>
+                    </div>
+                    <div class="month col-6 ">
+                        @Html.DropDownList("Month",new SelectList(
+                        new[]{"一月","二月","三月","四月","五月","六月",
+                        "七月","八月","九月","十月","十一月","十二月"}),
+                        new { @class = "form-select"})
+                    </div>
+                    <div class="year col-4 ">
+                        <select name="end-year" class="form-select" id="">
+                            <option value="">2022</option>
+                            <option value="">2021</option>
+                            <option value="">2020</option>
+                            <option value="">2019</option>
+                            <option value="">2018</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 訂單資訊 -->
+        <div class="order-group">
+            @foreach(var item in Model)
+            {
+                if(item.Status == 3)
+                {
+                <div class="order-item col-10">
+                    <div class="pic col-md-2">
+                        <img src="@Url.Content(item.PhotoUrl)">
+                    </div>
+                    <div class="text col-12 col-md-8">
+                        <div class="text-date col-8">
+                            <h5>@item.Listingname</h5>
+                            <p>@((item.Startdate).ToString("MM/dd/yyyy")) 至 @((item.Enddate).ToString("MM/dd/yyyy"))</p>
+                        </div>
+                        <div class="text-price col-4">
+                            <h5>$ @item.price NTD</h5>
+                        </div>
+                    </div>
+                </div>
+                }
+                
+
+            }
+        </div>
+
+
+        <!-- 查無資料 start -->
+        <div class="col-12 col-sm-10 col-md-8">
+            <div class="error-notify shadow">
+                <div class="en-textbox">
+                    <p class="error-title">我們無法處理您的收款</p>
+                    <p>在您的帳號新增收款方式，就可以開始接收您的收款</p>
+                </div>
+            </div>
+        </div>
+        <!-- 查無資料 end -->
+
+
+    </div>
+
+
+</div>
+
+@section header{
+    <partial name="_HeaderBackPartial" />
+}
+    @section footer{
+    <partial name="_FooterMinPartial" />
+}
+
+
+    @section topCSS
+    {
+    <link href="~/css/Transaction/CompletedTransaction.css" rel="stylesheet" />
+}

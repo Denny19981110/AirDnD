@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="text-center" id="home-index">
+    <h1 class="display-4">歡迎回來</h1>
+    
+    <button v-on:click="clickMe" class="btn btn-primary">登入或刷新</button>
+    @*<p>未登入:取得 401 & 會導回到Login Page</p>
+    <p>登入: 取得 200 response</p>*@
+    <h2>帳號 : {{ username }}</h2>
+</div>
+
+@section endJS{
+    <script src="~/js/home/Index.js" asp-append-version="true"></script>
+    
+}

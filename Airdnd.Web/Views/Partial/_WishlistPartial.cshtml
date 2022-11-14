@@ -1,0 +1,85 @@
+﻿@using Airdnd.Web.Services.Partial
+@using Airdnd.Web.ViewModels.Partial
+@model int
+
+@inject WishlistPartialService _wishlistPartialService
+
+<div class="lightbox wishlist" style="display: none;">
+	<div class="lightbox-container">
+		<section class="d-flex title-section">
+			<button type="button" class="btn-close" aria-label="Close"></button>
+			<h2 class="lightbox-title">你的心願單</h2>
+		</section>
+		<section class="wishlist group-section">
+			<div class="add-new-list">
+				<div class="img-box"><img src="~/Image/Home/img/add-icon.webp" alt="add icon"></div>
+				<p>建立新的心願單</p>
+			</div>
+			@foreach (var list in _wishlistPartialService.GetAllWishlists(Model))
+			{
+				<div class="per-wishlist" data-id="@list.WishListId">
+					<div class="img-box"><img src=@Url.Content(list.Imgpath) alt="wishlist img"></div>
+					<p class="wishlist-name">@(list.GroupName)</p>
+				</div>
+			}
+		</section>
+	</div>
+</div>
+<div class="lightbox new-wishlist" style="display: none;">
+	<div class="lightbox-container">
+		<section class="d-flex title-section">
+			<button type="button" class="btn-close" aria-label="Close"></button>
+			<h2 class="lightbox-title">為心願單取名</h2>
+		</section>
+		<section class="group-section">
+			<div class="input-container">
+				<input type="text" placeholder="心願單名稱" class="wishlistname-input" id="new-input">
+			</div>
+		</section>
+		<section class="button-section">
+			<div class="d-grid gap-2">
+				<button type="button" class="btn btn-dark btn-create disabled">建立</button>
+			</div>
+
+		</section>
+	</div>
+</div>
+<div class="lightbox set-wishlist"  id="set-wishlist" style="display: none;">
+	<div class="lightbox-container">
+		<section class="title-section">
+			<button type="button" class="btn-close" aria-label="Close"></button>
+			<h2 class="lightbox-title">設定</h2>
+			<a class="lightbox-title" onclick="openConfirm()" id="btn-deleteAll">刪除</a>
+		</section>
+		<section class="group-section">
+			<div class="input-container">
+				<input type="text" placeholder="重設心願單名稱" class="wishlistname-input" id="old-input">
+			</div>
+		</section>
+		<section class="button-section change-name">
+
+			<button class="btn btn-link cancel-change">取消</button>
+			<button type="button" class="btn btn-dark btn-save">儲存</button>
+
+		</section>
+	</div>
+</div>
+
+<div class="lightbox set-wishlist delete-confirm" style="display: none;">
+	<div class="lightbox-container">
+		<section class="title-section">
+			<button type="button" class="btn-close" aria-label="Close"></button>
+			<h2 class="lightbox-title">刪除此心願單</h2>
+		</section>
+		<section class="group-section">
+			<div class="input-container">
+				<p>您確定要刪除<span id="listName">清單名</span>嗎?</p>
+			</div>
+		</section>
+		<section class="button-section change-name">
+			<button class="btn btn-link cancel-change" onclick="rollback()">取消</button>
+			<button type="button" class="btn btn-dark btn-confirm" onclick="deleteWishlist()">確認刪除</button>
+
+		</section>
+	</div>
+</div>

@@ -1,0 +1,98 @@
+﻿
+.container {
+    position: relative;
+}
+.carousel-item {
+    height: 490px;
+}
+.canvas {
+    height: 400px;
+}
+canvas{
+    height: 100%;
+}
+.info{
+    margin-bottom: 5px;
+}
+.item {
+    border: 0 solid #000;
+    border-radius: 15px;
+    margin: 0 10px;
+    padding: 5px 15px;
+    width: 15%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3333333333);
+}
+.item p{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+.item span{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.loading{
+    font-size: 50px;
+    width: 5rem;
+    height: 5rem;
+    position: absolute;
+    left: 45%;
+    bottom:60%;
+}
+.data1 {
+    border-left: 0.25rem solid rgb(78, 115, 223);
+    background-color: #fff;
+}
+    .data1 p {
+        color: rgb(78, 115, 223);
+    }
+.data2 {
+    border-left: 0.25rem solid rgb(54, 185, 204);
+    background-color: #fff;
+}
+    .data2 p {
+        color: rgb(54, 185, 204);
+    }
+.data3 {
+    border-left: 0.25rem solid rgb(37, 202, 143);
+    background-color: #fff;
+}
+
+    .data3 p {
+        color: rgb(37, 202, 143);
+    }
+.data4 {
+    border-left: 0.25rem solid rgb(246, 194, 62);
+    background-color: #fff;
+}
+    .data4 p {
+        color: rgb(246, 194, 62);
+    }
+.data5 {
+    border-left: 0.25rem solid rgb(216, 0, 47);
+    background-color: #fff;
+}
+    .data5 p {
+        color: rgb(216, 0, 47);
+    }
+    span{
+        color: #888;
+    }
+@media screen and (max-width: 768px){
+    .item{
+        margin: 10px;
+        width: 40%;
+    }
+    p{
+        font-size: 8px;
+    }
+    .canvas{
+        height: 300px;
+    }
+    .loading{
+        bottom: 90%;
+    }
+}

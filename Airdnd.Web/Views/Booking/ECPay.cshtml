@@ -1,0 +1,21 @@
+﻿@model System.Collections.Generic.Dictionary<string,string>
+
+    <h3 >即將進入付款頁面，請勿關閉此視窗</h3>
+
+    <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-body">
+        <form id="form" name="form" action="https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5" method="POST">
+            @foreach (var key in @Model.Keys.ToList())
+            {
+                @(key) <input type="text" name="@key" value="@Model[key]" /><br />
+            }
+        </form>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+    window.onload = function () {
+         document.getElementById("form").submit();
+    }
+</script>

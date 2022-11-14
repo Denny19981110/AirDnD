@@ -1,0 +1,46 @@
+﻿@{
+	ViewData["Title"] = "Data Analysis";
+}
+<div class="container" id="app">
+	<div class="info row ">
+		<div class="item data1">
+			<p>會員數量</p>
+			<span id="totalMembers"></span>
+		</div>
+		<div class="item data2">
+			<p>本月訂單</p>
+			<span id="thisMonthOrders"></span>
+		</div>
+		<div class="item data3">
+			<p>年度訂單</p>
+			<span id="thisYearOrders"></span>
+		</div>
+		<div class="item data4">
+			<p>本月營收</p>
+			<span id="thisMonthRevenue"></span>
+		</div>
+		<div class="item data5">
+			<p>年度營收</p>
+			<span id="thisYearRevenue"></span>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-md-6 canvas"><canvas class="h-100" id="incomeChart"></canvas></div>
+		<div class="col-12 col-md-6 canvas"><canvas id="registerChart"></canvas></div>
+		<div class="col-12 col-md-6 canvas"><canvas id="createRoomSourceChart"></canvas></div>
+		<div class="col-12 col-md-6 canvas"><canvas id="genderChart"></canvas></div>
+
+		<div class="spinner-border text-primary loading" role="status">
+			<span class="visually-hidden">Loading...</span>
+		</div>
+	</div>
+
+
+	@section topCSS{
+	<link href="~/css/Chart.css" rel="stylesheet" />
+	}
+	@section endJS{
+	<script src="~/js/chart.js"></script>
+	}

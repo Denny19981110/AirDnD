@@ -1,0 +1,50 @@
+﻿@using Airdnd.Web.ViewModels.Partial
+@model IEnumerable<WishGroupPartialVM>
+
+
+@section header{
+    @if (User.Identity.IsAuthenticated)
+    {
+        <partial name="_HeaderEmptyPartial" />
+    }
+    else
+    {
+        <partial name="_HeaderLoginSearchBarPartial " />
+    }
+}
+
+    @section topCSS{
+    <link rel="stylesheet" href="~/css/Login/Login.css">
+    <link rel="stylesheet" href="~/css/UserWishList/UserWishList.css" />
+}
+
+    @section linkJS{
+    <script src="~/js/login/login.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+}
+
+
+
+    <div class="container main-content">
+        <h1 class="title">心願單</h1>
+        <ul class="row wish-list">
+        @foreach (var item in Model)
+        {
+            <li class="col-12 col-md-6 col-xl-4">
+                <a href="/wish/@item.WishListId">
+                    <div class="img-wrapper">
+                        <img src="@Url.Content(item.Imgpath)" alt="">
+                    </div>
+                    <div class="group-name">
+                        <span>@item.GroupName</span>
+                    </div>
+                </a>
+            </li>
+
+        }
+    </ul>
+</div>
+
+@section footer{
+    <partial name="_FooterDefaultPartial" />
+}

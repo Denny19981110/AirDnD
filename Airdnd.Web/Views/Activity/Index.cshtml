@@ -1,0 +1,77 @@
+﻿
+@{
+    Layout = "_Layout";
+    var seohelp = (SeoHelpDto)ViewData["seohelp"];
+    ViewData["Title"] = seohelp.Title;
+    var url = ViewData["url"];
+    var userName = ViewData["userName"];
+}
+@section topCSS{
+    <link rel="stylesheet" href="~/css/Common/layout.css">
+    <link rel="stylesheet" href="~/css/Hallow/test.css">
+}
+@section endJS{
+    <script src="~/lib/axios/axios.min.js"></script>
+    <script src="~/lib/Vue/vue.js"></script>
+    <script src="~/js/Hallow/hallow.js"></script>
+    <script src="~/js/Hallow/html2canvas.js"></script>
+
+}
+    @section metatags {
+    <meta name='description' content='@seohelp.Description' />}
+    @section OpenGraph {
+    <meta property="og:url" content="@seohelp.WebAddress" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content=@seohelp.Title />
+    <meta property="og:description" content=@seohelp.Description />
+    <meta property="og:image" content="@Url.Content(seohelp.Image)" />
+}
+<div id="app" class="wrap d-flex-colomn p-16">
+        <p class="fz">萬聖節心理測驗：你有多邪惡？</p>
+        <div v-if="pageIndex==2">
+            <div>
+                <div class="title cardBlood">
+                    {{questionList[numberOfQuestions].quest}}
+                </div>
+                <div class="anl" v-text=`你已回答${numberOfQuestions+1}/${questionList.length}題`></div>
+                <ul class="pl-0 options d-flex-row d-flex-wrap d-jb">
+                    <li :class="activeClass(i)" v-on:click="goNext(option.value,i)" class="borderBlood option w-48 p-16 mt-16 cardBlood " v-for="(option,i) in questionList[numberOfQuestions].option">
+                        {{option.ans}}<i class="ml-16 fas fa-skull-crossbones"></i>
+                    </li>
+                </ul>
+               
+            </div>
+        </div>
+        <div v-if="pageIndex==3" id="capture" class="w-80 borderBlood cardBlood d-flex-row d-flex-md-col">
+            <div class="img-wrap mr-32 mr-md-0 d-flex-row d-md-block">
+                <img :src="answerList[answer].HouseImg" alt="">
+            </div>
+            <div class="content-wrap p-16 d-flex-colomn ais">
+                <div>
+                    <div class="content-title">親愛的 @userName，</div>
+                    <div class="content-title">{{answerList[answer].Title}}</div>
+                    <div class="mt-16">{{answerList[answer].description}}</div>
+                </div>
+                <div id="houseBtn">
+                    <a class="mt-16 btn-color-2 p-16" :href="answerList[answer].HouseLink">點我進入專屬的房間</a>
+                </div>
+            </div>
+        </div>
+        <div v-if="pageIndex==1" class="d-flex-row">
+            <button id="btnStart" class="mt-16 mr-16 p-16 btn-style btn-color borderBlood" v-on:click="pageIndex++"><i
+                    class="fa-solid fa-ghost mr-16"></i>點擊開始<i class="fa-solid fa-ghost ml-16"></i></button>
+        </div>
+        <div v-if="pageIndex==2" class="d-flex-row">
+            <button v-if="numberOfQuestions>0" id="btnGoPre" class="mt-16 mr-16 p-16 btn-style btn-color borderBlood" v-on:click="numberOfQuestions--">上一題</button>
+            <button v-if="numberOfQuestions<2" id="btnGoNext" class="mt-16 mr-16 p-16 btn-style btn-color borderBlood" v-on:click="goNextBtn">下一題</button>
+            <button v-if="showAnswer()" id="btnGo" class="mt-16 mr-16 p-16 btn-style btn-color borderBlood" v-on:click="goAnswer()">前往測驗結果</button>
+        </div>
+        <div v-if="pageIndex==3" class="d-flex-row">
+            <button id="btnSave" class="mt-16 mr-16 p-16 btn-style btn-color borderBlood"
+                v-on:click="screenshot()">下載測驗結果</button>
+            <a class="mt-16 p-16 btn-style btn-color borderBlood" href="@url">
+                <i class="fa-solid fa-share-from-square"></i>
+                Line
+            </a>
+        </div>
+    </div>

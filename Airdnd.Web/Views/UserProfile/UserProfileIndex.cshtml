@@ -1,0 +1,160 @@
+﻿@model Airbnb.ViewModel.UserProfileViewModel
+
+
+@section topCSS{
+    <link rel="stylesheet" href="~/css/Login/Login.css">
+    <link rel="stylesheet" href="~/css/UserProfile/UserProfile.css" />
+}
+@section linkJS{
+    @*<script src="~/js/login/login.js"></script>*@
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/UserProfileIndex/UserProfileIndex.js"></script>
+    <script>
+        let editBtn = document.querySelector('.user-profile-edit-btn');
+        let saveBtn = document.querySelector('.save')
+        let cancelEditBtn = document.querySelector('.cancelEdit')
+        let aboutMe = document.querySelector('.aboutMe')
+
+        editBtn.onclick = function () {
+            aboutMe.style.display = "block"
+        }
+        cancelEditBtn.onclick = function () {
+            aboutMe.style.display = 'none'
+        }
+        saveBtn.onclick = function () {
+            let forAboutMe = document.querySelector('.forAboutMe')
+            let forAddress = document.querySelector('.forAddress')
+            let textarea = document.querySelector('#about')
+            let inputText = document.querySelector('.inputloca')
+            forAboutMe.innerText = textarea.value
+            forAddress.innerText = inputText.value
+            aboutMe.style.display = 'none'
+        }</script>
+
+}
+
+@section header{
+    @if (User.Identity.IsAuthenticated)
+    {
+        <partial name="_HeaderEmptyPartial" />
+    }
+    else
+    {
+        <partial name="_HeaderLoginSearchBarPartial " />
+    }
+}
+
+<div class="container user-profile-content">
+    <div class="left-profile">
+        <div class="user-img">
+                <div class="img-box"><img src="@Url.Content(Model.User.Image)" alt=""></div>
+        </div>
+        <div class="edit-box">
+            <span>
+                <a asp-controller="UserProfile" asp-action="EditPhoto">更新相片</a>
+            </span>
+        </div>
+        <div class="certification">
+            <div class="icon-box">
+                <i class="fa-solid fa-award"></i>
+            </div>
+            <p>身分認證</p>
+            <span>透過身分驗證徽章展示你真的是本人。</span>
+            <a class="getBadge" href="#">取得徽章</a>
+        </div>
+        <div class="has-checked">
+            <h2>
+                <span>@Model.User.UserName</span><span> 已確認</span>
+            </h2>
+            <div class="checked-group">
+                <div class="col-6 email-checked">
+                    <span><i class="fa-solid fa-check"></i></span>
+                    <span>&ensp;電子郵件地址</span>
+                </div>
+                <div class="col-6 phone-checked">
+                    <span><i class="fa-solid fa-check"></i></span>
+                    <span>&ensp;電話號碼</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section>
+        <div class="name-box">
+            <div class="user-img">
+                <div class="img-box"><img src="@Url.Content(Model.User.Image)" alt=""></div>
+            </div>
+            <div class="title">
+                <h1><span>嗨 ! 我是</span><span>@Model.User.UserName</span></h1>
+            </div>
+            <div class="join-Time">
+                <span>加入時間 : </span><span class="addYear">2022</span>
+            </div>
+        </div>
+        <div class="edit-box">
+            <button type="button" class="user-profile-edit-btn">編輯個人資料</button>
+            <span>
+                <a asp-controller="UserProfile" asp-action="EditPhoto">更新相片</a>
+            </span>
+
+        </div>
+        <div class="UserInfo">
+            <p>關於我</p>
+            <p class="forAboutMe">@Model.User.AboutMe</p>
+            <p>位置</p>
+            <p class="forAddress">@Model.User.Address</p>
+        </div>
+        <div class="certification">
+            <div class="icon-box">
+                <i class="fa-solid fa-award"></i>
+            </div>
+            <p>身分認證</p>
+            <span>透過身分驗證徽章展示你真的是本人。</span>
+            <a class="getBadge" href="#">取得徽章</a>
+        </div>
+        <div class="has-checked">
+            <h2>
+                <span>@Model.User.UserName</span><span> 已確認</span>
+            </h2>
+            <div class="checked-group">
+                <div class="col-6 email-checked">
+                    <span><i class="fa-solid fa-check"></i></span>
+                    <span>&ensp;電子郵件地址</span>
+                </div>
+                <div class="col-6 phone-checked">
+                    <span><i class="fa-solid fa-check"></i></span>
+                    <span>&ensp;電話號碼</span>
+                </div>
+            </div>
+        </div>
+        <form method="post" asp-action="Update" class="aboutMe">
+                <input type="text" name="@Model.User.Id" class="d-none"/>
+            <p>關於我</p>
+                <textarea name="AboutMe" id="about" autocomplete="off"></textarea>
+            <p>位置</p>
+            <div class="loca">
+                <input name="Address"  type="text" class="inputloca">
+            </div>
+            <div class="button-Group">
+                    <button class="cancelEdit">取消</button>
+                    <button type="submit" asp-controller="UserProfile" asp-action="Update" class="save">更新</button>
+            </div>
+        </form>
+        <div class="comment">
+            <span><i class="fa-solid fa-star"></i></span>
+            <span class="comment-contents">
+                &ensp;0 則評價
+            </span>
+        </div>
+        <div class="wrote-comments">
+            <a href="#">你寫的評價</a>
+        </div>
+    </section>
+</div>
+
+@section footer{
+    <partial name="_FooterDefaultPartial" />
+}
+
+
+

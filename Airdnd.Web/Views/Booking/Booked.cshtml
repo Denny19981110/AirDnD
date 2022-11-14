@@ -1,0 +1,99 @@
+﻿@using Airdnd.Web.ViewModels
+@model BookedViewModel
+@{
+    ViewData["Title"] = "Booked";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+
+    <div class="main-box">
+        <div class="order-info border">
+            <div class="oi-card">
+                <div class="oic-pic">
+                    <img src="@Url.Content(Model.RoomPhoto)">
+                </div>
+                <div class="oic-text">
+                    <div class="oic-info">
+                        <h5>@Model.Roomname</h5>
+                    </div>
+                    <div class="oic-date">
+                        <span class="start-date">@Model.Startdate</span>
+                        <span>至</span>
+                        <span class="end-date">@Model.Enddate</span>
+                        <span class="customer">‧ @Model.Customer 位房客</span>
+                    </div>
+                    <div class="oic-add">
+                        <span>@Model.Address</span>
+                    </div>
+                </div>
+            </div>
+            <div class="oi-text">
+                <span>總計</span>
+                <span class="total-price">$@((Model.Totalprice).ToString("###,###"))TWD</span>
+            </div>
+            @*<div class="oi-text">
+                <span>今天支付的金額</span>
+                <span class="total-price">$@Model.Paidprice TWD</span>
+            </div>*@
+            @*<div class="oi-text">
+                <span>系統將於 @Model.Deadline 收取餘額</span>
+            </div>*@
+            <div class="oi-text">
+                <span>預訂編號</span>
+                <span class="total-price">@Model.OrderId</span>
+            </div>
+        </div>
+
+        <div class="order-detail-info">
+            <h2>你的預訂已確認</h2>
+            <span>我們已將詳細以電子郵件傳送至</span>
+            <span class="email">@Model.Email</span>
+            <div style="margin-top:200px">
+                <a href="../Trip/Index" style="background-color:rgb(215,4,102);padding: 12px 22px;color: white;border-radius: 8px;
+                                border:none; display:inline-block;">
+                    前往我的旅程
+                </a>
+            </div>
+            
+            <div class="info">
+                <h4>注意事項</h4>
+                <div class="info-item-group">
+                    <div class="info-item">
+                        <h5>《房屋守則》</h5>
+                        <p>入住時間 : 下午3:00後</p>
+                    </div>
+                    <div class="info-item">
+                        <h5>安全與房源資訊</h5>
+                        <p>未回報是否有安裝一氧化碳警報器</p>
+                        <p>煙霧警報器</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+</div>
+@section header{
+    <partial name="_HeaderEmptyPartial" />
+}
+    @section footer{
+    <partial name="_FooterMinPartial" />
+}
+
+
+
+@section TopCSS
+    {
+    <link href="~/css/Booking/Booked.css" rel="stylesheet" />
+}

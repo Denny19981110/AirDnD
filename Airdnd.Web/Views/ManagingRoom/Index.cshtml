@@ -1,0 +1,163 @@
+﻿@using Airdnd.Web.ViewModels
+@using Microsoft.AspNetCore.Http
+@model IEnumerable<ManagingRoomViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+
+
+
+
+<div class="container">
+
+
+    <div class="hosting-header">
+        <div class="hh-num">
+            <h3>@Model.Count()</h3>
+            <h3>個房源</h3>
+        </div>
+        <div class="hh-btn-box">
+            <a asp-controller="RoomSource" asp-action="Index" class="hh-btn">
+                <i class="fa-solid fa-plus"></i>
+                <span>建立房源</span>
+            </a>
+        </div>
+    </div>
+
+
+    <div class="hosting-navbar">
+        <div class="hn-item hn-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" class="searchbar" placeholder="搜尋房源">
+        </div>
+        <div class="hn-item">
+            <span>房間與床鋪</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="hn-item">
+            <span>設備與服務</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="hn-item">
+            <span>房源狀態</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="hn-item">
+            <span>更多篩選條件</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="hn-item hn-item992">
+            <span>篩選條件</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </div>
+
+
+
+    <div class="hosting-title">
+        <div class="ht-item col-2">
+            <input type="checkbox">
+            <span>房源</span>
+            <i class="fa-solid fa-sort"></i>
+        </div>
+        <div class="ht-item col-1">
+            <span>狀態</span>
+            <i class="fa-solid fa-sort"></i>
+        </div>
+        <div class="ht-item col-1">
+            <span>代辦事項</span>
+            <i class="fa-solid fa-sort"></i>
+        </div>
+        <div class="ht-item col-1">
+            <span>及時預定</span>
+            <i class="fa-solid fa-sort"></i>
+        </div>
+        <div class="ht-item col-1">
+            <span>臥室</span>
+            <i class="fa-solid fa-sort"></i>
+        </div>
+        <div class="ht-item col-1">
+            <span>床位</span>
+            <i class="fa-solid fa-sort"></i>
+        </div>
+        <div class="ht-item col-1">
+            <span>衛浴</span>
+            <i class="fa-solid fa-sort"></i>
+        </div>
+        <div class="ht-item col-2">
+            <span>位置</span>
+            <i class="fa-solid fa-sort"></i>
+        </div>
+        <div class="ht-item col-2">
+            <span>創建時間</span>
+            <i class="fa-solid fa-sort"></i>
+        </div>
+        <div class="ht-item-768">
+            <input type="checkbox" name="" id="">
+        </div>
+        <div class="ht-item ht-item-768">
+            <span>排序方式: 上次修改時間</span>
+            <i class="fa-solid fa-sort"></i>
+        </div>
+
+    </div>
+    <div class="hosting-content-group">
+        @foreach (var item in Model)
+        {
+            <a class="hosting-content" href="../Roominfo/@item.RoomId">
+                <div class="ht-item col-2 ht-item-768">
+                    <input type="checkbox">
+                    <img src="@Url.Content(item.Roomphoto)">
+                    <span>@item.RoomName</span>
+                </div>
+
+                <div class="ht-item col-1">
+                    <span>@item.statusType</span>
+                </div>
+                <div class="ht-item col-1">
+                    <span>完成</span>
+                </div>
+                <div class="ht-item col-1">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>開</span>
+                </div>
+                <div class="ht-item col-1">
+                    <span>@item.BedRoom</span>
+                </div>
+                <div class="ht-item col-1">
+                    <span>@item.Bed</span>
+                </div>
+                <div class="ht-item col-1">
+                    <span>@item.BathRoom</span>
+                </div>
+                <div class="ht-item col-2">
+                    <span>@item.Country - @item.City</span>
+                </div>
+                <div class="ht-item col-2 ht-item-768">
+                    <span>@item.Createtime</span>
+                </div>
+
+            </a>
+        }
+
+    </div>
+    
+
+
+</div>
+
+@section header{
+    <partial name="_HeaderBackPartial" />
+}
+    @section footer{
+    <partial name="_FooterMinPartial" />
+}   
+
+@section TopCSS
+{
+    <link href="~/css/Managing/Managing.css" rel="stylesheet" />
+}

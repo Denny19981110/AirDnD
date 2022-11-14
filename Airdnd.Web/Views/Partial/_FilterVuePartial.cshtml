@@ -1,0 +1,160 @@
+﻿<div class="lightbox filter" :style="show" v-on:click.stop="closeLightbox ">
+	<div class="lightbox-container">
+		<section class="title-section">
+			<button type="button" class="btn-close filter-close" aria-label="Close" v-on:click="closeFilter"></button>
+			<h2 class="lightbox-title">篩選條件</h2>
+		</section>
+
+		<section class="body-section" id="filter-body">
+			<div class="detail-group">
+				<section class="filter group-section">
+					<div class="detail-filter">
+						<h3 class="filter-title">價格範圍</h3>
+						<p>平均每晚價格為$<span>{{priceAvg}}</span>&nbsp;TWD</p>
+						<div class="price-slider wrapper">
+							<div class="slider-track" v-bind:style="trackColor" :style="fillLineOnchange"></div>
+							<input type="range" id="slider-1" v-model="currentMin" v-bind:min="minPrice" v-bind:max="maxPrice" v-on:input="fillLine">
+							<input type="range" id="slider-2" v-model="currentMax" v-bind:min="minPrice" v-bind:max="maxPrice" v-on:input="fillLine">
+						</div>
+						<div class="price-input-group">
+							<input type="text" class="min-price" placeholder="最低價格" v-on:input="setMin" v-model=currentMin>
+							<span>-</span>
+							<input type="text" class="max-price" placeholder="最高價格" v-on:input="setMax" v-model="currentMax">
+						</div>
+					</div>
+				</section>
+				<section class="filter group-section">
+					<div class="detail-filter">
+						<h3 class="filter-title">房源類型</h3>
+						<div class="checkbox-group room-type">
+
+							<div class="checkbox-item" v-for="item in privacyList">
+								<input type="checkbox" v-bind:id="item.idName" v-model="privacyArr" :value="item.id">
+								<label v-bind:for="item.idName">{{item.title}}</label>
+								<p class="privacyContent">{{item.content}}</p>
+							</div>
+
+						</div>
+					</div>
+				</section>
+				<section class="filter group-section">
+					<div class="detail-filter">
+						<h3 class="filter-title">臥室和床舖</h3>
+						<div class="room-info-group">
+							<div class="quantity-filter">
+								<h4>臥室</h4>
+								<div class="button-group room-quantity">
+							
+									<input type="radio" v-model="bedrooms" class="btn btn-check d-none" name="bedrooms" id="br0" value="0" checked>
+									<label class="btn btn-outline-dark" for="br0">任何</label>
+									<template v-for="i in 7">
+										<div>
+											<input type="radio" v-model="bedrooms" class="btn btn-check d-none" name="bedrooms" :id="`br${i}`" :value="i">
+											<label class="btn btn-outline-dark" :for="`br${i}`">{{i}}</label>
+										</div>
+									</template>
+
+									<input type="radio" v-model="bedrooms" class="btn btn-check d-none" name="bedrooms" id="br8" value="8">
+									<label class="btn btn-outline-dark" for="br8">8+</label>
+								</div>
+							</div>
+							<div class="quantity-filter">
+								<h4>床位</h4>
+								<div class="button-group room-quantity">
+								
+									<input type="radio" v-model="beds" class="btn btn-check d-none" id="bd0" name="beds" value="0"checked>
+									<label class="btn btn-outline-dark" for="bd0">任何</label>
+									<template v-for="i in 7">
+										<div>
+											<input type="radio" v-model="beds" class="btn btn-check d-none" :id="`bd${i}`" name="beds" :value="i" >
+											<label class="btn btn-outline-dark" :for="`bd${i}`">{{i}}</label>
+										</div>
+									</template>
+
+
+									<input type="radio" v-model="beds" class="btn btn-check d-none" id="bd8" name="beds" value="8" >
+									<label class="btn btn-outline-dark" for="bd8">8+</label>
+
+
+								</div>
+							</div>
+							<div class="quantity-filter">
+								<h4>衛浴</h4>
+								<div class="button-group room-quantity">
+				
+									<input type="radio"  v-model="bathrooms"  class="btn btn-check d-none" value="0" id="bath0" name="bathrooms" checked>
+									<label class="btn btn-outline-dark" for="bath0">任何</label>
+									<template v-for="i in 7">
+										<div>
+											<input type="radio"  v-model="bathrooms"  class="btn btn-check d-none" :value="i" :id="`bath${i}`" name="bathrooms" >
+											<label class="btn btn-outline-dark" :for="`bath${i}`">{{i}}</label>
+										</div>
+									</template>
+
+
+									<input type="radio"  v-model="bathrooms"  class="btn btn-check d-none" value="8" id="bath8" name="bathrooms" v-on:click="getBathrooms">
+									<label class="btn btn-outline-dark" for="bath8">8+</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="filter group-section">
+					<div class="detail-filter">
+						<h3 class="filter-title">住宿類型</h3>
+						<div class="room-type-group">
+
+							<div class="property-container" v-for="item in propertyList">
+								<input type="checkbox" v-model=propertyArr class="d-none" v-bind:id="item.idName" v-bind:value="item.id">
+								<div class="room-type">
+									<label :for="item.idName">
+										<div class="img-box">
+											<img v-bind:src="item.icon" alt="icon">
+										</div>
+										<span>{{item.title}}</span>
+									</label>
+								</div>
+							</div>
+
+							<div class="property-container" v-for="item in fillFour">
+								<div class="room-type" style="opacity: 0;">
+									<label>
+										<div class="img-box">
+											<img alt="icon">
+										</div>
+										<span></span>
+									</label>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</section>
+				<section class="filter group-section">
+					<div class="detail-filter">
+						<h3 class="filter-title">設備與服務</h3>
+						<div class="supply-service" v-for="(itemGp, index) in serviceList" :key="index">
+
+							<h4>{{itemGp.key}}</h4>
+							<div class="checkbox-group">
+
+								<div class="checkbox-item" v-for="item in itemGp.service" :data-test="item.group">
+									<input type="checkbox" v-bind:id="item.idName" v-model="serviceArr" v-bind:value="item.id">
+									<label v-bind:for="item.idName">{{item.title}}</label>
+								</div>
+
+							</div>
+
+						</div>
+						@*<button class="btn btn-link less-info">顯示較少內容</button>*@
+					</div>
+				</section>
+			</div>
+		</section>
+
+		<section class="footer-section">
+			<button class="btn btn-link clear-info" v-on:click=clearCheck>清除全部</button>
+			<button class="btn btn-dark" v-on:click="passData">顯示房源</button>
+		</section>
+	</div>
+</div>

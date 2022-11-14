@@ -1,0 +1,296 @@
+﻿<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 負責頁面-->
+    <title>Document</title>
+    <!-- google-font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&display=swap"
+          rel="stylesheet">
+    <meta name="robots" content="noindex">
+    <!-- CSS Reset-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <!-- Font Icon-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <!-- Bootstrap5-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    <!-- css -->
+    <link rel="stylesheet" href="~/css/Member/Memberprofile.css">
+    <link rel="stylesheet" href="~/css/Common/layout.css">
+    <link rel="stylesheet" href="~/css/Login/Login.css">
+
+    @await RenderSectionAsync("linkCSS", required: false)
+    @await RenderSectionAsync("topCSS", required: false)
+    @await RenderSectionAsync("topJS", required: false)
+    @RenderSection("Metatags", required: false)
+    @RenderSection("OpenGraph", required: false)
+
+</head>
+
+<body>
+    <header>
+        <div class="container header-wrap">
+            <div class="logo-wrap"><a class="logo" asp-controller="Home" asp-action="Index"><img src="~/Image/airdnd_logo.png" alt="Logo"></a></div>
+            <i onclick="toggleMenu()" class=" toggle-bar fa-solid fa-bars"></i>
+            <div class="toggle-menu d-md-flex align-items-md-center justify-content-md-between">
+                <div class="main"></div>
+                <ul class="aside d-md-flex menu">
+                    <li><a href="javascript:;">成為房東/體驗達人</a></li>
+                    <li><i class="fa-solid fa-earth-asia"></i></li>
+                    <li class="dropdownbox">
+                        <i class="fa-solid fa-chevron-down"></i>User
+                        <ul class="list-group">
+                            <button type="button" class="list-group-item list-group-item-action border-0 btn-outline-light " data-bs-toggle="modal" data-bs-target="#loginModal">
+                                登入
+                            </button>
+                            <button type="button" class="list-group-item list-group-item-action border-0" data-bs-toggle="modal" data-bs-target="#loginModal">註冊</button>
+                            <hr class="mb-1 mt-1">
+                            <a asp-controller="RoomSource" asp-action="Index" class="list-group-item list-group-item-action border-0" class="list-group-item list-group-item-action border-0">出租房源</a>
+                            <a href="#" class="list-group-item list-group-item-action border-0">舉辦體驗</a>
+                            <a class="list-group-item list-group-item-action disabled border-0">協助</a>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+
+	@RenderBody()
+    
+	<footer>
+		<div class="container">
+			<div class="footer-bottom d-md-flex justify-content-md-between align-items-center">
+				<div class="d-flex align-items-center bfa">
+					<p class="m-0"><i class="fa-regular fa-copyright"></i>2022 Airbnb, Inc</p>
+					<a href="javascript:;">隱私</a>
+					<a href="javascript:;">相關條款</a>
+					<a href="javascript:;">網站地圖</a>
+				</div>
+				<div class="d-flex">
+					<div class="d-flex">
+						<p class="m-0"><i class="fa-solid fa-earth-asia"></i>繁體中文 (TW)</p>
+						<p class="m-0"><i class="fa-solid fa-dollar-sign"></i>TWD</p>
+					</div>
+					<div class="social d-flex">
+						<i class="fa-brands fa-square-twitter"></i>
+						<i class="fa-brands fa-line"></i>
+						<i class="fa-brands fa-square-facebook"></i>
+						<i class="fa-brands fa-line"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- 確認Email是否存在 -->
+                <div id="step-checkEmail">
+                    <div class="position-relative">
+                        <input type="button" class="btn-close position-absolute ms-3" data-bs-dismiss="modal" aria-label="Close" />
+                        <h5 class="text-center mt-3" id="exampleModalLabel">登入或註冊</h5>
+                    </div>
+                    <hr />
+                    <div class="modal-body">
+                        <h3 class="loginh3">Airdnd 歡迎你</h3>
+                        <form class="mt-4">
+                            <div class="form-floating mb-2">
+                                <input type="email" name="Email" class="form-control" id="check-email" placeholder="電子郵件" inputmode="email" autocomplete="off" required>
+                                <label for="floatingInput">電子郵件</label>
+                            </div>
+                            <p class="lh-1 mt-0 login-p">我們會寄email，以確認你的電子信箱。<a href="#">隱私政策</a> </p>
+                            <div class="control rounded rounded-2 mb-4">
+                                <button type="submit" class="btn fw-bold" id="continuebtn">繼續</button>
+                            </div>
+                        </form>
+                        <div class="row d-flex align-items-center justify-content-center">
+                            <div class="line col-5"></div>
+                            <span class="col-1 text-center or">或</span>
+                            <div class="line col-5"></div>
+                        </div>
+                        <div class="btn fw-bold w-100 mt-3 lh-lg sso sso-fb">
+                            <img src="~/img/Login-img/fb_icon.png" alt="Facebook" class="fb">
+                            <p class="col-11 login-p">繼續使用Facebook登入</p>
+                        </div>
+                        <div class="btn fw-bold w-100 mt-3 lh-lg sso sso-google">
+                            <img src="~/img/Login-img/Google__G__Logo.svg.png" alt="Google" class="google">
+                            <p class="col-11 login-p">繼續使用Google登入</p>
+                        </div>
+                        <div class="btn fw-bold w-100 mt-3 lh-lg sso LineBtn">
+                            <i class="fa-brands fa-line "></i>
+                            <p class="col-11 login-p ">使用Line登入</p>
+                        </div>
+                        <div class="btn fw-bold w-100 mt-3 lh-lg sso">
+                            <i class="fa-solid fa-envelope"></i>
+                            <p class="col-11 login-p">使用信箱登入</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 密碼登入 -->
+                <div id="step-login" hidden>
+                    <div class="position-relative">
+                        <div class="position-absolute rounded rounded-circle icon d-flex">
+                            <i class="fa-solid fa-chevron-left" id="prevLogin"></i>
+                        </div>
+                        <h5 class="modal-title text-center mt-3" id="exampleModalLabel">登入</h5>
+                    </div>
+                    <hr />
+                    <div class="modal-body">
+                        <form action="#" class="mt-4 ">
+                            <div class="form-floating mb-3">
+                                <input class="form-control d-flex" id="login-password" placeholder="密碼" spellcheck="false" type="password" autocomplete="off" required>
+                                <label for="floatingInput">密碼</label>
+                            </div>
+                            <span id="errorMessage" class="text-danger"></span>
+                            <div class="inputfield mb-3 d-none" id="email-signup-password-InputField-help">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                <span>需要填寫密碼。</span>
+                            </div>
+                            <div class="control rounded rounded-2 mb-3">
+                                <button type="submit" id="loginbtn" class="btn fw-bold">登入</button>
+                            </div>
+                        </form>
+                        <div class="fg-password" id="forget-password-link">
+                            <a href="#">
+                                <p class="fw-bolder login-p">忘記密碼?</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 註冊 -->
+                <div id="step-signup" hidden>
+                    <div class="position-relative">
+                        <div class="position-absolute rounded rounded-circle icon d-flex">
+                            <i class="fa-solid fa-chevron-left" id="prevSignup"></i>
+                        </div>
+                        <h5 class="modal-title text-center mt-3" id="exampleModalLabel">完成註冊</h5>
+                    </div>
+                    <hr />
+                    <div class="modal-body">
+                        <form action="#" class="mt-4">
+                            <div class="form-floating mb-0">
+                                <input type="text" class="form-control f-name" id="first-name" placeholder="名字" required>
+                                <label for="floatingInput">名字</label>
+                            </div>
+                            <div class="form-floating mb-2 l-name">
+                                <input type="text" class="form-control l-name" id="last-name" placeholder="姓氏" required>
+                                <label for="floatingInput">姓氏</label>
+                            </div>
+                            <p class="lh-1 mt-0 login-p">請確保與政府核發的身分證件上的姓名一致。</p>
+                            <div class="form-floating mt-4 mb-2">
+                                <input required type="date" class="form-control" id="birthday" autocomplete="off" placeholder="出生日期" value="">
+                                <label for="floatingInput">生日</label>
+                            </div>
+                            <p class="lh-1 mt-0 login-p">您必須年滿18歲，才能註冊帳號。 我們不會將您的生日透露給其他Airbnb用戶。 </p>
+                            <div class="form-floating mb-2">
+                                <input class="form-control" id="email" placeholder="電子郵件" type="email" inputmode="email" autocomplete="off" required>
+                                <label for="floatingInput">電子郵件</label>
+                            </div>
+                            <p class="lh-1 mt-0 login-p">我們會透過電子郵件傳送預訂確認和收據給您。 </p>
+                            <div class="form-floating mb-2">
+                                <input class="form-control" id="password" data-testid="email-signup-password" placeholder="密碼" type="password" autocomplete="off" required>
+                                <label for="floatingInput">密碼</label>
+                            </div>
+                            <p class="login-p">選擇同意並繼續，即表示我同意 Airbnb 的<a href="#" class="d-inline login-p">服務條款</a>、<a href="#" class="d-inline">支付服務條款</a>、<a href="#" class="d-inline">反歧視政策</a>和<a href="#" class="d-inline">隱私政策</a> </p>
+                            <div class="control rounded rounded-2 mb-4">
+                                <button type="submit" id="signupbtn" class="btn fw-bold" data-veloute="submit-btn-cypress">同意並繼續</button>
+                            </div>
+                        </form>
+                        <hr class="w-100">
+                        <div>
+                            <p class ="login-p">Airbnb 會傳送用戶專屬優惠、激發旅遊靈感的素材、行銷電子郵件和推播通知給你。你可以隨時到「帳號設定」或直接在行銷通知中取消訂閱。</p>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                我不想收到有關 Airbnb 的行銷資訊。
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- 忘記密碼 -->
+                <div id="step-forgetPassword" hidden>
+                    <div class="position-relative">
+                        <div class="position-absolute rounded rounded-circle icon d-flex">
+                            <i class="fa-solid fa-chevron-left" id="prevForgetPassword"></i>
+                        </div>
+                        <h5 class="modal-title text-center mt-3" id="exampleModalLabel">忘記密碼</h5>
+                    </div>
+                    <hr />
+                    <div class="modal-body">
+                        <div>
+                            <p class ="login-p">請輸入與您的帳號關聯的電子信箱地址，我們會透過電子郵件向您寄送重設密碼的連結。</p>
+                        </div>
+                        <form action="#" class="mt-3 mb-3">
+                            <div class="form-floating mb-2">
+                                <input name="EmailField" class="form-control" id="forget-password-email" placeholder="電子郵件" type="email" inputmode="email" autocomplete="off" required>
+                                <label for="floatingInput">電子郵件</label>
+                            </div>
+                            <span id="errorMessage"></span>
+                            <div class="control rounded rounded-1 mt-5">
+                                <button type="submit" id="forgetPasswordbtn" class="btn fw-bold reset">傳送重設連結</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <!-- 密碼重設信已寄送 -->
+                <div id="step-sendResetPassword" hidden>
+                    <div class="position-relative">
+                        <button type="button" class="btn-close position-absolute ms-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title text-center mt-3">密碼重設信已寄送</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<!-- 放在body結尾 -->
+	<script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+	<script>
+		//header script
+		function toggleMenu() {
+			console.log(111);
+			document.querySelectorAll(".toggle-menu").forEach((e) => {
+				e.classList.toggle("toggle-menu-active");
+			});
+		}
+	</script>
+	<!-- Swiper -->
+	<script src="~/lib/Swiper/swiper-bundle.min.js"></script>
+	<!-- jquery -->
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<!-- leaflet -->
+	<script src="~/lib/leaflet/leaflet.js"></script>
+	<script src="~/lib/leaflet/leaflet.markercluster.js"></script>
+	<script src="~/js/Common/SearchBar/SearchBar.js"></script>
+    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="~/js/login/login.js"></script>
+
+    
+
+
+    @await RenderSectionAsync("header", required: false)
+    @RenderBody()
+    @await RenderSectionAsync("footer", required: false)
+
+    @await RenderSectionAsync("endJS", required: false)
+
+	@await RenderSectionAsync("linkJS", required: false)
+	@await RenderSectionAsync("btmJS", required: false)
+</body>
+</html>

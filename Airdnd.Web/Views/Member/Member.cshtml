@@ -1,0 +1,181 @@
+﻿@using Airdnd.Web.ViewModels
+@using Airdnd.Core.enums
+
+@{
+    ViewData["Title"] = "Member";
+}
+
+@section topCSS{
+    <link rel="stylesheet" href="~/css/Member/Memberprofile.css">
+}
+@section linkJS{
+    <script src="~/lib/axios/axios.min.js"></script>
+    <script src="~/lib/Vue/vue.js"></script>
+    <!-- MemberJS -->
+    <script src="~/js/Member/Member.js"></script>
+	<script src="~/js/Login/fb_login.js"></script>
+}
+
+@section header{
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <partial name="_HeaderEmptyPartial" />
+    }
+    else
+    {
+        <partial name="_HeaderLoginPartial" />
+    }
+}
+@section footer{
+    <partial name="_FooterDefaultPartial" />
+}
+    <section class="w-75 container" id="app">
+        <!-- 標題&導引列 -->
+        <div class="guide-title mb-5">
+            <nav class="guide d-flex ms-4">
+                <a href="/UserAccountPage/Index" class="me-3">帳號</a>
+                <i class="fa-solid fa-angle-right me-3 "></i>
+                <p>個人資料</p>
+            </nav>
+            <h1 class="ms-3">個人資料</h1>
+        </div>
+        <div class="container d-flex">
+            <!-- 資料區塊 -->
+            <div class="info-container col-8 pe-4">
+                <div class="Name row" id="memberName">
+                    <div>                     
+                        <div class="Name-title d-flex justify-content-between">
+                            <section class="col-10">
+                                法定名稱
+                                <div v-if="isRead.name" class="Name-subtitle" id="Name-subtitle">
+                                    <span> {{ memberData.name }} </span>
+                                </div>
+                            </section>
+                            <button v-on:click="editNameChange" v-if="isRead.name" class="Name-edit btn fw-bolder edit border-0" id="Name-edit name">編輯</button>
+                            <button v-on:click="editNameChange" v-if="isEdit.name" class="Name-edit btn fw-bolder edit border-0" id="cancel name">取消</button>
+                        </div>
+                        <div v-if="isEdit.name" class="form-floating mb-2">                            
+                            <input v-model="memberData.name" type="text" name="name" class="form-control" id="inputMemberName" placeholder="姓名">
+                            <label for="floatingInput">姓名</label>
+                            <button v-on:click="editMemberName" type="button" id="name-archive" class="btn btn-dark mt-4 ps-3 pe-3 pt-2 pb-2">儲存</button>
+                        </div>
+                    </div>  
+                </div>
+                <hr>
+                <div class="gender row" id="gender">
+                    <div>                        
+                        <div class="gender-title d-flex justify-content-between">
+                            <section class="col-10">
+                                性別
+                                <div v-if="isRead.gender" class="gender-subtitle" id="gender-subtitle">
+                                    <span>
+                                        {{ displayGender }}
+                                    </span>
+                                </div>
+                            </section>
+                            <button v-on:click="editGenderChange" v-if="isRead.gender" class="gender-edit btn fw-bolder edit border-0" id="gender-edit">編輯</button>
+                            <button v-on:click="editGenderChange" v-if="isEdit.gender" class="gender-edit btn fw-bolder edit border-0" id="cancel">取消</button>
+                        </div>
+                        <div v-if="isEdit.gender" class="form-floating">
+                            <select v-model="memberData.gender" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                <option value="1">男性</option>
+                                <option value="0">女性</option>
+                                <option value="2">未指定</option>
+                            </select>
+                            <label for="floatingSelect">性別</label>
+                            <button v-on:click="editMemberGender" type="button" id="gender-archive" class="btn btn-dark mt-4 ps-3 pe-3 pt-2 pb-2">儲存</button>
+                        </div>                        
+                    </div>                    
+                </div>
+                <hr>
+                <div class="email row" id="email">
+                    <div>
+                        <div class="email-title d-flex justify-content-between">
+                            <section class="col-10">
+                                電子郵件地址
+                                <div v-if="isRead.email" class="email-subtitle" id="email-subtitle">
+                                    <span> {{memberData.email}} </span>
+                                </div>
+                            </section>
+                            <button v-on:click="editEmailChange" v-if="isRead.email" class="email-edit btn fw-bolder edit border-0" id="email-edit">編輯</button>
+                            <button v-on:click="editEmailChange" v-if="isEdit.email" class="email-edit btn fw-bolder edit border-0" id="cancel">取消</button>
+                        </div>
+                        <div v-if="isEdit.email" class="form-floating mb-2">
+                            <input v-model="memberData.email" name="email" class="form-control" placeholder="電子郵件"  type="email" inputmode="email">
+                            <label for="floatingInput">電子郵件</label>
+                            <button v-on:click="editMemberEmail" type="button" class="btn btn-dark mt-4 ps-3 pe-3 pt-2 pb-2">儲存</button>
+                        </div>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="phone row" id="phone">
+                    <div>
+                        <div class="phone d-flex justify-content-between">
+                            <section class="col-10">
+                                手機號碼
+                                <div class="phoneNumbers-subtitle" id="phoneNumbers-subtitle">
+                                    <span> {{memberData.phone}} </span>
+                                </div>
+                            </section>
+                            <button v-on:click="editPhoneChange" v-if="isRead.phone" class="phone-edit btn fw-bolder edit border-0" id="phone-edit">編輯</button>
+                            <button v-on:click="editPhoneChange" v-if="isEdit.phone" class="phone-edit btn fw-bolder edit border-0" id="cancel">取消</button>
+                        </div>
+                        <div v-if="isEdit.phone" class="form-floating mb-2">
+                            <input v-model="memberData.phone" name="phone" class="form-control" placeholder="手機號碼" type="tel">
+                            <label for="floatingInput">手機號碼</label>
+                            <button v-on:click="editMemberPhone" type="button" class="btn btn-dark mt-4 ps-3 pe-3 pt-2 pb-2">儲存</button>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="personal-info-row-title row" id="personal-info-row-title">
+                    <div>
+                        <div class="personal-info-title d-flex justify-content-between">
+                            <section class="col-10">政府核發的身分證件</section>
+                            <button class="phone-edit btn fw-bolder edit border-0">編輯</button>
+                        </div>
+                        <div class="personal-info-subtitle" id="personal-info-subtitle">
+                            <span>未提供</span>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="address row" id="address">
+                    <div>
+                        <div class="address-title d-flex justify-content-between">
+                            <section class="col-10">地址</section>
+                            <button class="phone-edit btn fw-bolder edit border-0">編輯</button>
+                        </div>
+                        <div class="address-subtitle" id="address-subtitle">
+                            <span>{{memberData.address}}</span>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="emergencyContacts row" id="emergencyContacts">
+                    <div>
+                        <div class="emergencyContacts-title d-flex justify-content-between">
+                            <section class="col-10">緊急聯絡人</section>
+                            <button class="phone-edit btn fw-bolder edit border-0">編輯</button>
+                        </div>
+                        <div class="emergencyContacts-subtitle" id="emergencyContacts-subtitle">
+                            <span>未提供</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 其他介紹 -->
+            <section class="presentation col-4">
+                <div class="p-4 rounded rounded-4 border border-2 d-flex">
+                    <div>
+                        <img src="~/img/Member/Lock.jpg" alt="">
+                        <h3>為什麼這裡沒有顯示我的資料？</h3>
+                        <p>為了保護你的身分，我們隱藏了部分帳號詳情。</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+        

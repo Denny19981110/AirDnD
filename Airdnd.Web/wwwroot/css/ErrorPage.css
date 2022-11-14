@@ -1,0 +1,49 @@
+h1,h2,h3,h4,h5,h6,p
+span,tt,td,a{
+    font-family: 'Noto Serif TC', serif;
+    text-decoration: none;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    max-width: 1000px;
+    margin-top: 3rem;
+    margin-bottom: 10rem;
+}
+.pic{
+    width: 40%;
+    justify-content: center;
+    align-items: center;
+}
+.text {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
+}
+.text h2{
+    font-size: 120px;
+}
+.text .error-num{
+    color: rgb(120,120,120);
+}
+.text p{
+    margin-bottom: 0;
+}
+.text a{
+    color: rgb(170, 170, 170);
+}
+.text a:hover{
+    color: black;
+    transition: 0.3s;
+}
+
+@media screen and (max-width: 768px){
+    .pic{
+        display: none;
+    }
+    .text{
+        width: 100%;
+    }
+}

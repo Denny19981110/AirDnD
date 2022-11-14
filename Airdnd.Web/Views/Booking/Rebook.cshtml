@@ -1,0 +1,181 @@
+﻿@using Airdnd.Web.ViewModels
+@model BookingViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="booking-title">
+        <a href="#" class="title-icon">
+            <i class="fa-sharp fa-solid fa-chevron-left"></i>
+        </a>
+        <h2>確認並付款</h2>
+    </div>
+
+    <div class="main-box">
+        <!-- 主畫面sticky start -->
+        <div class="order-info border">
+            <div class="oi-card">
+                <div class="oic-pic col-3">
+                    <img src="@Url.Content(Model.RoomPhoto)">
+                </div>
+                <div class="oic-text col-9">
+                    <div class="oic-info">
+                        <p>@Model.Roomname</p>
+                        <p>@Model.Roomdescription</p>
+                    </div>
+                    <div class="oic-rating">
+                        <i class="fa-solid fa-star"></i>
+                        <p>@decimal.Round((decimal)@Model.Rating,1) (@Model.Comment 則評價)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="oi-text">
+                <img src="../wwwroot/image/booking.svg" alt="">
+                <p>為你的預訂提供保障</p>
+            </div>
+            <div class="oi-detail">
+                <div class="od-title">
+                    <h4>價格詳情</h4>
+                </div>
+                @*<div class="od-item">
+                    <span>@Model.Staying 晚</span>
+                    <span>$@((Model.Stayingprice).ToString("###,###"))</span>
+                </div>*@
+                <div class="od-item">
+                    <a href="">清潔費</a>
+                    <span>$@((Model.Cleaningfee).ToString("###,###"))</span>
+                </div>
+                <div class="od-item">
+                    <a href="">服務費</a>
+                    <span>$@((Model.Servicecharge).ToString("###,###"))</span>
+                </div>
+            </div>
+            <div class="oi-total">
+                <div class="oit-item">
+                    <span>總價(TWD)</span>
+                    <span>$@((Model.Totalprice).ToString("###,###"))</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 主畫面 start -->
+        <form method="post" action="/Booking/Rebook">
+            <div class="order-detail-info">
+                <div class="past-price border">
+                    <div class="pp-text">
+                        <h4>價格實惠。</h4>
+                        <p>在你的所選日期，此房源的每晚價格比過去 3 個月的平均價格便宜了 $1,100 TWD。</p>
+                    </div>
+                    <div class="pp-icon">
+                        <i class="fa-solid fa-tags"></i>
+                    </div>
+                </div>
+                <div class="detail-info">
+                    <h3>你的旅程</h3>
+                    <div class="di-date">
+                        <h5>日期</h5>
+                        <p>@((Model.Startdate).ToString("MM/dd/yyyy")) 至 @((Model.Enddate).ToString("MM/dd/yyyy"))</p>
+                    </div>
+                    <div class="di-time">
+                        <h5>入住時間</h5>
+                        <p>@Model.Checkintime</p>
+                    </div>
+                    <div class="di-ppl">
+                        <h5>房客人數</h5>
+                        <p>@Model.Customer 位</p>
+                    </div>
+                </div>
+                
+                @*<div class="order-dis">
+                    <a href="#">
+                        輸入優惠券代碼
+                    </a>
+                </div>*@
+                <div class="order-tel">
+                    <h3>旅程必填資訊</h3>
+                    <div class="tel-box">
+                        <div class="tb-text">
+                            <h5>電話號碼</h5>
+                            <p>新增並確認您的電話號碼，以獲取旅程的最新消息。</p>
+                        </div>
+                        <div class="tb-btn">
+                            <a href="#" class="tel-btn">新增</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-cancel">
+                    <h3>退訂政策</h3>
+                    <div class="oc-detail">
+                        <p>這筆預訂不可退款。</p>
+                        <a href="">了解詳情</a>
+                    </div>
+                </div>
+                <div class="order-text">
+                    <span>點選以下按鈕即表示本人同意</span>
+                    <span class="ot-link">房東的《房屋守則》</span>
+                    <span>、</span>
+                    <span class="ot-link">《重新預訂和退款政策》</span>
+                    <span>，且允許 Airbnb 在我應負責賠償損壞時，可以</span>
+                    <span class="ot-link">向我的付款方式扣款</span>
+                    <span>。</span>
+                </div>
+                <div class="input-group" style="display:none">
+                    @{
+                        string time = DateTime.Now.ToString("MMddyyyyHHMMss");
+                        string payid = string.Format("{0}{1}{2}", Model.ListingId, Model.CustomerId, time);
+                    }
+                    <input type="number" name="CustomerId" value="@Model.CustomerId" />
+                    <input type="number" name="OrderId" value="@Model.OrderId" />
+                    <input type="text" name="PayId" value="@payid" />
+                    <input type="datetime" name="CheckInDate" value="@Model.Startdate" />
+                    <input type="datetime" name="FinishDate" value="@Model.Enddate" />
+                    <input type="number" name="ListingId" value="@Model.ListingId" />
+                    <input type="number" name="StayNight" value="@Model.Staying" />
+                    <input type="number" name="Adults" value="@Model.Adults" />
+                    <input type="number" name="Children" value="@Model.Children" />
+                    <input type="number" name="Infants" value="@Model.Infants" />
+                    <input type="number" name="UnitPrice" value="@Model.Totalprice" />
+                    <input type="number" name="Status" value="0" />
+                    <input type="number" name="TranStatus" value="1" />
+                    <input type="datetime" name="CreateDate" value="@DateTime.UtcNow" />
+                </div>
+
+                <div class="order-button">
+                    <div class="ob-btn">
+                        <button type="submit" asp-controller="Booking" asp-action="Delete" class="od-confirm" style="background-color:rgb(215,4,102);padding: 12px 22px;color: white;border-radius: 8px;
+                                border:none; margin-right:20px">
+                            刪除訂單
+                        </button>
+
+                        <input type="submit" class="od-confirm" value="確認並付款"
+                               style="background-color:rgb(215,4,102);padding: 12px 22px;color: white;border-radius: 8px;
+                                border:none;" />
+
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+
+    </div>
+
+
+
+</div>
+@section header{
+    <partial name="_HeaderEmptyPartial" />
+}
+    @section footer{
+    <partial name="_FooterMinPartial" />
+}
+
+
+    @section TopCSS
+    {
+    <link href="~/css/Booking/Booking.css" rel="stylesheet" />
+}

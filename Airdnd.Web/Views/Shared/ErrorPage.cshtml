@@ -1,0 +1,40 @@
+﻿
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="text">
+        <h2>糟糕！</h2>
+        <h3>我們似乎無法找到您要找的頁面。</h3>
+        <p class="error-num">錯誤代碼：404</p>
+        <p>以下有幾個實用連結：</p>
+        <div><a href="">房源</a></div>
+        <div><a href="">搜尋</a></div>
+        <div><a href="">協助</a></div>
+        <div><a href="">透過Airbnb旅行</a></div>
+        <div><a href="">透過Airbnb出租</a></div>
+        <div><a href="">信任與安全</a></div>
+    </div>
+    <div class="pic">
+        <img src="https://a0.muscache.com/airbnb/static/error_pages/404-Airbnb_final-d652ff855b1335dd3eedc3baa8dc8b69.gif" alt="">
+    </div>
+</div>
+
+
+
+@section header{
+    <partial name="_HeaderEmptyPartial" />
+}
+    @section footer{
+    <partial name="_FooterDefaultPartial" />
+}
+
+
+    @section TopCSS
+    {
+    <link href="~/css/ErrorPage.css" rel="stylesheet" />
+}

@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+	<meta name="robots" content="noindex">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- 負責頁面-->
+	<title>@ViewData["Title"] - AirDnD</title>
+	<!-- google-font-->
+	<link rel="stylesheet" href="~/css/fonts/fonts.css" />
+	<!-- fontawesome-->
+	<script src="~/lib/font-awesome/js/fontawesome.min.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+	<!-- CSS Reset-->
+	<link rel="stylesheet" href="~/lib//meyer-reset/reset.min.css">
+	<!-- Bootstrap5-->
+	<link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+	<!-- layout-->
+	<link rel="stylesheet" rel="stylesheet" href="~/css/Common/layout.css">
+	<!-- ICO-->
+	<link href="~/assert/common/logosnail.ico" rel="shortcut icon" type="image/x-icon" />
+	@await RenderSectionAsync("linkCSS", required: false)
+	@await RenderSectionAsync("topCSS", required: false)
+	@await RenderSectionAsync("topJS", required: false)
+	@RenderSection("Metatags", required: false)
+	@RenderSection("OpenGraph", required: false)
+</head>
+
+<body>
+
+	@await RenderSectionAsync("header", required: false)
+	@RenderBody()
+
+	@await RenderSectionAsync("footer", required: false)
+
+	@await RenderSectionAsync("linkJS", required: false)
+	
+
+	
+	<script>
+		function toggleMenu() {
+			console.log(111);
+			document.querySelectorAll(".toggle-menu").forEach((e) => {
+				e.classList.toggle("toggle-menu-active");
+			});
+		}
+	</script>
+	<!-- 放在body結尾 -->
+	<script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src="~/lib/axios/axios.min.js"></script>
+	@await RenderSectionAsync("endJS", required: false)
+</body>
+
+</html>

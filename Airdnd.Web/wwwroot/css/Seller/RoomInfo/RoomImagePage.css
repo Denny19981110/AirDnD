@@ -1,0 +1,119 @@
+﻿a:hover {
+    color: black
+}
+
+a {
+    color: black;
+}
+/* fontawesome color */
+.fa-circle {
+    color: #0f0;
+}
+
+.fa-bolt {
+    color: #f3b241;
+}
+/* header */
+.info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.preview-link ul {
+    display: flex;
+}
+
+    .preview-link ul li {
+        margin-left: 20px;
+    }
+
+.preview-link li a {
+    text-decoration: underline;
+}
+
+.detail-nav a {
+    color: #000;
+    font-size: 25px;
+}
+
+    .detail-nav a:hover {
+        color: #000;
+    }
+
+/* button style */
+button {
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 3px 13px;
+}
+
+.editPhoto > span {
+    display: block;
+    color: #888;
+}
+
+.editPhoto-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.image-wraper {
+    display: flex;
+}
+
+label {
+    display: block;
+    position: relative;
+}
+/*
+label::before {
+    content: '點擊上傳圖片';
+    position: absolute;
+    left: 30%;
+    bottom: 2%;
+}*/
+
+.img-box {
+    box-sizing: border-box;
+    padding: 10px;
+    height: 200px;
+    position: relative;
+}
+
+    .img-box:hover {
+        cursor: pointer;
+    }
+
+    .img-box img {
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        object-fit: cover;
+    }
+
+label {
+    order: 2;
+}
+
+.img-box .deleteBtn {
+    color: #fff;
+    background-color: rgba(0,0,0,.8);
+    position: absolute;
+    top: 0;
+    right: 0;
+    line-height: 20px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+@media screen and (max-width:768px) {
+    .img-box{
+        height: 350px;
+    }
+    label::before{
+        content: '';
+    }
+}

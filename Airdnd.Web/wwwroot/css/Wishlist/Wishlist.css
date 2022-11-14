@@ -1,0 +1,1151 @@
+@charset "UTF-8";
+
+[v-cloak]{
+    display: none;
+}
+.bg-linear {
+    background-image: linear-gradient(to right, #e61e4d 0%, #e31c5f 50%, #d70466 100%);
+}
+
+header {
+    margin-bottom: 40px;
+}
+
+footer {
+    margin-top: 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 50;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p span,
+tt,
+td,
+a {
+    font-family: 'Noto Serif TC', serif;
+}
+
+a {
+    display: block;
+    text-decoration: none;
+    color: #000;
+}
+
+img {
+    max-width: 100%;
+    vertical-align: bottom;
+}
+
+header {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+header ul {
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+header a:hover {
+    color: #000;
+}
+
+.header-wrap {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .menu > li + li {
+    margin-left: 16px;
+}
+
+header .logo-wrap {
+    width: 33.3333%;
+}
+
+header .logo-wrap .logo {
+    width: 100px;
+}
+
+header .toggle-bar {
+    display: none;
+}
+
+header .toggle-menu {
+    width: 66.6666%;
+}
+
+header .menu > li:hover {
+    background-color: #ddd;
+}
+
+header .main,
+header .menu li {
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+header .dropdownbox {
+    position: relative;
+    box-sizing: border-box;
+}
+
+header .dropdownbox:hover ul {
+    display: block;
+}
+
+header .dropdownbox ul {
+    border-radius: 12px;
+    box-sizing: border-box;
+    display: none;
+    position: absolute;
+    z-index: 99;
+    background-color: #fff;
+    border: 1px solid #000;
+    top: 100%;
+    right: 0;
+    width: 200px;
+}
+
+header .dropdownbox ul > li {
+    padding: 16px;
+}
+
+header .dropdownbox ul > li:hover {
+    background-color: #ddd;
+}
+
+@media screen and (max-width: 768px) {
+    .toggle-menu {
+        display: none;
+    }
+
+    .toggle-menu-active {
+        display: block;
+    }
+
+    .header-wrap {
+        position: relative;
+    }
+
+    header .toggle-bar {
+        display: block;
+    }
+
+    header .toggle-menu {
+        background-color: #fff;
+        z-index: 99;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 100%;
+    }
+
+    header .dropdownbox {
+        position: static;
+    }
+
+    header .dropdownbox ul {
+        position: static;
+        width: 100%;
+    }
+
+    header .menu li + li {
+        margin-left: 0px;
+    }
+
+    header .menu > li:last-child:hover {
+        background-color: #fff;
+    }
+
+    header .dropdownbox ul {
+        border: none;
+    }
+
+    .aside2 li {
+        margin-left: 12px;
+    }
+}
+
+footer {
+    background-color: #f6f6f6;
+}
+
+.footer-top {
+    padding: 48px 0;
+    border-bottom: 1px dashed #888;
+}
+
+.footer-top p,
+.footer-bottom p {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 600;
+}
+
+.footer i {
+    font-size: 14px;
+}
+
+.footer-top a {
+    margin-top: 16px;
+}
+
+.footer-top a,
+.footer-bottom a {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.footer-top a:hover,
+.footer-bottom a:hover {
+    color: #888;
+}
+
+footer .footer-bottom {
+    padding: 15px 0;
+}
+
+.footer-bottom i {
+    margin-right: 8px;
+}
+
+.footer-bottom .bfa a::before {
+    content: '・';
+}
+
+.footer-bottom .social {
+    margin-left: 16px;
+}
+
+.footer-bottom .social i {
+    display: block;
+    font-size: 16px;
+}
+
+.footer-bottom .social i:last-child {
+    margin-right: 0;
+}
+
+@media screen and (max-width: 769px) {
+    .footer-top > div + div {
+        border-top: 1px dotted #888;
+        padding-top: 16px;
+    }
+
+    .footer-top {
+        padding: 48px 0 0;
+    }
+}
+
+.detail-filter {
+    padding: 15px;
+}
+
+.detail-filter .filter-title {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.detail-filter p {
+    color: #717171;
+}
+
+@media (max-width: 500px) {
+    .detail-group .group-section {
+        padding: 10px 0;
+    }
+
+    .detail-group .group-section .detail-filter {
+        padding: 0;
+    }
+}
+
+.detail-group > section.group-section:last-child {
+    border-bottom: 0;
+}
+
+.lightbox.filter .lightbox-container {
+    overflow: hidden;
+}
+
+@media (max-width: 500px) {
+    .lightbox.filter .lightbox-container {
+        width: 100%;
+        bottom: 0;
+        transform: unset;
+        left: 0;
+        top: auto;
+    }
+}
+
+.body-section {
+    overflow-y: auto;
+    height: 66vh;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .body-section {
+        height: 80%;
+        max-height: 650px;
+    }
+}
+
+.group-section {
+    padding: 0;
+}
+
+.price-slider {
+    height: 100px;
+}
+
+.price-slider input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    outline: none;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+.price-slider input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    background-color: rgb(119, 119, 119);
+    cursor: pointer;
+    border-radius: 50%;
+    pointer-events: auto;
+}
+
+.price-slider .slider-track {
+    width: 100%;
+    height: 5px;
+    background-color: #d5d5d5;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    border-radius: 5px;
+}
+
+.price-input-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.price-input-group input {
+    width: 40%;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(150, 150, 150, 0.5);
+    position: relative;
+}
+
+.price-slider {
+    position: relative;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .checkbox-group {
+        display: block;
+    }
+}
+
+.checkbox-group .checkbox-item {
+    width: 48%;
+    height: 45px;
+    font-size: 18px;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .checkbox-group .checkbox-item {
+        width: 100%;
+    }
+}
+
+.checkbox-group .checkbox-item input[type='checkbox'] {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+.checkbox-group .checkbox-item label {
+    position: relative;
+}
+
+.checkbox-group .checkbox-item label::after {
+    content: '';
+    position: absolute;
+    top: auto;
+    bottom: -18px;
+    left: 0;
+    font-size: 15px;
+    color: #888;
+    width: 300px;
+}
+
+.checkbox-group .checkbox-item label.whole::after {
+    content: '獨享整間房源';
+}
+
+.checkbox-group .checkbox-item label.shared::after {
+    content: '房源或飯店內的獨立客房，以及部分共用空間';
+}
+
+.checkbox-group .checkbox-item label.independent::after {
+    content: '可能要和他人共用的就寢空間和公共區域';
+}
+
+.quantity-filter {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.quantity-filter h4 {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.quantity-filter .button-group {
+    display: flex;
+    justify-content: space-between;
+    width: 85%;
+    overflow-x: scroll;
+}
+
+.quantity-filter .button-group::-webkit-scrollbar {
+    display: none;
+}
+
+.quantity-filter .button-group .btn {
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+
+@media (max-width: 768px) {
+    .quantity-filter .button-group .btn {
+        padding: 6px 12px;
+    }
+}
+
+.room-type-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.room-type-group .room-type {
+    width: 22%;
+    border: 1px solid rgba(150, 150, 150, 0.5);
+    border-radius: 10px;
+    padding: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.room-type-group .room-type:hover {
+    border: 1px solid #000;
+}
+
+.room-type-group .room-type .img-box {
+    height: 32px;
+    width: 32px;
+    margin: 10px;
+}
+
+.room-type-group .room-type span {
+    font-weight: 600;
+}
+
+.supply-service,
+.accessibility-service {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-top: 20px;
+}
+
+.supply-service h4,
+.accessibility-service h4 {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.switch-group.room-type {
+    font-size: 18px;
+}
+
+.switch-group.room-type label {
+    position: relative;
+}
+
+.switch-group.room-type label::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 0;
+    font-size: 15px;
+    color: #888;
+    width: 300px;
+}
+
+.switch-group.room-type label.order-now::after {
+    content: '無需等待房東批准即可預訂的房源';
+}
+
+.switch-group.room-type label.help-self::after {
+    content: '抵達後可輕鬆進入房源';
+}
+
+.btn-link {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #000;
+    font-weight: 600;
+}
+
+.btn:focus {
+    color: #000;
+    box-shadow: unset;
+}
+
+.btn:active:focus {
+    box-shadow: unset;
+}
+
+.owner {
+    font-size: 18px;
+}
+
+.owner label {
+    position: relative;
+}
+
+.owner label::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 0;
+    font-size: 15px;
+    color: #888;
+    width: 300px;
+}
+
+.owner label.great-owner::after {
+    content: '向獲得認可的房東租住房源';
+}
+
+.owner label.plus::after {
+    content: '品質卓越、風格獨具的嚴選房源系列';
+}
+
+.switch-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    height: 46px;
+    margin: 16px 0;
+}
+
+.footer-section {
+    display: flex;
+    padding: 15px;
+    justify-content: space-between;
+    border-top: 1px solid rgba(150, 150, 150, 0.5);
+}
+
+.lightbox {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 4;
+    left: 0;
+    top: 0;
+}
+
+.lightbox .lightbox-container {
+    width: 80%;
+    max-width: 800px;
+    max-height: 85vh;
+    background-color: #fff;
+    border-radius: 10px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    overflow-y: overlay;
+    transform: translate(-50%, -50%);
+}
+
+.lightbox .lightbox-container .title-section {
+    border-bottom: 1px solid rgb(184, 184, 184);
+    height: 64px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.lightbox .lightbox-container .title-section :nth-child(3n) {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.lightbox .lightbox-container .title-section * {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.lightbox .lightbox-container .group-section {
+    padding: 10px;
+    min-height: 160px;
+    border-bottom: 1px solid rgb(184, 184, 184);
+}
+
+.lightbox .lightbox-container .per-wishlist {
+    height: 84px;
+    width: 100%;
+    display: flex;
+    margin: 10px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.lightbox .lightbox-container .per-wishlist > p {
+    display: block;
+    font-weight: 600;
+    margin: auto;
+    margin-left: 0;
+}
+
+.lightbox .lightbox-container .per-wishlist .img-box {
+    height: 64px;
+    width: 64px;
+    margin-right: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.lightbox .lightbox-container .per-wishlist .img-box img {
+    height: 100%;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    vertical-align: bottom;
+}
+
+.lightbox .lightbox-container .input-container .wishlistname-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(141, 141, 141, 0.7);
+    position: relative;
+}
+
+.lightbox .lightbox-container .input-container::after {
+    content: '最多50字元';
+    font-size: 12px;
+    color: #777;
+}
+
+.lightbox .lightbox-container .button-section {
+    padding: 20px;
+}
+
+.lightbox .lightbox-container .button-section .btn-create {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.lightbox .lightbox-container .button-section .disabled {
+    cursor: not-allowed;
+}
+
+.lightbox .lightbox-container {
+    max-width: 600px;
+}
+
+.lightbox.filter .lightbox-container {
+    max-width: 800px;
+}
+
+@media (max-width: 768px) {
+    .lightbox.filter .lightbox-container {
+        max-width: unset;
+        width: 100%;
+        top: 470px;
+    }
+}
+
+.leaflet-container .product-link {
+    color: #000;
+    width: 100%;
+    height: 100%;
+    padding: 13px 19px;
+    display: block;
+}
+
+.leaflet-popup-close-button {
+    display: none;
+}
+
+.leaflet-popup-content {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+a:hover {
+    color: #000;
+}
+
+.full-container {
+    position: relative;
+}
+
+.container-set {
+    position: relative;
+    padding: 0 20px;
+    width: 50%;
+    height: calc(100vh - 121px);
+    overflow-y: scroll;
+    left: 0;
+    transition: 0.5s;
+}
+
+.container-set.close {
+    left: -50%;
+}
+
+@media (max-width: 768px) {
+    .container-set {
+        padding: 20px;
+        padding-top: 0;
+        width: 100%;
+    }
+}
+
+.container-set .btn-hide-products {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    top: 0;
+    right: -66px;
+    z-index: 10;
+    background-color: #fff;
+    transform: rotateZ(180deg);
+}
+
+.container-set .btn-hide-products.close {
+    transform: rotateZ(0deg);
+}
+
+.container-set .btn-hide-products:hover {
+    background-color: #e8e8e8;
+    border: 0;
+}
+
+.container-set .btn-hide-products:active,
+.container-set .btn-hide-products:focus {
+    border: 0;
+}
+
+.head-section {
+    display: flex;
+    width: 100%;
+    padding: 0 20px;
+    padding-bottom: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.head-section .btn-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.head-section .wishlist-name {
+    font-size: 2rem;
+}
+
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+    bottom: 18px;
+}
+
+.swiper.img-swiper {
+    height: 100%;
+}
+
+.swiper-button-next:after {
+    content: '';
+    left: 42%;
+    top: 100%;
+    width: 0;
+    height: 0;
+    clear: both;
+    opacity: 0;
+    transition: 0.3s;
+    border-left: 16px solid #e8e8e8;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+}
+
+@media (max-width: 768px) {
+    .swiper-button-next:after {
+        opacity: 1;
+    }
+}
+
+.swiper-button-prev:after {
+    content: '';
+    left: 42%;
+    top: 100%;
+    width: 0;
+    height: 0;
+    clear: both;
+    opacity: 0;
+    transition: 0.3s;
+    border-right: 16px solid #e8e8e8;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+}
+
+@media (max-width: 768px) {
+    .swiper-button-prev:after {
+        opacity: 1;
+    }
+}
+
+.swiper-pagination-bullet {
+    background-color: rgb(230, 230, 230);
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: rgb(245, 245, 245);
+}
+
+.item-section .card-container {
+    position: relative;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(150, 150, 150, 0.5);
+}
+
+@media (max-width: 992px) {
+    .item-section .card-container {
+        border-bottom: 0;
+    }
+}
+
+.item-section .card-container:hover .swiper-button-prev:after,
+.item-section .card-container:hover .swiper-button-next:after {
+    opacity: 1;
+}
+
+.card-contain {
+    display: flex;
+    height: 200px;
+}
+
+@media (max-width: 992px) {
+    .card-contain {
+        padding: 0 10px;
+        height: auto;
+        display: block;
+    }
+}
+
+.like-btn {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    left: auto;
+    right: 20px;
+    z-index: 2;
+    font-size: 24px;
+    cursor: pointer;
+    color: #e6b0ba;
+    transition: color 0.5s;
+}
+
+.like-btn:hover {
+    color: #ff708a;
+}
+
+.like-btn.like-check {
+    color: #ff385c;
+}
+
+.img-box {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    width: 450px;
+    aspect-ratio: 20/19;
+    height: unset;
+}
+
+@media (max-width: 992px) {
+    .img-box {
+        width: unset;
+    }
+}
+
+@media (max-width: 768px) {
+    .img-box {
+        height: 50vh;
+        width: 100%;
+    }
+}
+
+.img-box.great-owner-marker::after {
+    content: '超讚房東';
+    padding: 3px 5px;
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    width: auto;
+    background-color: #fff;
+    z-index: 1;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.img-box.hot-product-marker::after {
+    content: '搶手房源';
+    padding: 3px 5px;
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    width: auto;
+    background-color: #fff;
+    z-index: 1;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.img-box img {
+    height: 100%;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    vertical-align: bottom;
+}
+
+.info-group {
+    padding-left: 15px;
+    width: 100%;
+}
+
+@media (max-width: 992px) {
+    .info-group {
+        padding-left: 0;
+    }
+}
+
+.info-group .info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.info-group .info > *,
+.info-group .info span {
+    display: block;
+    line-height: 19px;
+    font-weight: 600;
+    padding: 5px;
+}
+
+.info-group .info > *.item-rate,
+.info-group .info span.item-rate {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+@media (max-width: 992px) {
+    .info-group .info > *.item-rate,
+    .info-group .info span.item-rate {
+        position: relative;
+        order: -1;
+    }
+}
+
+.info-group .info .item-loc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 1400px) {
+    .info-group .info .item-loc {
+        width: 230px;
+    }
+}
+
+@media (max-width: 992px) {
+    .info-group .info .item-loc {
+        width: unset;
+    }
+}
+
+.info-group .info .item-name {
+    padding-bottom: 10px;
+    position: relative;
+    font-size: 1.5rem;
+}
+
+.info-group .info .item-name::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    bottom: 0;
+    height: 1px;
+    width: 50px;
+    border-bottom: 1px solid rgba(136, 136, 136, 0.5);
+}
+
+.info-group .info .info-sub {
+    color: #333;
+    font-weight: 200;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.info-group .info .item-price {
+    margin-top: 5px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 20px;
+}
+
+@media (max-width: 992px) {
+    .info-group .info .item-price {
+        margin: 0;
+        position: relative;
+    }
+}
+
+.info-group .info .more-info {
+    display: flex;
+}
+
+@media (max-width: 992px) {
+    .info-group .info .more-info {
+        display: none;
+    }
+}
+.wish-not-allow {
+    border-radius: 10px;
+    border: 1px solid rgba(54, 54, 54, 0.507);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+.warning-title {
+    font-size: 1rem;
+    line-height: 30px;
+    margin-bottom: 0;
+    margin-left: 10px;
+}
+.alert-icon {
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+    background-color: #dd575d;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+}
+
+.map-section {
+    display: block;
+    position: absolute;
+    height: calc(100vh - 121px);
+    width: 50%;
+    top: 0;
+    right: 0%;
+    z-index: 3;
+    transition: 0.5s ease-in-out;
+    background-color: #888;
+}
+
+@media (max-width: 768px) {
+    .map-section {
+        display: none;
+    }
+}
+
+.map-section.full-width {
+    width: 100%;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+.set-wishlist .lightbox-container {
+    width: 50%;
+    max-width: 400px;
+}
+
+.set-wishlist .lightbox-container .title-section {
+    justify-content: center;
+}
+
+#btn-deleteAll {
+    position: absolute;
+    right: 11px;
+}
+
+.button-section.change-name {
+    display: flex;
+    justify-content: flex-end;
+}

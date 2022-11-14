@@ -1,0 +1,782 @@
+﻿@using Airdnd.Web.ViewModels
+@using Microsoft.AspNetCore.Http
+@{
+    Layout = "_Layout";
+    var house = (HouseDto)ViewData["house"];
+    var service = (CService)ViewData["service"];
+    var comment = (HouseViewModel)ViewData["comment"];
+    var seohelp = (SeoHelpDto)ViewData["seohelp"];
+    var disableDay = Json.Serialize(ViewData["disableDay"]);
+    //var userId = ViewData["userId"];
+    var specialPrice = ViewData["specialPrice"];
+    ViewData["Title"] = seohelp.Title;
+
+    var userId = 0;
+    if (User.Identity.IsAuthenticated)
+    {
+        userId = int.Parse(User.Identity.Name);
+    }
+    await Html.RenderPartialAsync("~/Views/Partial/_WishlistPartial.cshtml", userId);
+}
+@section metatags {
+    <meta name='description' content='@seohelp.Description' />
+}
+    @section OpenGraph {
+    <meta property="og:url" content="@seohelp.WebAddress" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content=@seohelp.Title />
+    <meta property="og:description" content=@seohelp.Description />
+    <meta property="og:image" content="@Url.Content(seohelp.Image)" />
+}
+    @section header{
+    <partial name="_HeaderSearchBarPartial" model="userId" />
+
+	}
+    @section footer{
+    <partial name="_FooterDefaultPartial" />
+}
+    @section linkCSS{
+    <!--Swiper css-->
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+    <!-- leaflet map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.1/dist/leaflet.css"
+      integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.1/dist/leaflet.js"
+        integrity="sha256-NDI0K41gVbWqfkkaHj15IzU7PtMoelkzyKp8TOaFQ3s="
+        crossorigin=""></script>
+    <!-- google-font-icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <!-- Vue calender -->
+    <link rel="stylesheet"
+      href="https://unpkg.com/vue-airbnb-style-datepicker@2.1.0/dist/vue-airbnb-style-datepicker.min.css">
+    <!-- jQuery v1.9.1 Toastr-->
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <!-- toastr v2.1.4 Toastr-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+
+}
+    @section topCSS{
+    <link rel="stylesheet" href="~/css/SearchBar/SearchBar.css">
+    <link rel="stylesheet" href="~/css/Partial/Lightbox.css">
+    <link rel="stylesheet" href="~/css/Login/Login.css">
+    <link rel="stylesheet" href="~/css/House/all.css">
+    <style>
+        #location .mapSize {
+            width: 100%;
+            height: 300px;
+        }
+
+        .swiper-slide.swiperMain {
+            pending: 0px !important;
+        }
+
+        footer {
+            position: static;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+
+}
+    @section topJS{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.29.0/date_fns.js"></script>
+}
+    @section linkJS{
+
+    <script>
+        let commentCode = @Json.Serialize(comment.RankPerson);
+        let disableDays = @Html.Raw(disableDay);
+        let address = [];
+        address[0] = @house.Lat;
+        address[1] = @house.Lng;
+        let maxPerson = @house.Expected;
+        let perNight = @house.DefaultPrice;
+        let houseId = @house.HouseID;
+        let userId = @userId;
+        let specialDays = @Json.Serialize(specialPrice);
+        let count = @comment.count> 6 ? 6 : @comment.count
+
+
+
+    </script>
+    <!-- 放在body結尾 -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+    <!-- Initialize Swiper -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+}
+    @section endJS{
+    <script src="~/js/house/swiper.js"></script>
+    <script src="~/js/house/fixheader.js"></script>
+
+    <script src="~/js/Home/lightbox.js"></script>
+	<script src="~/js/Login/loginVue.js"></script>
+    <script src="~/js/login/login.js"></script>
+    <!-- Vue區 -->
+    <script src="https://unpkg.com/vue-airbnb-style-datepicker@latest/dist/vue-airbnb-style-datepicker.min.js"></script>
+    <script src="~/js/house/vue2.js"></script>
+    <script src="~/js/house/map.js"></script>
+    @*searchbar用*@
+    <script>
+        let searchData = {
+            location: '',
+            guest: {
+                adult: 1,
+                child: 0,
+                baby: 0
+            }
+        }
+    </script>
+    <script src="~/js/Common/SearchBar.js"></script>
+}
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@house.HouseName</li>
+            </ol>
+        </nav>
+    </div>
+    <section class="title">
+        <div class="container">
+            <h1>@house.HouseName</h1>
+            <div class="snail-title dot">
+                <p class="mb-0 mt-2 location"><i class="me-2 fa-solid fa-location-dot"></i><span>台灣</span><i class="mx-2 fa-solid fa-caret-right"></i><span>@house.Country</span><i class="mx-2 fa-solid fa-caret-right"></i><span>@house.City</span></p>
+                <div class="social-wrap d-flex">
+                  <div class="social-iten d-flex ">
+                        <i class="fa-solid fa-plus"></i>
+                        <button type="button" class="button-none btn-txt" data-toggle="modal" data-target="#shareLink">
+                            Share
+                        </button>
+
+                    </div>
+                     @* <div class="social-iten d-flex align-content-center">
+                        <i class="fa-solid fa-heart"></i>
+                        <p>Save</p>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Swiper -->
+    <!-- Swiper -->
+    <section id="photo" class="SwiperWrap container">
+        <div class="swiper top-swiper">
+            <div class="swiper-wrapper">
+            @foreach (var iten in house.HousePic)
+            {
+                <div class="swiper-slide swiperMain">
+                    <img class="swiperImg swiper-lazy" src="@Url.Content(iten.AvatarUrl)">
+                    <div class="swiper-lazy-preloader swiper-lazy-preloader-Airbnb"></div>
+                </div>
+            }
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+    <div thumbsSlider="" class="swiper snailSwiper">
+        <div class="swiper-wrapper">
+            @foreach (var iten in house.HousePic)
+            {
+                <div class="swiper-slide ">
+                    <img class="swiperImg swiper-lazy" src="@Url.Content(iten.AvatarUrl)">
+                    <div class="swiper-lazy-preloader swiper-lazy-preloader-Airbnb"></div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- fix header -->
+<div id="app">
+    <!-- fix header -->
+    <section class="second-header">
+        <div class="container d-flex justify-content-betwee align-items-center">
+            <nav class="d-flex ">
+                <a href="#photo">相片</a>
+                <a href="#serve">設備與服務</a>
+                <a href="#comment">評價</a>
+                <a href="#location">位置</a>
+            </nav>
+            <div class="txt-wrap">
+                <div class="txt">
+                    <p class="main money">{{perNight.toLocaleString('en-US')}}</p>
+                    <div class="min d-flex">
+                        @if (comment.count != 0)
+                        {
+                            <p><i class="fa-solid fa-star"></i>@decimal.Round((decimal)comment.RatingAvg, 1)</p>
+                            <p><a class="" data-toggle="modal" data-target="#comment-box"> @comment.count 則評價</a></p>
+                        }
+                    </div>
+                </div>
+                <a href="#book" class="p-2 btn-linear mt-2">查看可訂日期</a>
+            </div>
+        </div>
+    </section>
+    <!-- 房東資訊 -->
+    <section class="host-info-wrap container">
+        <div class="host-info-contan">
+            <div class="host-info-box sub-title-wrap">
+                <h2 class="sub-title dot">@house.Host.HostName 出租的 @house.Category  @house.Property  </h2>
+                <p class="mb-0 mt-2"><span>@house.Expected  位</span><span>@house.BedRoom 間臥室</span><span>@house.Bed 張床</span><span>@house.BathRoom 間衛浴</span></p>
+                <p class="mb-0 mt-2">@Html.Raw(house.Description)</p>
+            </div>
+            <div class="host-info-box" v-cloak>
+                <div class="cards d-flex" v-for="item in awardtemplate" :key="item.id">
+                    <div class="icon me-2" style="width:40px;">
+                        <i style="font-size:20px;" :class=["fa-solid",item.icon]></i>
+                    </div>
+                    <div class="cards-txt">
+                        <p class="mb-1">{{item.title}}</p>
+                        <p class="mb-1">{{item.description}}</p>
+                    </div>
+                </div>
+
+            </div>
+            <!-- 被Vue換掉 -->
+            <div class="host-info-box">
+                <p class="blabla"><span>AIR</span>COVER</p>
+                <p>針對房東取消預訂、房源描述不實和入住困難等其他問題，我們會為每筆預訂提供免費保障。</p>
+                <!-- Button trigger modal -->
+                <button type="button" class="p-2 btn-linear mt-2" data-toggle="modal"
+                        data-target="#exampleModalScrollable">
+                    了解詳情
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade " id="exampleModalScrollable" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="modal-title" id="exampleModalScrollableTitle">
+                                    <p class="mb-0 blabla"><span>AIR</span>COVER</p>
+                                    <p>AirCover 將為每筆預訂免費提供全面保障。</p>
+                                </div>
+                                <button type="button" class="close button-rad" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body container">
+                                <div class="text-wrap d-flex flex-wrap p-2">
+                                    <div class="text-50">
+                                        <p>房源預訂保障</p>
+                                        <p>如果房東在距離入住日期的 30 天內取消預訂，我們會為你尋找類似或更好的房源，或者提供退款。</p>
+                                    </div>
+                                    <div class="text-50">
+                                        <p>入住保障</p>
+                                        <p>如果你無法入住房源，且房東也無法解決問題，我們會為你的原住宿期間尋找類似或更好的房源，或者提供退款。</p>
+                                    </div>
+                                    <div class="text-50">
+                                        <p>房源描述保障</p>
+                                        <p>
+                                            如果在住宿期間發現房源與描述不符（例如：冰箱突然壞掉，而且房東沒辦法馬上修好，或臥室間數少於描述所列數量），你將有三天的檢舉時間，而且我們會為你尋找類似或更好的房源，或者提供退款。
+                                        </p>
+                                    </div>
+                                    <div class="text-50">
+                                        <p>
+                                            24 小時安全專線
+                                        </p>
+                                        <p>如果你在任何時候感到不安，均可以優先聯絡經過專門培訓的安全團隊專員。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container p-3 ps-md-0">
+                <div class="d-flex align-items-center justify-content-start">
+                    <div class="person-pic">
+                        @{
+                            string url = $"/Host/User{house.Host.HostID}";
+                        }
+                        <a href="@url"> <img src="@Url.Content(house.Host.AvatarUrl)" alt=""></a>
+                    </div>
+                    <div class="person-pic-txt">房東：@house.Host.HostName</div>
+                </div>
+                <div class="person-box mt-3 d-md-flex align-items-center">
+                    <div class="person-txt">
+                        <i class="fa-solid fa-wand-sparkles"></i>
+                        <p>熱銷房源</p>
+                    </div>
+                    <div class="person-txt">
+                        <i class="fa-solid fa-user"></i>
+                        <p>身分已驗證</p>
+                    </div>
+                    <div class="person-txt">
+                        <i class="fa-solid fa-star"></i>
+                        <p>超讚房東</p>
+                    </div>
+                </div>
+            </div>
+            <div class="host-info-box pt-0">
+                <p>
+                    @Html.Raw(house.Host.HostAboutMe)
+                </p>
+            </div>
+            <div class="host-info-box" id="book">
+                <h3 class="sub-title mb-3">房間規格</h3>
+                <div class="cards-wrap d-flex flex-wrap">
+                    @if (house.Bed > house.BathRoom)
+                    {
+                        <div class="cards bdx">
+                            <div class="icon mb-1">
+                                <i class="fa-solid fa-bed"></i>
+                            </div>
+                            <div class="cards-txt">
+                                <p>臥房</p>
+                                <p>豪華雙人床</p>
+                            </div>
+                        </div>
+                    }
+                    <div class="cards bdx">
+                        <div class="icon mb-1">
+                            <i class="fa-solid fa-couch"></i>
+                        </div>
+                        <div class="cards-txt">
+                            <p>沙發</p>
+                            <p>1張小型沙發床</p>
+                        </div>
+                    </div>
+                    @if (house.IndieBathroom)
+                    {
+                        <div class="cards bdx">
+                            <div class="icon mb-1">
+                                <i class="fa-solid fa-shower"></i>
+                            </div>
+                            <div class="cards-txt">
+                                <p>衛浴</p>
+                                <p>獨立的衛浴空間</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="host-info-box" id="serve">
+                <h3 class="sub-title mb-3">有提供的設備與服務</h3>
+                <div class="d-flex flex-wrap">
+
+                    @foreach (var icon in service.ServiceList[1].ServiceIcon)
+                    {
+                        <div class="text-50 d-flex">
+                            <span class="material-icons material-symbols-outlined md-16 me-2">@icon.IconPath</span>
+                            <p>@icon.ServiceName</p>
+                        </div>
+                    }
+                </div>
+                <!-- Button trigger modal -->
+                <button type="button" class="p-2 btn-linear mt-2" data-toggle="modal"
+                        data-target="#exampleModalScrollable2">
+                    顯示全部 @service.count 項設施與服務
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade " id="exampleModalScrollable2" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="modal-title" id="exampleModalScrollableTitle">
+                                    <p class="mb-0 blabla">有提供的<span>設備與服務</span></p>
+                                </div>
+                                <button type="button" class="close button-rad" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body container">
+                                @foreach (var type in service.ServiceList)
+                                {
+                                    @if (type.ServiceIcon.Count() != 0)
+                                    {
+                                        <p>@type.ServiceTypeName</p>
+                                        <div>
+                                            <div class="text-wrap d-flex flex-wrap p-2">
+                                                @foreach (var icon in type.ServiceIcon)
+                                                {
+
+                                                    <div class="text-50 d-flex">
+                                                        <span class="material-icons material-symbols-outlined md-16 me-2">@icon.IconPath</span>
+                                                        <p>@icon.ServiceName</p>
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    }
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form class="host-info-aside" asp-action="Create" v-cloak>
+            <div class="txt-wrap ">
+                <div class="txt d-flex">
+                    <p class="side-title"><span class="me-2 money">{{perNight.toLocaleString('en-US')}}</span></p>
+                </div>
+            </div>
+            @if (comment.count > 0)
+            {
+                <div class="txt-wrap">
+                    <div class="txt">
+                        <div class="min d-flex">
+                            <p><i class="fa-solid fa-star"></i>@decimal.Round((decimal)comment.RatingAvg, 1)</p>
+                            <p><a class="ms-1" data-toggle="modal" data-target="#comment-box">@comment.count 則評價</a></p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="datepicker-trigger">
+                <!-- 日曆 -->
+                <input id="trigger-range" :value="time" readonly />
+                <airbnb-style-datepicker :trigger-element-id="'trigger-range'"
+                                         :disabled-dates=disableDays
+                                         :min-date="now"
+                                         :date-one="date1"
+                                         :date-two="date2"
+                                         v-on:date-one-selected="function(val) { date1 = val }"
+                                         v-on:date-two-selected="function(val) { date2 = val}"
+                                         :customized-dates="[
+                        { cssClass: 'expensive', dates:expensiveDate  },
+                        { cssClass: 'cheap', dates:cheapDate }]"
+                                         v-on:cancelled="function(){date1='';date2='';}">
+                </airbnb-style-datepicker>
+            </div>
+            <!--  -->
+            <div class="btnV">
+                <div class="mb-1">
+                    <div name="person" >預約人數: {{countperson}} 位</div>
+                </div>
+                <ul class="p-0">
+                    <div class="d-flex justify-content-between" v-for="(p,i) in personCatergory"
+                         :key="p.id">
+                        <div class="txt">
+                            <p class="bigtxt">{{p.title}}</p>
+                            <p class="smalltxt">{{p.description}}</p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="roundbtn btnn" v-on:click="subtraction(p)">-</div>
+                            <div class="mx-2">{{p.count}}</div>
+                            <div class="roundbtn btnn" v-on:click="add(p)">+</div>
+                        </div>
+
+                    </div>
+                    <div class="mt-1 alert-txt" style="color:#888" v-show="countperson==maxPerson">人數已達空間容納上限</div>
+                </ul>
+            </div>
+            <div class="mb-3 tt">
+                <div class="txtp d-flex justify-content-between">
+                    <p class="smalltxt">清潔費</p>
+                    <p class="bigtxt add"><i class="fa-solid fa-plus"></i>{{discount | showpersent}}</p>
+                </div>
+                <div class="txtp d-flex justify-content-between">
+                    <p class="smalltxt">服務費</p>
+                    <p class="bigtxt add"><i class="fa-solid fa-plus"></i>{{discount | showpersent}}</p>
+                </div>
+            </div>
+            <div class="mt-2 mb-3 ttd">
+                <div class="txtp d-flex justify-content-between">
+                    <strong>單價</strong>
+                    <p>{{dayDiff}}天，共<span class="">{{total.toLocaleString('en-US')}}</span>元</p>
+                </div>
+                <div v-if="total!=0" class="txtp d-flex justify-content-between">
+                    <strong>總計</strong>
+                    <p class="" :class="total==0?'':'sub xltxt'">{{(total+ Math.round(total * 0.1, 0) + Math.round(total * 0.1, 0)).toLocaleString('en-US')}}元</p>
+                </div>
+            </div>
+            <button type="button" class="p-2 mt-2 btna bookV" v-on:click="sendJudge()">點我結帳</button>
+        </form>
+    </section>
+    <section class="container host-info-box static-comment">
+        <h3 class="sub-title mb-3">旅客評價</h3>
+
+        @if (comment.count == 0)
+        {
+            <div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <p class="nocomment"><i class="fa-regular fa-gem"></i></p>
+                </div>
+                <p class="nocomment-smail">有美玉於斯，求善賈而沽諸<i class="ms-2 fa-solid fa-question"></i></p>
+                <p class="nocomment-smail">也許你會是第一個伯樂</p>
+            </div>
+        }
+        else
+        {
+            <p class="sub-title mb-3">5星中的 @decimal.Round((decimal)comment.RatingAvg, 1) 星，來自 @comment.count 則評價</p>
+            <div class="star-wrap">
+                <div class="star-box d-flex">
+
+                    <p>乾淨度：</p>
+                    <div class="bar">
+                        <div class="bar-top bg-linear" style='@Html.Raw($"width:{comment.RankSix.Clean/5*100}%")'> @comment.RankSix.Clean</div>
+                    </div>
+                </div>
+                <div class="star-box d-flex">
+                    <p>準確性：</p>
+                    <div class="bar">
+                        <div class="bar-top bg-linear" style='@Html.Raw($"width:{comment.RankSix.Precise/5*100}%")'>@comment.RankSix.Precise</div>
+                    </div>
+                </div>
+                <div class="star-box d-flex">
+                    <p>溝通：</p>
+                    <div class="bar">
+                        <div class="bar-top bg-linear" style='@Html.Raw($"width:{comment.RankSix.Communication/5*100}%")'>@comment.RankSix.Communication</div>
+                    </div>
+                </div>
+                <div class="star-box d-flex">
+                    <p>位置：</p>
+                    <div class="bar">
+                        <div class="bar-top bg-linear" style='@Html.Raw($"width:{comment.RankSix.Location/5*100}%")'>@comment.RankSix.Location</div>
+                    </div>
+                </div>
+                <div class="star-box d-flex">
+                    <p>入住：</p>
+                    <div class="bar">
+                        <div class="bar-top bg-linear" style='@Html.Raw($"width:{comment.RankSix.CheckIn/5*100}%")'>@comment.RankSix.CheckIn</div>
+                    </div>
+                </div>
+                <div class="star-box d-flex">
+                    <p>性價比：</p>
+                    <div class="bar">
+                        <div class="bar-top bg-linear" style='@Html.Raw($"width:{comment.RankSix.CostPrice/5*100}%")'>@comment.RankSix.CostPrice</div>
+                    </div>
+                </div>
+            </div>
+            <div class="comment-wrap d-md-flex flex-wrap">
+                <div v-cloak class="comment-box" v-for="(iten,i) in commentCode.slice(0, count)" :key="i">
+                    <div class="comment-box-athor d-flex align-items-center">
+                        <div class="comment-box-athor-img">
+                            <img :src="iten.image" :alt="iten.userName">
+                        </div>
+                        <div>
+                            <p>{{iten.userName}}</p>
+                            <p class="mt-1 colorf">{{iten.time|dateFomat}}</p>
+                        </div>
+
+                    </div>
+                    <div class="comment-box-text">
+                        <p v-if="!iten.flag && iten.commentContent.length>50">{{iten.commentContent.slice(0,50)}} <span v-if="!iten.flag" class="flag" v-on:click="iten.flag=!iten.flag">...ReadMore</span></p>
+                        <p v-if="!iten.flag && iten.commentContent.length<=50">{{iten.commentContent}} </p>
+                        <p v-if="iten.flag" v-html="iten.commentContent">
+                        </p>
+                        <div v-on:click.once="translate(iten,i)" class="translatebtn" class="mt-1" v-if="iten.country!=null && iten.country!='zh-tw'">
+                            <span class="material-symbols-outlined fs-16">
+                                translate
+                            </span>
+                            翻譯蒟蒻
+                        </div>
+                    </div>
+                </div>
+
+                @if (comment.count > 6)
+                {
+                    <button type="button" class="p-2 btn-linear mt-2" data-toggle="modal" data-target="#comment-box">
+                        顯示全部 @comment.count 條評價
+                    </button>
+                }
+            </div>
+        }
+
+
+
+    </section>
+    <section class="container p-48" id="location">
+        <h3 class="sub-title mb-5">住宿地點</h3>
+        <div id="map" class="mapSize">
+        </div>
+    </section>
+    <section class="container p-48">
+        <h3 class="sub-title mb-5">注意事項</h3>
+        <div class="third-section">
+            <ul>
+                <li class="person-txt">
+                    <i class="fa-solid fa-clock"></i>
+                    <p>入住時間：下午3:00 － 下午10:00</p>
+                </li>
+                <li class="person-txt">
+                    <i class="fa-solid fa-clock"></i>
+                    <p>退房時間：上午11:00</p>
+                </li>
+            </ul>
+            <ul>
+                <li class="person-txt">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <p>適用 Airbnb 的新冠疫情安全措施</p>
+                </li>
+                <li class="person-txt">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <p>有安裝一氧化碳警報器</p>
+                </li>
+                <li class="person-txt">
+                    <i class="fa-solid fa-star"></i>
+                    <p>有安裝煙霧警報器</p>
+                </li>
+            </ul>
+            <ul>
+                <li class="person-txt">
+                    <i class="fa-solid fa-ban"></i>
+                    <p>請查看房東完整的《退訂政策》；即便是因為感染新冠肺炎而取消，或新冠疫情導致旅程中斷，這些政策依然適用。</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!-- Modal -->
+    @if (comment.count > 6)
+    {
+        <div class="modal fade " id="comment-box" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"
+         aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title" id="exampleModalScrollableTitle">
+                            <p class="mb-0 blabla">旅客評價</p>
+                        </div>
+                        <button type="button" class="close button-rad" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body container">
+                        <div class="modal-body-wrap d-flex">
+                            <div class="star-wrap">
+                                <div class="star-box d-flex">
+                                    <p>乾淨度：</p>
+                                    <div class="bar">
+                                        <div class="bar-top bg-linear" style='@Html.Raw($"width:{comment.RankSix.Clean/5*100}%")'>@comment.RankSix.Clean</div>
+                                    </div>
+                                </div>
+                                <div class="star-box d-flex">
+                                    <p>準確性：</p>
+                                    <div class="bar">
+                                        <div class="bar-top bg-linear" style='@Html.Raw($"width:{comment.RankSix.Precise/5*100}%")'>@comment.RankSix.Precise</div>
+                                    </div>
+                                </div>
+                                <div class="star-box d-flex">
+                                    <p>溝通：</p>
+                                    <div class="bar">
+                                        <div class="bar-top bg-linear" style='@Html.Raw($"width:{comment.RankSix.Communication/5*100}%")'>@comment.RankSix.Communication</div>
+                                    </div>
+                                </div>
+                                <div class="star-box d-flex">
+                                    <p>位置：</p>
+                                    <div class="bar">
+                                        <div class="bar-top bg-linear" style='@Html.Raw($"width:{comment.RankSix.Location/5*100}%")'>@comment.RankSix.Location</div>
+                                    </div>
+                                </div>
+                                <div class="star-box d-flex">
+                                    <p>入住：</p>
+                                    <div class="bar">
+                                        <div class="bar-top bg-linear" style='@Html.Raw($"width:{comment.RankSix.CheckIn/5*100}%")'>@comment.RankSix.CheckIn</div>
+                                    </div>
+                                </div>
+                                <div class="star-box d-flex">
+                                    <p>性價比：</p>
+                                    <div class="bar">
+                                        <div class="bar-top bg-linear" style='@Html.Raw($"width:{comment.RankSix.CostPrice/5*100}%")'>@comment.RankSix.CostPrice</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-wrap d-md-flex flex-wrap">
+                                <div class="comment-box" v-for="(iten,i) in commentCode" :key="i">
+                                    <div class="comment-box-athor d-flex align-items-center">
+                                        <div class="comment-box-athor-img">
+                                            <img :src="iten.image" :alt="iten.userName">
+                                        </div>
+                                        <div>
+                                            <p>{{iten.userName}}</p>
+                                            <p class="mt-1 colorf">{{iten.time|dateFomat}}</p>
+                                        </div>
+
+                                    </div>
+                                    <div class="comment-box-text">
+                                        <p v-if="!iten.flag && iten.commentContent.length>50">{{iten.commentContent.slice(0,50)}} <span v-if="!iten.flag" class="flag" v-on:click="iten.flag=!iten.flag">...ReadMore</span></p>
+                                        <p v-if="!iten.flag && iten.commentContent.length<=50">{{iten.commentContent}} </p>
+                                        <p v-if="iten.flag" v-html="iten.commentContent">
+                                        </p>
+                                        <div v-on:click.once="translate(iten,i)" class="translatebtn" class="mt-1" v-if="iten.country!=null && iten.country!='zh-tw'">
+                                            <span class="material-symbols-outlined fs-16">
+                                                translate
+                                            </span>
+                                            翻譯蒟蒻
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Modal -->
+<div class="modal fade " id="shareLink" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header align-items-start">
+                <div>
+                    <h5 class="modal-title" id="ShareLable">分享給親朋好友</h5>
+                </div>
+                <button type="button" class="close button-rad" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex align-items-center">
+                    <div class="square-100 roundbtn overflow-hidden me-3">
+                        <img src="@Url.Content(house.HousePic[0].AvatarUrl)" alt="">
+                    </div>
+                    <div>
+                        <p>@house.HouseName</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body ">
+                <div class='social_buttons d-flex flex-wrap justify-content-between'>
+                    <a class="email w-45 p-3 bd-r hov mb-3" target='_blank' rel="noreferrer noopener" href="mailto:?body=@seohelp.WebAddress">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span class='social_text'>Email</span>
+                    </a>
+                    <a class="lineIcon w-45 p-3 bd-r hov mb-3" target="_blank" rel="noreferrer noopener" href="https://social-plugins.line.me/lineit/share?url=@seohelp.WebAddress">
+                        <i class="fa-brands fa-line"></i>
+                        <span class='social_text'>Line</span>
+                    </a>
+                    <a class="messeger w-45 p-3 bd-r hov mb-3" target='_blank' rel="noreferrer noopener" href="fb-messenger://share/?link=@seohelp.WebAddress">
+                        <i class="fa-brands fa-facebook-messenger"></i>
+                        <span class='social_text'>Messenger</span>
+                    </a>
+                    <a class="facebook w-45 p-3 bd-r hov mb-3" target='_blank' rel="noreferrer noopener" href="https://www.facebook.com/sharer.php?u=@seohelp.WebAddress">
+                        <i class="fa-brands fa-square-facebook"></i>
+                        <span class='social_text'>Facebook</span>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

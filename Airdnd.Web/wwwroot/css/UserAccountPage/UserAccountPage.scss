@@ -1,0 +1,239 @@
+@import "~/css/_common/layout.scss";
+
+
+
+.desktop-layer {
+    display: none;
+}
+
+a {
+    color: #000;
+    &:hover{
+        color: #000;
+    }
+}
+
+.main-content {
+    padding-left: 24px;
+    padding-right: 24px;
+    max-width: 1032px;
+}
+
+.phone-layer {
+    padding: 12px 24px 24px;
+}
+
+.phone-layer>div>a {
+    display: flex;
+    text-decoration: none;
+    padding: 16px 0;
+    position: relative;
+    margin-bottom: 16px;
+
+    .icon-box i {
+        font-size: 24px;
+        margin-right: 16px;
+    }
+}
+
+
+.phone-layer>div>a .arrowRight {
+    position: absolute;
+    right: 0;
+}
+
+
+.user-info,
+.about-account,
+.rent,
+.inviteFounder,
+.support {
+    padding-top: 24px;
+}
+
+.user-info {
+    position: relative;
+
+    .connectProfile {
+        margin-bottom: 40px;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background: #e8e8e8;
+        right: 0;
+
+    }
+
+    .img-box {
+        margin-bottom: 16px;
+
+        .user-img {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .user-img img {
+            object-fit: cover;
+        }
+    }
+
+}
+
+.about-account,
+.rent,
+.inviteFounder,
+.support {
+    position: relative;
+
+    &:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background: #e8e8e8;
+        right: 0;
+    }
+}
+
+.connectContext span:nth-of-type(2) {
+    color: #777;
+    font-size: 14px;
+}
+
+.bottom-info {
+    .langAndMoney {
+        display: flex;
+        margin-top: 16px;
+
+        div button {
+            background-color: transparent;
+            border: none;
+            font-size: 14px;
+        }
+
+        .lang {
+            margin-right: 10px;
+        }
+    }
+
+    .logOutBtn {
+        margin-top: 16px;
+
+        button {
+            display: flex;
+            width: 100%;
+            padding: 13px 23px;
+            justify-content: center;
+            background-color: transparent;
+            border-radius: 8px;
+        }
+    }
+
+    .privacy {
+        margin-top: 16px;
+        display: flex;
+        justify-content: center;
+
+        a {
+            font-size: 12px;
+        }
+    }
+
+    .copyRight {
+        font-size: 12px;
+        color: #777;
+        text-align: center;
+    }
+
+}
+
+@media screen and(min-width:768px) {
+    a:hover {
+        color: unset;
+    }
+
+    .phone-layer {
+        display: none;
+    }
+
+    .desktop-layer {
+        width: 696px;
+        margin: auto;
+        display: block;
+
+        .user-info {
+            display: flex;
+            font-weight: bolder;
+
+            &:after {
+                background-color: transparent;
+            }
+        }
+
+        .row>div {
+            box-sizing: border-box;
+        }
+
+        .row>div>a {
+            padding: 16px;
+        }
+    }
+
+    .desktop-row .row {
+        >div {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        >div:not(.stopAccount) a {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 170px;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px #e8e8e8;
+            text-decoration: none;
+
+            span {
+                display: block;
+            }
+
+            div[class$="-context"] span:nth-of-type(2) {
+                color: #777;
+                font-size: 14px;
+            }
+
+            .icon-box i {
+                font-size: 26px;
+            }
+
+        }
+
+        .stopAccount {
+            text-align: center;
+
+            span {
+                display: block;
+            }
+        }
+    }
+}
+@media screen and(min-width:768px){
+    header .toggle-menu{
+        
+        width: unset;
+    }
+}
+
+@media screen and(min-width:992px) {
+    .desktop-layer {
+        width: 900px;
+    }
+}

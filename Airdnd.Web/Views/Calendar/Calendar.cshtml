@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Calendar";
+
+}
+
+
+<div class="container1">
+    <div class="row">
+        <div class="option col-12 col-md-9">
+            <select name="room" id="room">
+            </select>
+            <div class="year-month mb-3">
+                <h2></h2>
+            </div>
+            <div class="body">
+                <div class="week">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+                <div class="calendar"></div>
+                <p class="warn d-none">尚未有房源，請先建立新房源!!</p>
+
+            </div>
+        </div>
+        <div class="function col-12 col-md-3">
+            <h2> </h2>
+            <div class="provide"><span>可供預定</span><span><button class="non-reverse"><i
+                            class="fa-regular fa-circle-xmark"></i></button><button class="reverse"><i
+                            class="fa-regular fa-circle-check"></i></button></span></div>
+            <div class="set-price"><span>定價</span><input type="number" disabled><button>儲存</button></div>
+        </div>
+    </div>
+</div>
+
+@section header{
+<partial name="_HeaderBackPartial" />
+}
+
+
+
+@section topCSS{
+<link rel="stylesheet" href="~/css/Calendar/Calendar.css" />
+}
+@section endJS {
+
+<script src="~/js/Calendar/Calendar.js"></script>
+}

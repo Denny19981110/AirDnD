@@ -1,0 +1,89 @@
+@import '~/css/_common/layout.scss';
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+h1 {
+    margin-bottom: 24px;
+    padding: 10px;
+}
+
+.card {
+    margin: auto;
+    .card-title {
+        background-color: #e8e8e8;
+        padding: 10px 12px;
+
+        h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+    }
+
+    .img-wrapper {
+        padding: 16px;
+        box-sizing: border-box;
+
+        .card-img {
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+
+            .img-box {
+                position: relative;
+                width: 225px;
+                height: 225px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+                >img{
+                    opacity: .3;
+                }
+
+                .icon-box {
+                    z-index: 2;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    background-color: #333;
+                    padding: 2px 8px;
+                    border: none;
+                    i {
+                        color: white;
+                        font-size: 12px;
+                    }
+                }
+
+                .cover-box {
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+                    top: 0;
+                    border-radius: 50%;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+    .card-body{
+        .update-photo{
+            position: relative;
+            input{
+                position: absolute;
+                opacity: 0;
+            }
+            .update-label{
+                width: 100%;
+                box-sizing: border-box;
+                border: 1px solid;
+                font-weight: 900;
+            }
+        }
+    }
+}
+

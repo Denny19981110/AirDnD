@@ -1,0 +1,52 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "axios@1.1.2",
+      "destination": "wwwroot/lib/axios/",
+      "files": [
+        "axios.min.js"
+      ]
+    },
+    {
+      "library": "jquery-easing@1.4.1",
+      "destination": "wwwroot/lib/jquery-easing/",
+      "files": [
+        "jquery.easing.min.js"
+      ]
+    },
+    {
+      "library": "Chart.js@2.9.4",
+      "destination": "wwwroot/lib/Chart.js/",
+      "files": [
+        "chart.min.js"
+      ]
+    },
+    {
+      "library": "bootstrap@5.2.2",
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [
+        "js/bootstrap.min.js",
+        "css/bootstrap.min.css",
+        "js/bootstrap.bundle.min.js"
+      ]
+    },
+    {
+      "library": "vue@2.6.14",
+      "destination": "wwwroot/lib/vue/"
+    },
+    {
+      "library": "xlsx@0.18.5",
+      "destination": "wwwroot/lib/"
+    },
+    {
+      "library": "bootstrap-vue@2.22.0",
+      "destination": "wwwroot/lib/bootstrap-vue/",
+      "files": [
+        "bootstrap-vue.min.js",
+        "bootstrap-vue-icons.css"
+      ]
+    }
+  ]
+}

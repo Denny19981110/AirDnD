@@ -1,0 +1,456 @@
+﻿@using Airdnd.Web.ViewModels
+@using Airdnd.Web.ViewModels.Partial
+@using GeoCoordinatePortable
+@using System.Web
+@using System.Text
+@using Microsoft.AspNetCore.Http
+@model HomeViewModel
+@{
+	var currUrl = ViewBag.currUrl;
+	var seohelp = (SeoHelpDto)ViewData["seohelp"];
+	ViewData["Title"] = @seohelp.Title.Split("-")[1];
+
+	var listings = Model.Listings;
+	var properties = Model.Properties;
+	var userId = (int)ViewBag.userId;
+	var userLat = 90d;
+	var userLng = 0d;
+	if( Model.UserInfo != null )
+	{
+		userLat = Model.UserInfo.UserLocation.Lat;
+		userLng = Model.UserInfo.UserLocation.Lng;
+	}
+
+	string distance = "--";
+	var modelLoc = listings.Select(l => new { l.ListingName, l.Location, l.PriceGet }).ToList();
+	var vueData = Json.Serialize(Model.FilterPartialVM);
+	string distanceCheck;
+	int currentPage = Model.CurrentPage;
+	int pages = Model.PageCount;
+	IQueryCollection queries = ViewBag.queries;
+}
+@section metatags {
+	<meta name='description' content='@seohelp.Description' />
+	<meta name="google-site-verification" content="Rjn3p8qh3q_VGkyN6G157BaDEcw1gn_ebWQ42QkaF6g" />
+}
+	@section OpenGraph {
+	<meta property="og:url" content="@seohelp.WebAddress" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content=@seohelp.Title />
+	<meta property="og:description" content=@seohelp.Description />
+	<meta property="og:image" content="@Url.Content(seohelp.Image)" />
+}
+	<div class="container-set">
+
+		<!-- 分類區 -->
+		<section class="d-flex category-section">
+
+			<div class="swiper-category">
+				<div class="swiper-button-next" id="cateR"></div>
+				<div class="swiper-button-prev" id="cateL"></div>
+				<div class="swiper cate-swiper">
+					<div class="swiper-wrapper">
+
+						<!-- 重複 -->
+					@foreach( var item in properties )
+					{
+						<div class="swiper-slide">
+							<button class="btn category-btn" data-id="@item.Id" value="@item.Id" name="propertyId">
+								<div class="category-content">
+									<div class="icon-container"><img src="@item.IconPath" alt="category icon" class="category-icon"></div>
+									<p>@item.PropertyTitle</p>
+								</div>
+							</button>
+						</div>
+					}
+
+					<!-- 重複結束 -->
+				</div>
+
+				<div class="swiper-scrollbar"></div>
+			</div>
+		</div>
+		<div class="button-container">
+			<button type="button" class="filter-button">
+				<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;height:14px;width:14px;fill:currentColor" aria-hidden="true" role="presentation" focusable="false">
+					<path d="M5 8c1.306 0 2.418.835 2.83 2H14v2H7.829A3.001 3.001 0 1 1 5 8zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6-8a3 3 0 1 1-2.829 4H2V4h6.17A3.001 3.001 0 0 1 11 2zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z">
+					</path>
+				</svg>
+				<span class="filter-span">篩選條件</span>
+			</button>
+		</div>
+	</section>
+</div>
+
+
+<div class="full-container">
+	@if(currentPage==1){
+		<div class="container-set">
+		<div class="halloween my-4 banner-wrap" id="halloween" v-if="show" v-cloak>
+			<a href="@Url.Action("Double11", "Activity")">
+				<div class="halloween banner-wrap of">
+					<img class="banner-container banner-wrap-100" src="~/assert/Double11/banner1111.jpeg" alt="">
+					<div class="banner-container banner-wrap-80 d-flex justify-content-end ">
+						<div class="banner-container-txt px-3 static-text">雙11訂房慶!今晚我想入住</div>
+						<div class="dynamic-text-wrapper">
+							<div class="dynamic-text banner-container-txt pe-3">無敵海景的酒店</div>
+							<div class="dynamic-text banner-container-txt pe-3">與世獨立的民宿</div>
+							<div class="dynamic-text banner-container-txt pe-3">在地特色的文旅</div>
+							<div class="dynamic-text banner-container-txt pe-3">英倫浪漫的莊園</div>
+						</div>
+					</div>
+					<div class="rb banner-container">
+						<p class="mb-1 me-1"><i class="fa-regular fa-copyright"></i>點我參與雙十一心理測驗<i class="fa-solid fa-basket-shopping"></i></p>
+					</div>
+				</div>
+			</a>
+			<div v-on:click="show=!show" class="banner-container rt  close">
+				<p>X</p>
+			</div>
+		</div>
+	</div>
+	@*<div class="container-set">
+		<div class="halloween my-4 banner-wrap" id="halloween" v-if="show" v-cloak>
+			<a href="@Url.Action("Index", "Hallow")">
+				<div class="halloween banner-wrap of">
+					<img class="banner-container banner-wrap-100" src="~/assert/common/hallowrap.jpg" alt="">
+					<div class="banner-container d-flex banner-container">
+						<div class="banner-container-txt px-3 static-text">可不可以進去一下下，</div>
+						<div class="dynamic-text-wrapper">
+							<div class="dynamic-text banner-container-txt pe-3">惡鬼未遂的陰宅</div>
+							<div class="dynamic-text banner-container-txt pe-3">屍骨未寒的荒地</div>
+							<div class="dynamic-text banner-container-txt pe-3">猛鬼纏身的凶屋</div>
+							<div class="dynamic-text banner-container-txt pe-3">喪屍狂舞的廢墟</div>
+						</div>
+					</div>
+					<div class="rb banner-container">
+						<p class="mb-1 me-1"><i class="fa-regular fa-copyright"></i>點我挑戰萬聖節心理測驗<i class="fa-solid fa-hand-lizard"></i></p>
+					</div>
+				</div>
+			</a>
+			<div v-on:click="show=!show" class="banner-container rt  close">
+				<p>X</p>
+			</div>
+		</div>
+	</div>*@
+	}
+	
+	<div class="container-set">
+
+		<!-- 商品區 -->
+		<section class="item-section">
+			<div class="card-group row">
+
+				@foreach( var item in listings )
+				{
+					string likeCheck;
+					@if( item.IsWish == true )
+					{
+						likeCheck = "like-check";
+					}
+					else
+					{
+						likeCheck = "";
+					}
+
+					string greatClass;
+					@if( double.TryParse(item.Rating, out double ratNum) && ratNum >= 4.5 )
+					{
+						greatClass = "great-marker";
+					}
+					else
+					{
+						greatClass = "";
+					}
+					<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 card-container">
+
+						<div class="like-btn @likeCheck " data-id="@item.Id">
+
+							<i class="fa-solid fa-heart"></i>
+						</div>
+
+						<a href="/House/@(item.ListingName)">
+
+							<div class=" @greatClass img-box">
+
+								<div class="btn-box">
+								</div>
+								<div class="swiper img-swiper">
+									<div class="swiper-wrapper">
+										@foreach( var img in item.ImgPath )
+										{
+											<div class="swiper-slide ">
+												<img data-src="@Url.Content(img)" class="swiper swiper-lazy item-img">
+												<div class="swiper-lazy-preloader swiper-lazy-preloader-Airbnb"></div>
+											</div>
+										}
+									</div>
+									<div class="swiper-button-next"></div>
+									<div class="swiper-button-prev"></div>
+									<div class="swiper-pagination"></div>
+								</div>
+							</div>
+							<div class="info-group">
+								<p class="info">
+									@if( userLat != 90 )
+									{
+										distanceCheck = string.Empty;
+										var userLoc = new GeoCoordinate(userLat, userLng);
+										distance = $"距離{(((int)Math.Round(new GeoCoordinate(item.Location.Lat, item.Location.Lng).GetDistanceTo(userLoc))) / 1000).ToString()} 公里";
+									}
+									else
+									{
+										distanceCheck = "no-distance";
+										distance = item.PropertyTitle;
+									}
+									<span class="item-loc">@(item.ListingName)</span>
+									<span class="info-sub @(distanceCheck) item-distance" data-lat="@(item.Location.Lat)" data-lng="@(item.Location.Lng)">@(distance)</span>
+									<span class="info-sub item-recent-date">
+
+									</span>
+									<span class="item-price">@(item.PriceGet)&nbsp;TWD&nbsp;晚</span>
+									<span class="item-rate"><i class="fa-solid fa-star"></i>&nbsp;@(item.Rating)</span>
+								</p>
+							</div>
+						</a>
+					</div>
+				}
+
+			</div>
+		</section>
+		<form id="pagination">
+			@if( queries != null )
+			{
+				@foreach( var item in queries )
+				{
+					if( item.Key != "page" )
+					{
+						<input name="@item.Key" value="@item.Value" type="hidden">
+					}
+				}
+			}
+
+			<ul class="pagination">
+				@if( pages > 1 )
+				{
+					@for( int i = 1;i <= pages;i++ )
+					{
+						if( i == currentPage )
+						{
+							<li class="page current-page disabled">
+								<button class="page-link" type="submit" name="page" value="@i">@i</button>
+							</li>
+						}
+
+						else if( i == pages )
+						{
+							<li class="page other-page">
+								<button class="page-link" name="page" value="@i" tabindex="-1">@i</button>
+							</li>
+						}
+						else if( i == 1 )
+						{
+							<li class="page other-page">
+								<button class="page-link" type="submit" name="page" value="@i">@i</button>
+							</li>
+						}
+						else if( Math.Abs(i - currentPage) <= 2 )
+						{
+							<li class="page other-page">
+								<button class="page-link" type="submit" name="page" value="@i">@i</button>
+							</li>
+						}
+						else if( Math.Abs(i - currentPage) == 3 )
+						{
+							<li class="page other-page">
+								<button class="page-link" disabled>...</button>
+							</li>
+						}
+					}
+				}
+
+			</ul>
+		</form>
+	</div>
+	
+	@*LINE Modal*@
+	<div class="modalWrapper" showModal=true id="modalWrapper">
+		<div class="modal show fade" id="eventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class="modal-title fs-5">
+							<img src="/Image/airdnd_logo.png" class="w-25" alt="airdnd logo">
+						</div>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body d-block">
+						<span class="d-block mb-2">airdnd的LINE官方帳號登場囉!</span>
+						<span class="d-block mb-2">airdnd將會提供最新的活動資訊給大家，點擊下方連結，將我們的帳號加入好友來接收最新資訊。</span>
+						<div>
+							<a href="https://lin.ee/YtnoE59"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png" alt="加入好友" height="36" border="0"></a>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="checkbox" class="custom-control-input" id="noShowAgainCheckbox" name="checkbox-maintenance" />
+						<label class="custom-control-label checkbox-maintenance" for="noShowAgainCheckbox">不再顯示</label>
+						<button type="button" class="btn btn-secondary" id="close-btn" data-bs-dismiss="modal">關閉</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<button class="btn btn-map">
+		<p class="map-display-title">顯示地圖</p>
+		<i class="fa-solid fa-map-location"></i>
+	</button>
+	<section class="map-section">
+		<div class="map-container" id="map"></div>
+	</section>
+</div>
+
+
+
+@{
+	await Html.RenderPartialAsync("~/Views/Partial/_WishlistPartial.cshtml", userId);
+	await Html.RenderPartialAsync("~/Views/Partial/_FilterVuePartial.cshtml");
+}
+
+
+@section header{
+	<partial name="_HeaderSearchBarPartial" model="userId" />
+
+}
+
+	@section footer{
+	<partial name="_FooterMinPartial" />
+}
+
+
+
+	@section linkCSS{
+	<!--Swiper css-->
+	<link rel="stylesheet" href="~/lib/Swiper/swiper-bundle.min.css" />
+	<!-- leaflet map -->
+	<link rel="stylesheet" href="~/lib/leaflet/leaflet.css" />
+	<link rel="stylesheet" href="~/lib/leaflet/MarkerCluster.Default.css" />
+	<link rel="stylesheet" href="https://unpkg.com/vue-airbnb-style-datepicker@2.1.0/dist/vue-airbnb-style-datepicker.min.css">
+}
+	@section topCSS{
+	<link rel="stylesheet" href="~/css/SearchBar/SearchBar.css">
+	<link rel="stylesheet" href="~/css/Home/Home.css">
+	<link rel="stylesheet" href="~/css/Partial/Lightbox.css">
+	<link rel="stylesheet" href="~/css/Partial/Filter.css" />
+	<link rel="stylesheet" href="~/css/Login/Login.css">
+	<link rel="stylesheet" href="~/css/Home/hallowBanner.css">
+	<style>
+		[v-cloak] {
+			display: none;
+		}
+	</style>
+}
+
+	@section linkJS{
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<!-- 放在body結尾 -->
+	<!-- Swiper -->
+	<script src="~/lib/Swiper/swiper-bundle.min.js"></script>
+	<!-- jquery -->
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<!-- leaflet -->
+	<script src="~/lib/leaflet/leaflet.js"></script>
+	<script src="~/lib/leaflet/leaflet.markercluster.js"></script>
+	<script src="~/lib/jquery-cookie/jquery.cookie.min.js"></script>
+	<script src="~/lib/Vue/vue.js"></script>
+	<script src="~/js/Home/lightbox.js"></script>
+	<script src="https://unpkg.com/vue-airbnb-style-datepicker@2.1.0/dist/vue-airbnb-style-datepicker.min.js"></script>
+	<script src="~/js/Home/Home.js"></script>
+	<script src="~/js/Home/swiper.js"></script>
+	<script src="~/js/Login/fb_login.js"></script>
+	<script src="~/js/Login/loginVue.js"></script>
+	<script src="~/js/Login/login.js"></script>
+
+
+}
+	@section endJS{
+	@*活動Modal*@
+	<script >
+
+
+
+		$(window).on('load', function () {
+			
+			if($.cookie('checkModal') != 'false'){
+				$('#eventModal').modal('show');
+			}else{
+				$('#eventModal').modal('hide');
+			}
+			
+			$('#noShowAgainCheckbox').click(function(){
+				if($(this).is(':checked')){
+					$('#close-btn').click(function () {
+						$.cookie('checkModal', false)
+					})
+				}
+			})
+			
+		});
+		//function defaultShow() {
+		//		$('#eventModal').modal('show');
+		//	}
+
+
+	</script>
+
+	<script type="text/javascript">
+
+		const userId = @userId
+						const searchCondition = true
+		const dataObj = JSON.parse('@Html.Raw(vueData)')
+		let locGroup = []
+		let searchData = {
+			location: '',
+			guest: {
+				adult: 1,
+				child: 0,
+				baby: 0
+			}
+		}
+		locGroup = JSON.parse('@Html.Raw(Json.Serialize(modelLoc))')
+		const vm = new Vue({
+			el: "#halloween",
+			data: {
+				show: true
+			}
+		})
+	</script>
+
+	@*LINE*@
+	<script>
+		const btn = document.querySelector('.LineBtn')
+		btn.addEventListener("click", function () {
+			Auth()
+		})
+		function Auth() {
+			console.log('test')
+			var URL = 'https://access.line.me/oauth2/v2.1/authorize?';
+			URL += 'response_type=code';
+			// client_id
+			URL += '&client_id=1657572565';
+			// callback url
+			URL += '&redirect_uri=https://airdnd-frontend.azurewebsites.net/Login/Callback'; 
+			URL += '&scope=openid%20profile%20email';
+			URL += '&state=abcde';
+			//導引到LineLogin
+			window.location.href = URL;
+		}
+	</script>
+
+	<script src="~/js/Common/SearchBar.js"></script>
+	<script src="~/js/Home/FilterVue.js"></script>
+	<script src="~/js/Home/map.js"></script>
+
+}

@@ -1,0 +1,52 @@
+header {
+    margin-bottom: 40px;
+}
+
+.container {
+    padding-left: 24px;
+    padding-right: 24px;
+    max-width: 1032px;
+}
+
+.guide > a,
+.guide > i,
+.guide > p {
+    color: black;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+.guide > i {
+    margin-top: 4px;
+}
+
+.guide-title h1 {
+    font-size: 32px;
+    font-weight: bolder;
+}
+
+img .else {
+    width: 50px;
+    margin-bottom: 1em;
+}
+
+h3 {
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+p,
+span {
+    color: rgb(119, 119, 119);
+}
+@media screen and (max-width: 768px) {
+    .presentation {
+        display: none;
+    }
+
+    .info-container {
+        width: 100vw;
+    }
+}

@@ -1,0 +1,325 @@
+﻿@model Airbnb.ViewModel.UserAccountPageViewModel
+
+
+@section topCSS{
+    <link rel="stylesheet" href="~/css/Login/Login.css">
+    <link rel="stylesheet" href="~/css/UserAccountPage/UserAccountPage.css" />
+}
+@section linkJS{
+    <script src="~/js/login/login.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+}
+
+@section header{
+    @if (User.Identity.IsAuthenticated)
+    {
+        <partial name="_HeaderEmptyPartial" />
+    }
+    else
+    {
+        <partial name="_HeaderLoginSearchBarPartial " />
+    }
+}
+<div class="container main-content">
+    <div class="row phone-layer">
+        <div class="user-info">
+            <div class="img-box">
+                <div class="user-img">
+                        <img src="@Url.Content(Model.User.Image)" alt="">
+                </div>
+            </div>
+            <h1 class="user-name">
+                @Model.User.UserName
+            </h1>
+            <div class="connectProfile">
+                <a asp-controller="UserProfile" asp-action="UserProfileIndex">顯示個人資料</a>
+            </div>
+        </div>
+        <div class="about-account">
+            <a href="/personal-info" class="toProfile">
+                <div class="icon-box">
+                    <i class="fa-regular fa-circle-user"></i>
+                </div>
+                <div class="connectProfile">
+                    <span>
+                        個人資料
+                    </span>
+                </div>
+                <div class="arrowRight">
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+            </a>
+            <a href="#" class="toAccount">
+                <div class="icon-box">
+                    <i class="fa-solid fa-gear"></i>
+                </div>
+                <div class="connextAccount">
+                    <span>
+                        帳號
+                    </span>
+                </div>
+                <div class="arrowRight">
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+            </a>
+        </div>
+        <div class="rent">
+            <h2>出租</h2>
+                <a href="/ManagingRoom" class="controllRoom">
+                <div class="icon-box">
+                    <i class="fa-solid fa-toggle-off"></i>
+                </div>
+                <div class="connectRoom">
+                    <span>
+                        管理你的房源
+                    </span>
+                </div>
+                <div class="arrowRight">
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+            </a>
+            <a href="#" class="heldParty">
+                <div class="icon-box">
+                    <i class="fa-solid fa-border-all"></i>
+                </div>
+                <div class="connectParty">
+                    <span>
+                        舉辦體驗
+                    </span>
+                </div>
+                <div class="arrowRight">
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+            </a>
+        </div>
+        <div class="inviteFounder">
+            <h2>好友邀請和旅行基金</h2>
+            <a href="#">
+                <div class="icon-box">
+                    <i class="fa-solid fa-gift"></i>
+                </div>
+                <div class="recommend">
+                    <span>
+                        推薦新房東
+                    </span>
+                </div>
+                <div class="arrowRight">
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+            </a>
+        </div>
+        <div class="support">
+            <h2>支援</h2>
+            <a href="#" class="method">
+                <div class="icon-box">
+                    <i class="fa-brands fa-airbnb"></i>
+                </div>
+                <div class="getMethod">
+                    <span>
+                        使用Airbnb的方法
+                    </span>
+                </div>
+                <div class="arrowRight">
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+            </a>
+            <a href="#" class="getHelp">
+                <div class="icon-box">
+                    <i class="fa-regular fa-circle-question"></i>
+                </div>
+                <div class="helpContext">
+                    <span>
+                        取得方法
+                    </span>
+                </div>
+                <div class="arrowRight">
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+            </a>
+            <a href="#" class="connectTeams ">
+                <!-- <div class="wrapContext">
+                </div> -->
+                <div class="icon-box">
+                    <i class="fa-solid fa-headphones"></i>
+                </div>
+                <div class="connectContext">
+                    <span>
+                        聯絡鄰里支援團隊
+                    </span>
+                    <span class="more-info d-block col-12">若您所在地區對於住家分享有疑慮，請讓我們的團隊知道。</span>
+                </div>
+                <div class="arrowRight">
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+
+            </a>
+        </div>
+        <div class="bottom-info">
+            <div class="langAndMoney">
+                <div class="lang">
+                    <button>
+                        <i class="fa-solid fa-globe"></i>
+                        <span>
+                            繁體中文 (TW)
+                        </span>
+                    </button>
+                </div>
+                <div class="dollar">
+                    <button>
+                        <span>$</span>
+                        <span>TWD</span>
+                    </button>
+                </div>
+            </div>
+            <div class="logOutBtn">
+                <button>
+                    登出
+                </button>
+            </div>
+            <div class="privacy">
+                <a href="#">
+                    協助和支援&emsp;
+                </a>
+                <a href="#">
+                    &laquo;服務條款&raquo;&emsp;
+                </a>
+                <a href="#">
+                    &laquo;隱私權政策&raquo;
+                </a>
+            </div>
+            <div class="copyRight">
+                &copy; 2022 Airdnd,Inc. 版權所有
+            </div>
+        </div>
+    </div>
+    <div class="row desktop-row">
+        <div class="desktop-layer">
+            <div class="title">
+                <h1>帳號</h1>
+                <div class="user-info">
+                    <div class="user-Profile">
+                        <span class="Name">@Model.User.UserName , </span>
+                        <span class="userMail">
+                            @Model.User.UserEmail
+                        </span>
+                        <span>&middot;&ensp;</span>
+
+                    </div>
+                    <div class="connectProfile">
+                        <a asp-controller="UserProfile" asp-action="UserProfileIndex">顯示個人資料</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 editProfile">
+                        <a href="/personal-info">
+                        <div class="icon-box">
+                            <i class="fa-regular fa-address-card"></i>
+                        </div>
+                        <div class="editProfile-context">
+                            <span>個人資料</span>
+                            <span>提供個人資料和連絡方式</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-4 security">
+                    <a href="/login-and-security">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div class="security-context">
+                            <span>登入與安全</span>
+                            <span>更新密碼以確保帳號安全</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-4 payment">
+                    <a href="#">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-money-check-dollar"></i>
+                        </div>
+                        <div class="payment-context">
+                            <span>付款與收款</span>
+                            <span>查看付款、收款、優惠券、禮物卡和稅費</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-4 notification">
+                    <a href="#">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </div>
+                        <div class="notification-context">
+                            <span>通知</span>
+                            <span>選擇通知設定和你偏好的聯絡方式</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-4 privacy">
+                    <a href="#">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <div class="privacy-context">
+                            <span>隱私與分享</span>
+                            <span>管理以連結的應用程式、你分享的內容以及其他人的訪問權限</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-4 prefer">
+                    <a href="#">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-sliders"></i>
+                        </div>
+                        <div class="prefer-context">
+                            <span>全域偏好設定</span>
+                            <span>設定預設的語言、幣別和時區</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-4 addBusinessAddress">
+                    <a href="#">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-plane-arrival"></i>
+                        </div>
+                        <div class="addBusinessAddress-context">
+                            <span>差旅</span>
+                            <span>新增工作電子郵件、即可享受商務差旅福利</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-4 rentTool">
+                    <a href="#">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-chart-simple"></i>
+                        </div>
+                        <div class="rentTool-context">
+                            <span>專業出租工具</span>
+                            <span>如果你在Airdnd上管理多間房源，可以使用專業工具</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-4 coupon">
+                    <a href="#">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-gift"></i>
+                        </div>
+                        <div class="coupon-context">
+                            <span>邀請好友旅行基金和優惠券</span>
+                            <span>你有 $0 TWD 的邀請好友旅行基金和優惠券可供使用。了解詳情。</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-12 stopAccount">
+                    <span>想要停用你的帳號嗎?</span>
+                    <a href="#">立即處理</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section footer{
+    <partial name="_FooterDefaultPartial" />
+}

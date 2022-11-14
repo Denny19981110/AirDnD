@@ -1,0 +1,101 @@
+﻿@{
+	ViewData["Title"] = "房源管理後台";
+}
+
+
+<div id="listings" style="height: 100%;" class="container d-flex flex-column">
+	<b-skeleton-wrapper :loading="loading">
+		<!--input skeleton-->
+		<template #loading class="mb-3">
+			<b-skeleton #loading type="input"
+						animation="throb"
+						width="30%"></b-skeleton>
+		</template>
+		<b-form-input type="search" class=" col-4 form-control text-center mb-3" v-model="filter" placeholder="請輸入房東、房名或地區" debounce="300"></b-form-input>
+
+	</b-skeleton-wrapper>
+
+	<div class="card mb-4">
+		<b-skeleton-wrapper :loading="loading">
+			<!--Table skeleton-->
+			<template #loading>
+				<b-skeleton-table :rows="9"
+								  :columns="9"
+								  :table-props="{ bordered: false, striped: true }"
+								  responsive="true"
+								  animation="throb">
+				</b-skeleton-table>
+			</template>
+			<b-table id="table"
+					 hover
+					 :items="listingItems"
+					 striped
+					 :fields="fields"
+					 label-sort-asc=""
+					 label-sort-desc=""
+					 label-sort-clear=""
+					 sort-icon-left
+					 :filter="filter"
+					 filter-debounce="300"
+					 :current-page="currentPage"
+					 :per-page="perPage"
+					 :filter-included-fields=" filterOn"
+					 bordered
+					 responsive="true"
+					 v-on:filtered="onFiltered">
+				<!--按鈕-->
+				<template #cell(detail)="row">
+					<button class="btn btn-secondary" v-on:click="row.toggleDetails">詳細</button>
+				</template>
+				<template #cell(update)="row">
+					<button class="btn btn-danger" v-on:click="changeStatus(row.item)"
+							v-if="row.item.status==isLaunch">
+						下架
+					</button>
+					<button class="btn btn-info" v-on:click="changeStatus(row.item)"
+							v-if="row.item.status!=isLaunch">
+						上架
+					</button>
+					<!--Main-->
+				</template>
+				<template #row-details="row">
+					<b-card>
+						<ul>
+							<li v-for="(item,key) in row.item " :key="key" v-if="key!='_showDetails'">{{ key | mappingFilter}}： {{ item }}</li>
+							
+						</ul>
+					</b-card>
+				</template>
+
+			</b-table>
+
+		</b-skeleton-wrapper>
+		<!-- 分頁功能 -->
+		<div class="mt-3">
+			<b-pagination v-model="currentPage" :total-rows="totalRows" align="center" :per-page="perPage" aria-controls="my-table"
+						  limit2>
+			</b-pagination>
+		</div>
+	</div>
+</div>
+
+@section endJS{
+	<script src="~/js/Listing/ListingManage.js"></script>
+}
+	@section topCSS{
+
+	<style>
+		[v-cloak] {
+			display: none;
+		}
+
+		.card td {
+			color: #212529;
+		}
+
+		.b-skeleton-text {
+			height: 2rem;
+		}
+	</style>
+
+}

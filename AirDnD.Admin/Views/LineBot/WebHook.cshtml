@@ -1,0 +1,145 @@
+﻿<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="message-tab" data-bs-toggle="tab" data-bs-target="#pureMessage"
+            type="button" role="tab" aria-controls="message" aria-selected="true">發送文字</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
+            role="tab" aria-controls="profile" aria-selected="false">發送貼圖</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button"
+            role="tab" aria-controls="contact" aria-selected="false">製作Template</button>
+    </li>
+</ul>
+
+<form asp-action="SendMessage" method="post">
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="pureMessage" role="tabpanel" aria-labelledby="message-tab">
+            <input type="text" class="messageInput" name="Message" placeholder="請輸入文字">
+            <button class="btn btn-primary submitBtn">送出</button>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                            aria-controls="panelsStayOpen-collapseOne">
+                            選單一
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                        aria-labelledby="panelsStayOpen-headingOne">
+                        <div class="accordion-body">
+                            <div class="roomIdInput">
+                                <label for="roomID">輸入房間名稱</label>
+                                <input type="text" id="roomID" name="roomName">
+                            </div>
+                            <div class="titleInput">
+                                <label for="cardTitle">輸入標題</label>
+                                <input type="text" id="cardTitle" name="title">
+                            </div>
+                            <div class="textInput">
+                                <label for="cardText">輸入內文</label>
+                                <input type="text" id="cardText" name="text">
+                            </div>
+                            @* <div class="UrlInput">
+                                <label for="cardUrl">房源網址</label>
+                                <input type="text" id="cardUrl" name="Url">
+                            </div> *@
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                            aria-controls="panelsStayOpen-collapseTwo">
+                            選單二
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                        aria-labelledby="panelsStayOpen-headingTwo">
+                        <div class="accordion-body">
+                            <div class="roomIdInput">
+                                <label for="roomID">輸入房間名稱</label>
+                                <input type="text" id="roomID" name="roomName">
+                            </div>
+                            <div class="titleInput">
+                                <label for="cardTitle">輸入標題</label>
+                                <input type="text" id="cardTitle" name="title">
+                            </div>
+                            <div class="textInput">
+                                <label for="cardText">輸入內文</label>
+                                <input type="text" id="cardText" name="text">
+                            </div>
+                            @* <div class="UrlInput">
+                                <label for="cardUrl">房源網址</label>
+                                <input type="text" id="cardUrl" name="Url">
+                            </div> *@
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                            aria-controls="panelsStayOpen-collapseThree">
+                            選單三
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                        aria-labelledby="panelsStayOpen-headingThree">
+                        <div class="accordion-body">
+                            <div class="roomIdInput">
+                                <label for="roomID">輸入房間名稱</label>
+                                <input type="text" id="roomID" name="roomName">
+                            </div>
+                            <div class="titleInput">
+                                <label for="cardTitle">輸入標題</label>
+                                <input type="text" id="cardTitle" name="title">
+                            </div>
+                            <div class="textInput">
+                                <label for="cardText">輸入內文</label>
+                                <input type="text" id="cardText" name="text">
+                            </div>
+                            @* <div class="UrlInput">
+                                <label for="cardUrl">房源網址</label>
+                                <input type="text" id="cardUrl" name="Url">
+                            </div> *@
+                        </div>
+                    </div>
+                </div>
+                <div class="submitarea">
+                    <button class="btn btn-primary">送出</button>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">.sadasdasda.</div>
+    </div>
+</form>
+
+
+
+@section endJS{
+<script>
+    let subBtn = document.querySelectorAll('.submitBtn')
+    let Url = '/api/LineApi/SendMessage'
+        //subBtn.forEach((btn)=>{
+        //    btn.addEventListener('click',function(){
+        //        axios.post(Url,{
+        //            .then((result) => {
+        //                console.log('success')
+        //                window.location.href = 'WebHook'
+        //            }).catch((err) => {
+        //                console.log('error')
+        //                alert('失敗!!')
+        //            });
+        //        })
+        //    })
+        //})
+
+</script>
+}

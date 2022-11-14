@@ -1,0 +1,118 @@
+
+h1,h2,h3,h4,h5,h6,p
+span,tt,td,a{
+    font-family: 'Noto Serif TC', serif;
+    text-decoration: none;
+    color: black;
+}
+
+.border{
+    border: 1px solid  #dee2e6 ;
+    border-radius: 15px;
+}
+
+.main-box{
+    justify-content:space-between;
+    display: flex;
+    margin-top: 3rem;
+    flex-direction: row-reverse;
+    max-width: 1200px;
+}
+
+.order-detail-info{
+    margin-top: 3rem;
+    width: 50%;
+    height: 100%;
+}
+
+.info{
+    margin-top: 20rem;
+}
+.info-item-group{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+.info-item-group h5{
+    font-size: 15px;
+}
+.info-item-group p{
+    font-size: 13px;
+}
+/* -------- sticky start -------- */
+.order-info{
+    width: 40%;
+    margin-left: 45px;
+    position: sticky;
+    height: 100%;
+    top:4rem;
+    padding: 1rem;
+}
+
+.oi-card{
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+.oi-card .oic-text h5{
+    margin-top: 1rem;
+}
+.oic-text span{
+    font-size: 15px;
+}
+.oi-card .oic-pic{
+    width: 100% ;
+}
+.oi-card .oic-pic img{
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}
+.oi-card .oic-text{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+}
+.oi-card .oic-text p{
+    margin-bottom: 0;
+}
+.oi-card .oic-date{
+    display: flex;
+    align-items: center;
+}
+.oi-card .oic-rating p{
+    margin-bottom: 0;
+    margin-left: 0.5rem;
+}
+
+.oi-text{
+    display: flex;
+    padding:1.5rem 0;
+    border-top: 1px solid #dee2e6;
+    justify-content: space-between;
+}
+
+
+@media screen and (max-width: 768px){
+    .main-box{
+        display: block;
+    }
+    .order-detail-info{
+        width: 100%;
+    }
+    .order-info{
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 3rem;
+        position: relative;
+        top: 0;
+    }
+}
+/* -------- sticky end -------- */
+
+
+
+
+
+
+
+

@@ -1,0 +1,537 @@
+﻿@using Microsoft.Extensions.Configuration
+@model Airdnd.Web.ViewModels.RoomSourceViewModel
+@inject Airdnd.Web.Services.RoomSourceService crs
+@inject IConfiguration configuration
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "CreateRoomSource";
+    var id = ViewBag.id;
+    var propGroups = Model.PropertyGroup.Select(x => new
+    {
+        x.PropertyGroupId,
+        x.PropertyGroupName,
+        x.PropertyGroupImgUrl,
+        TypeList = crs.GetPropertyTypes(x.PropertyGroupId).ToList()
+    });
+}
+
+
+<form method="post" asp-action="CreateRoom" class="h-100" enctype="multipart/form-data"
+    onkeydown="return event.key != 'Enter'">
+    <div class="container1 ">
+        <div class="row">
+            <div class="question col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <h1>你想出租哪種類型的房源?</h1>
+            </div>
+            <div class="options col-12 col-md-6 d-flex flex-column justify-content-between">
+                <div class="top d-flex justify-content-evenly align-items-center">
+                    <a href="#">協助</a>
+                    <a asp-controller="Seller" asp-action="Index">退出</a>
+                </div>
+                <div id="group-area" class="content d-flex flex-column align-items-center mx-auto"></div>
+                <div class="buttom d-flex justify-content-evenly align-items-center">
+                    <a asp-controller="RoomSource" asp-action="Index">返回</a>
+                    <button type="button" class="next fail" disabled="disabled">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container2 d-none">
+        <div class="row">
+            <div class="question col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <h1>下列哪項最能確切描述你的房源？</h1>
+            </div>
+            <div class="options col-12 col-md-6 d-flex flex-column justify-content-between">
+                <div class="top d-flex justify-content-evenly align-items-center">
+                    <a href="#">協助</a>
+                    <a asp-controller="Seller" asp-action="Index">退出</a>
+                </div>
+                <div id="type-area" class="content d-flex flex-column  align-items-center mx-auto">
+                    @foreach (var item in Model.PropertyType)
+                    {
+                        if (item.PropertyGroupId == 1)
+                        {
+                            <input type="radio" class="d-none" id="type-@item.PropertyTypeId" name="PropertyTypeID"
+                        value="@item.PropertyTypeId">
+                            <label for="type-@item.PropertyTypeId" class="item-btn d-flex flex-column p-3 my-3">
+                                <p style="font-family:Noto Serif TC;">@item.PropertyTitle</p>
+                                <span style="font-family:Noto Serif TC;">@item.PropertyContent</span>
+                            </label>
+                        }
+                    }
+                </div>
+                <div class="buttom d-flex justify-content-evenly align-items-center">
+                    <button type="button" class="return">返回</button>
+                    <button type="button" class="next fail" disabled="disabled">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container3 d-none">
+        <div class="row">
+            <div class="question col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <h1>房客會入住哪種空間？</h1>
+            </div>
+            <div class="options col-12 col-md-6 d-flex flex-column justify-content-between">
+                <div class="top d-flex justify-content-evenly align-items-center">
+                    <a href="#">協助</a>
+                    <a asp-controller="Seller" asp-action="Index">退出</a>
+                </div>
+                <div class="content d-flex flex-column align-items-center mx-auto">
+                    @foreach (var item in Model.PrivacyType)
+                    {
+                        <input type="radio" class="d-none" name="PrivacyTypeID" id="privacy-@item.PrivacyTypeId"
+                        value="@item.PrivacyTypeId">
+                        <label for="privacy-@item.PrivacyTypeId" class="item-btn d-flex p-3 my-3">
+                            <p style="font-family:Noto Serif TC;">@item.PrivacyTypeName</p>
+                        </label>
+                    }
+                </div>
+                <div class="buttom d-flex justify-content-evenly align-items-center">
+                    <button type="button" class="return">返回</button>
+                    <button type="button" class="next fail" disabled="disabled">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container4 d-none">
+        <div class="row">
+            <div class="question col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
+                <h1>房源的位置在哪裡？</h1>
+                <h3 class="text-danger d-none warn">請輸入有效地址!!</h3>
+            </div>
+            <div class="options col-12 col-md-6 d-flex flex-column justify-content-between">
+                <div class="top d-flex justify-content-evenly align-items-center">
+                    <a href="#">協助</a>
+                    <a asp-controller="Seller" asp-action="Index">儲存並退出</a>
+                </div>
+                <div class="content">
+                    <div id="map" class="w-100 h-100"></div>
+                    <div class="search">
+                        <input type="text" name="Address" placeholder="輸入地址" class="addressInput">
+                        <input type="text" value="a" style="display:none;" />
+                        <button class="addressSubmit" type="button">確定</button>
+                    </div>
+                </div>
+                <div class="buttom d-flex justify-content-evenly align-items-center">
+                    <button type="button" class="return">返回</button>
+                    <button type="button" class="next fail" disabled="disabled">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container5 d-none">
+        <div class="row">
+            <div class="question col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <h1>你打算接待幾位房客？</h1>
+            </div>
+            <div class="options col-12 col-md-6 d-flex flex-column justify-content-between">
+                <div class="top d-flex justify-content-evenly align-items-center">
+                    <a href="#">協助</a>
+                    <a asp-controller="Seller" asp-action="Index">退出</a>
+                </div>
+                <div class="content d-flex flex-column justify-content-evenly align-items-center mx-auto">
+                    <div class="item d-flex justify-content-between w-100">
+                        <div>訂房人數</div>
+                        <div class="count">
+                            <span><i class="fa-solid fa-minus"></i></span>
+                            <input type="number" value=4 name="People" oninput="checkQuantity(this)">
+                            <span><i class="fa-solid fa-plus"></i></span>
+                        </div>
+                    </div>
+                    <div class="item d-flex justify-content-between w-100">
+                        <div>床位</div>
+                        <div class="count">
+                            <span><i class="fa-solid fa-minus"></i></span>
+                            <input type="number" value=1 name="Bed" oninput="checkQuantity(this)">
+                            <span><i class="fa-solid fa-plus"></i></span>
+                        </div>
+                    </div>
+                    <div class="item d-flex justify-content-between w-100">
+                        <div>臥室</div>
+                        <div class="count">
+                            <span><i class="fa-solid fa-minus"></i></span>
+                            <input type="number" value=1 name="Bedroom" oninput="checkQuantity(this)">
+                            <span><i class="fa-solid fa-plus"></i></span>
+                        </div>
+                    </div>
+                    <div class="item d-flex justify-content-between w-100">
+                        <div>衛浴</div>
+                        <div class="count">
+                            <span><i class="fa-solid fa-minus"></i></span>
+                            <input type="number" value=1 name="Bathroom" oninput="checkQuantity(this)">
+                            <span><i class="fa-solid fa-plus"></i></span>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column w-100">
+                        <span>有任何房客專用的浴室嗎？</span>
+                        <label for="true"><span>有</span><input type="radio" name="InsideBathroom" id="true"
+                                value="ture"></label>
+                        <label for="false"><span>沒有，浴室都是共用的</span><input type="radio" name="InsideBathroom" id="false"
+                                value="false"></label>
+                    </div>
+                </div>
+                <div class="buttom d-flex justify-content-evenly align-items-center">
+                    <button type="button" class="return">返回</button>
+                    <button type="button" class="next fail" disabled="disabled">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container6 d-none">
+        <div class="row">
+            <div class="question col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <h1>下列哪項最能確切描述你的房源？</h1>
+            </div>
+            <div class="options col-12 col-md-6 d-flex flex-column justify-content-between">
+                <div class="top d-flex justify-content-evenly align-items-center">
+                    <a href="#">協助</a>
+                    <a asp-controller="Seller" asp-action="Index">退出</a>
+                </div>
+                <div class="content d-flex flex-column align-items-center mx-auto ">
+
+                    @foreach (var type in Model.Service)
+                    {
+                        <h2 class="mt-5">@type.ServiceTypeName</h2>
+                        <div class="row justify-content-between w-100 mb-5">
+                            @foreach (var item in type.ServiceItems)
+                            {
+                                <input type="checkbox" class="d-none" id="service-checkbox-@item.ServiceId" name="Services"
+                            value="@item.ServiceId">
+                                <label for="service-checkbox-@item.ServiceId"
+                            class="item d-flex flex-column p-3 my-3 col-5 col-md-3">
+                                    <span class="material-icons material-symbols-outlined">@item.ServiceIconPath</span>
+                                    <p>@item.Service</p>
+                                </label>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="buttom d-flex justify-content-evenly align-items-center">
+                    <button type="button" class="return">返回</button>
+                    <button type="button" class="next fail" disabled="disabled">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container7 d-none">
+        <div class="row">
+            <div class="question col-12 col-md-6 d-flex d-flex flex-column justify-content-center align-items-center">
+                <h1>接下來，請為房源新增幾張相片</h1>
+            </div>
+            <div class="options col-12 col-md-6 d-flex flex-column justify-content-between">
+                <div class="top d-flex justify-content-evenly align-items-center">
+                    <a href="#">協助</a>
+                    <a asp-controller="Seller" asp-action="Index">退出</a>
+                </div>
+                <div class="content d-flex flex-column align-items-center mx-auto">
+                    @* <input type="file" accept="image/*" id="update-photo-input" name="File" multiple
+                        onchange="fileCount(event)" />
+                        <label for="update-photo-input" class="btn update-label mb-3">從電腦上傳檔案</label>
+                        <p class="warn text-danger">請上傳5張以上的相片</p>
+                        <div class="img-Group d-flex flex-wrap justify-content-between"></div>*@
+                    <div data-bs-spy="scroll" data-bs-target="#navbar-forRoom" data-bs-smooth-scroll="true"
+                        class="scrollspy-example-2 " tabindex="0">
+                    </div>
+                    <div id="aboutPic" class="w-100">
+                        <div class="editPhoto ">
+                            <div class="editPhoto-title">
+                                <h2 class="picH2">請上傳5張以上的相片</h2>
+                            </div>
+                            <span>拖放相片即可更改順序。</span>
+                        </div>
+                        <div class="container image-wraper">
+                            <div class="row w-100" id="gridDemo">
+                                <label class="col-12 col-md-6 col-lg-4 img-box grid-square" for="files">
+                                    <img src="https://www.chanchao.com.tw/digital/images/default.jpg" alt="">
+                                    <div class="spinner-border d-none" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </label>
+                                <input type="file" accept="image/*" id="files" class="d-none" multiple>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="buttom d-flex justify-content-evenly align-items-center">
+                    <button type="button" class="return">返回</button>
+                    <button type="button" class="next fail" disabled="disabled">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container8 d-none">
+        <div class="row">
+            <div class="question col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <h1>來為房源取名吧</h1>
+            </div>
+            <div class="options col-12 col-md-6 d-flex flex-column justify-content-between">
+                <div class="top d-flex justify-content-evenly align-items-center">
+                    <a href="#">協助</a>
+                    <a asp-controller="Seller" asp-action="Index">退出</a>
+                </div>
+                <div class="content d-flex flex-column justify-content-center  mx-auto">
+                    <h2>建立標題</h2>
+                    <p>標題應該要能展現房源的獨特之處。<a href="#">查看房源標題指南。</a></p>
+                    <textarea cols="50" rows="5" placeholder="Datong District的可愛露營車" name="RoomName"
+                        oninput="checkInput(this)"></textarea>
+
+                </div>
+                <div class="buttom d-flex justify-content-evenly align-items-center">
+                    <button type="button" class="return">返回</button>
+                    <button type="button" class="next fail" disabled="disabled">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container9 d-none">
+        <div class="row">
+            <div class="question col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <h1>請描述你的房源</h1>
+            </div>
+            <div class="options col-12 col-md-6 d-flex flex-column justify-content-between">
+                <div class="top d-flex justify-content-evenly align-items-center">
+                    <a href="#">協助</a>
+                    <a asp-controller="Seller" asp-action="Index">退出</a>
+                </div>
+                <div method="post" class="content d-flex flex-column justify-content-center align-items-center mx-auto">
+                    <h2>請選擇最符合房源的亮點</h2>
+                    <div class="button-group d-flex align-items-center flex-wrap">
+                        @foreach (var item in Model.HighLight)
+                        {
+                            <input type="radio" class="d-none" id="highLight-radio-@item.HighLightId" name="HighLightID"
+                            value="@item.HighLightId">
+                            <label for="highLight-radio-@item.HighLightId" class="item-btn d-flex p-3 my-3">
+                                <span class="material-icons material-symbols-outlined">@item.HighLightIconPath</span>
+                                <span>&ensp;&ensp;@item.HighLightName</span>
+                            </label>
+                        }
+                    </div>
+                </div>
+                <div class="buttom d-flex justify-content-evenly align-items-center">
+                    <button type="button" class="return">返回</button>
+                    <button type="button" class="next fail" disabled="disabled">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container10 d-none">
+        <div class="row">
+            <div class="question col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <h1>請描述你的房源</h1>
+            </div>
+            <div class="options col-12 col-md-6 d-flex flex-column justify-content-between">
+                <div class="top d-flex justify-content-evenly align-items-center">
+                    <a href="#">協助</a>
+                    <a asp-controller="Seller" asp-action="Index">退出</a>
+                </div>
+                <div method="post" class="content d-flex flex-column justify-content-center  mx-auto">
+                    <h2>撰寫房源描述</h2>
+                    <textarea cols="50" rows="5" name="Description" oninput="checkInput(this)"
+                        placeholder="這片鄉間景觀散發出的靜謐氛圍將讓你久久無法忘懷。"></textarea>
+
+                </div>
+                <div class="buttom d-flex justify-content-evenly align-items-center">
+                    <button type="button" class="return">返回</button>
+                    <button type="button" class="next fail" disabled="disabled">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container11 d-none">
+        <div class="row">
+            <div class="question col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <h1>有趣的部分來了！現在請設定價格</h1>
+            </div>
+            <div class="options col-12 col-md-6 d-flex flex-column justify-content-between">
+                <div class="top d-flex justify-content-evenly align-items-center">
+                    <a href="#">協助</a>
+                    <a asp-controller="Seller" asp-action="Index">退出</a>
+                </div>
+                <div class="content d-flex flex-column justify-content-center mx-auto">
+                    <div class="set-price d-flex mt-1">
+                        <span><i class="fa-solid fa-circle-minus"></i></span>
+                        <div class="price"><input type="number" value=100 class="text-center" name="Price"
+                                oninput="checkPrice(this)"></div>
+                        <span><i class="fa-solid fa-circle-plus"></i></span>
+                    </div>
+                    <p class="text-center">每晚$</p>
+                    <p class="warn text-danger text-center d-none"><i class="fa-solid fa-circle-exclamation"></i>請輸入介於
+                        $100 和
+                        $99,999 之間的基本價格。</p>
+                    <p>請留意，與你的房源類似的住宿，價格通常落在 $100 至 $99,999 之間。<a href="#"><i
+                                class="fa-regular fa-circle-question"></i></a></p>
+                    <div class="sale"><label for="check">向前 3 位房客提供 20% 折扣，有助你更快獲得預訂。<a href="#">了解詳情</a></label> <input
+                            type="checkbox" id="check"></div>
+                </div>
+                <div class="buttom d-flex justify-content-evenly align-items-center">
+                    <button type="button" class="return">返回</button>
+                    <button type="button" class="next">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container12 d-none">
+        <div class="row">
+            <div class="question col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <h1>最後幾個問題…</h1>
+            </div>
+            <div class="options col-12 col-md-6 d-flex flex-column justify-content-between">
+                <div class="top d-flex justify-content-evenly align-items-center">
+                    <a href="#">協助</a>
+                    <a asp-controller="Seller" asp-action="Index">退出</a>
+                </div>
+                <div class="content d-flex flex-column justify-content-center mx-auto">
+                    <section>
+                        <h2>你的房源內有這些東西嗎？<a href="#"><i class="fa-regular fa-circle-question"></i></a></h2>
+                        @foreach (var item in Model.Legal)
+                        {
+                            <div class="d-flex justify-content-between">
+                                <label for="check-@item.LegalId">@item.LegalName</label>
+                                <input type="checkbox" id="check-@item.LegalId" name="Legals" value="@item.LegalId">
+                            </div>
+                        }
+                    </section>
+                    <section>
+                        <h2>幾項重要的注意事項</h2>
+                        <p>請務必遵守<a href="#">當地法律</a> ，並查看 Airbnb 的<a href="#">《反歧視政策》</a> 和 <a href="#">房客與房東的服務費規定</a>
+                            。請在發布房源後更新你的<a href="#">《退訂政策》</a> 。</p>
+                    </section>
+                </div>
+                <div class="buttom d-flex justify-content-evenly align-items-center">
+                    <button type="button" class="return">返回</button>
+                    <button type="button" class="next">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @*<div class="container13 d-none">
+        <div class="row">
+        <div class="question col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
+        <h1>來看看你的房源頁面吧！</h1>
+        <p>儲存後，我們會要求你確認幾項細節，之後即可發布房源。</p>
+        </div>
+        <div class="options col-12 col-md-6 d-flex flex-column justify-content-between">
+        <div class="top d-flex justify-content-evenly align-items-center">
+        <a href="#">協助</a>
+        <a asp-controller="Seller" asp-action="Index">退出</a>
+        </div>
+        <div class="content d-flex flex-column justify-content-center mx-auto">
+        <div class="wrap">
+        <div class="pic"></div>
+        <div class="fs-3 my-2 border-bottom">RoomName</div>
+        <div class="d-flex justify-content-between py-2 mb-2 border-bottom">
+        <div class="col-9">Angus出租的露營車／休旅車中的獨立房間</div>
+        <div class="user-pic col-3 d-flex"><img src=""></div>
+        </div>
+        <div class="my-3 border-bottom">
+        <p>4位, · 1間臥室, · 1張床, · 1間衛浴</p>
+        </div>
+        <div class="my-3 border-bottom">
+        <p>這片鄉間景觀散發出的靜謐氛圍將讓你久久無法忘懷。</p>
+        </div>
+        <div class="my-3">
+        <h3>設備與服務</h3>
+        <div class="d-flex justify-content-between mb-2 py-2 border-bottom"><span>一氧化碳警報器</span><i
+        class="fa-regular fa-bell"></i></div>
+        <div class="d-flex justify-content-between mb-2 py-2 border-bottom"><span>滅火器</span><i
+        class="fa-solid fa-fire-extinguisher"></i></div>
+        </div>
+        <div>
+        <h3>位址</h3>
+        <p>103台灣台北市大同區.......</p>
+        </div>
+        <div>
+        <p>根據 Airbnb 的<a href="#">《隱私權政策》</a> ，我們只會與預訂已確認的房客分享你的地址。</p>
+        </div>
+        </div>
+        </div>
+        <div class="buttom d-flex justify-content-evenly align-items-center">
+        <button type="button" class="return">返回</button>
+        <button type="button" class="next">下一步</button>
+        </div>
+        </div>
+        </div>
+        </div>*@
+
+    <div class="container13 d-none">
+        <div class="row">
+            <div class="question col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <img src="https://res.cloudinary.com/dziprrwvg/image/upload/v1667197794/Host_Premiere_Event_PostEvent_Hero1_yhpfmu.png"
+                    alt="">
+                <div class="name">
+                    <div class="pic"> <img
+                            src="https://a0.muscache.com/pictures/03077a3c-d04f-4136-999f-9b579772597d.jpg"></div>
+                    <h1>Airbnb 執行長 Brian Chesky</h1>
+                </div>
+            </div>
+            <div class="options col-12 col-md-6 d-flex flex-column justify-content-between">
+                <div class="top d-flex justify-content-end p-5 align-items-center">
+
+                </div>
+                <div class="content d-flex flex-column justify-content-center align-items-center mx-auto">
+                    <h2> @Model.UserName ，歡迎！</h2>
+                    <p>房東是 Airbnb 服務的核心，我們很期待伴你一起體驗出租的神奇魅力。</p>
+                    <p>- Brian</p>
+                </div>
+                <div class="buttom d-flex p-5 align-items-center">
+                    <button type="submit">發佈房源</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section topCSS{
+<link rel="stylesheet" href="~/css/CreateRoomSource/CreateRoomSource.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+}
+@section linkJS {
+<script>
+    let propGroups = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(propGroups))
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.min.js"></script>
+<!-- CDNJS :: Sortable (https://cdnjs.com/) -->
+<script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+<!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+
+<script src="~/js/CreateRoomSource/CreateRoomSource.js"></script>
+<script src="~/js/CreateRoomSource/GoogleMapApi.js"></script>
+<script src="~/js/CreateRoomSource/AddRoomPhoto.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+}
+@section endJS{
+<script async defer
+    src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBd5EsGBayJYRNyfen3rE-A6bfZqDukg2M&callback=initMap'>
+    </script>
+}

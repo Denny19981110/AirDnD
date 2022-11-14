@@ -1,0 +1,394 @@
+@charset "UTF-8";
+.bg-linear {
+  background-image: linear-gradient(to right, #E61E4D 0%, #E31C5F 50%, #D70466 100%);
+}
+
+header {
+  margin-bottom: 40px;
+}
+
+footer {
+  margin-top: 40px;
+}
+
+h1, h2, h3, h4, h5, h6, p span,
+tt, td, a {
+  font-family: "Noto Serif TC", serif;
+}
+
+a {
+  display: block;
+  text-decoration: none;
+  color: #000;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: bottom;
+}
+
+header {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+header ul {
+  margin-bottom: 0;
+  padding-left: 0;
+}
+header a:hover {
+  color: #000;
+}
+
+.header-wrap {
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .menu > li + li {
+  margin-left: 16px;
+}
+
+header .logo-wrap {
+  width: 33.3333%;
+}
+header .logo-wrap .logo {
+  width: 100px;
+}
+
+header .toggle-bar {
+  display: none;
+}
+
+header .toggle-menu {
+  width: 66.6666%;
+}
+
+header .menu > li:hover {
+  background-color: #ddd;
+}
+
+header .main,
+header .menu li {
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+header .dropdownbox {
+  position: relative;
+  box-sizing: border-box;
+}
+header .dropdownbox:hover ul {
+  display: block;
+}
+
+header .dropdownbox ul {
+  border-radius: 12px;
+  box-sizing: border-box;
+  display: none;
+  position: absolute;
+  z-index: 99;
+  background-color: #fff;
+  border: 1px solid #000;
+  top: 100%;
+  right: 0;
+  width: 200px;
+}
+
+header .dropdownbox ul > li {
+  padding: 16px;
+}
+
+header .dropdownbox ul > li:hover {
+  background-color: #ddd;
+}
+
+@media screen and (max-width: 768px) {
+  .toggle-menu {
+    display: none;
+  }
+  .toggle-menu-active {
+    display: block;
+  }
+  .header-wrap {
+    position: relative;
+  }
+  header .toggle-bar {
+    display: block;
+  }
+  header .toggle-menu {
+    background-color: #fff;
+    z-index: 99;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 100%;
+  }
+  header .dropdownbox {
+    position: static;
+  }
+  header .dropdownbox ul {
+    position: static;
+    width: 100%;
+  }
+  header .menu li + li {
+    margin-left: 0px;
+  }
+  header .menu > li:last-child:hover {
+    background-color: #fff;
+  }
+  header .dropdownbox ul {
+    border: none;
+  }
+  .aside2 li {
+    margin-left: 12px;
+  }
+}
+footer {
+  background-color: #f6f6f6;
+}
+
+.footer-top {
+  padding: 48px 0;
+  border-bottom: 1px dashed #888;
+}
+
+.footer-top p,
+.footer-bottom p {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+}
+
+.footer i {
+  font-size: 14px;
+}
+
+.footer-top a {
+  margin-top: 16px;
+}
+
+.footer-top a,
+.footer-bottom a {
+  font-size: 14px;
+  line-height: 20px;
+}
+.footer-top a:hover,
+.footer-bottom a:hover {
+  color: #888;
+}
+
+.footer-bottom {
+  padding: 48px 0;
+}
+.footer-bottom i {
+  margin-right: 8px;
+}
+
+.footer-bottom .bfa a::before {
+  content: "・";
+}
+
+.footer-bottom .social {
+  margin-left: 16px;
+}
+.footer-bottom .social i {
+  display: block;
+  font-size: 16px;
+}
+.footer-bottom .social i:last-child {
+  margin-right: 0;
+}
+
+@media screen and (max-width: 769px) {
+  .footer-top > div + div {
+    border-top: 1px dotted #888;
+    padding-top: 16px;
+  }
+  .footer-top {
+    padding: 48px 0 0;
+  }
+}
+html {
+  height: 100vh;
+}
+html body {
+  height: 100vh;
+}
+html body .row {
+  margin: 0;
+}
+html body .container1 .option {
+  padding: 0px 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: -40px;
+}
+html body .container1 .option select {
+  width: 180px;
+  align-self: flex-end;
+}
+html body .container1 .option .week {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  border-bottom: 1px #aaa solid;
+}
+html body .container1 .option .calendar {
+  overflow: auto;
+  height: 580px;
+}
+    html body .container1 .option .calendar h4{
+        display:inline;
+        pointer-events: none;
+    }
+    html body .container1 .option .calendar p {
+        margin:30px 0;
+        font-size: 20px;
+        font-weight: 600;
+        pointer-events: none;
+    }
+    html body .container1 .option .calendar .month{
+        margin-bottom: 100px;
+        opacity: 0;
+    }
+    html body .container1 .option .calendar .list {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+    }
+html body .container1 .option .calendar .list .date {
+  text-align: center;
+  border: 1px #000 solid;
+  height: 100px;
+  cursor: pointer;
+  font-weight: bold;
+}
+html body .container1 .option .calendar .list .fadeout {
+  color: #ddd;
+  background-color: rgba(136, 136, 136, 0.2);
+  cursor: no-drop;
+}
+
+html body .container1 .option .calendar .list .no-book {
+  color: #ddd;
+  background-color: rgba(136, 136, 136, 0.2);
+}
+html body .container1 .option .calendar .list .today {
+  background-color: #fff;
+  color: #f00;
+}
+html body .container1 .option .calendar::-webkit-scrollbar {
+  display: none;
+}
+    html body .container1 .function {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ddd;
+        padding: 50px 10px;
+        font-weight: 600;
+        margin-top: -40px;
+    }
+html body .container1 .function h2 {
+  margin-bottom: 50px;
+}
+html body .container1 .function .provide {
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: #aaa 1px solid;
+  padding: 30px 0;
+  margin-bottom: 30px;
+}
+html body .container1 .function .provide button {
+  margin: 0 10px;
+  border: none;
+  background-color: #fff;
+  font-size: 25px;
+}
+html body .container1 .function .provide button:nth-child(1):hover {
+  color: #d00;
+}
+html body .container1 .function .provide button:nth-child(2):hover {
+  color: #0b0;
+}
+html body .container1 .function .set-price {
+  display: flex;
+  flex-direction: column;
+  border-bottom: #aaa 1px solid;
+  padding: 30px 0;
+  margin-bottom: 30px;
+}
+html body .container1 .function .set-price span {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+html body .container1 .function .set-price input {
+  width: 50%;
+  margin-bottom: 20px;
+}
+html body .container1 .function .set-price input[type=number]::-webkit-outer-spin-button,
+html body .container1 .function .set-price input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+html body .container1 .function .set-price button {
+  width: 60px;
+  border-radius: 15px;
+  background-color: black;
+  color: #fff;
+  font-weight: 600;
+}
+html body .container1 .function .set-all-price {
+  display: flex;
+  flex-direction: column;
+  border-bottom: #aaa 1px solid;
+  padding: 30px 0;
+  margin-bottom: 30px;
+}
+html body .container1 .function .set-all-price span {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+html body .container1 .function .set-all-price input {
+  width: 50%;
+  margin-bottom: 20px;
+}
+html body .container1 .function .set-all-price input[type=number]::-webkit-outer-spin-button,
+html body .container1 .function .set-all-price input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+html body .container1 .function .set-all-price button {
+  width: 60px;
+  border-radius: 15px;
+  background-color: black;
+  color: #fff;
+  font-weight: 600;
+}
+html body .container1 .function .set-all-price button:hover {
+  background-color: #0b0;
+}
+html body .container1 .option .warn{
+  font-weight: bold;
+  text-align: center;
+  font-size: 40px;
+  margin-top: 200px;
+  color: rgb(221, 85, 91);
+}
+
+@media screen and (max-width: 768px) {
+  html body .container1 .option .calendar .list .date {
+    height: 70px;
+  }
+  html body .container1 .option .calendar p {
+    margin: 10px 0;
+    font-size: 12px;
+  }
+}/*# sourceMappingURL=Calendar.css.map */

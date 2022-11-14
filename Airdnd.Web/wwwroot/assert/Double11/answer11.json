@@ -1,0 +1,26 @@
+[
+    {
+      "Title": "你適合冒險旅遊Style",
+      "description": "你熱衷於追求挑戰，並享受於跨越這些難關的樂趣，再繼續尋找其他新冒險，因此最適合你住宿的房源類型就是屋內擺設充滿間諜風格的房源。",
+      "HouseImg": "/assert/Double11/001.jpeg",
+      "HouseLink": "/House/SPY×FAMILY間諜家家酒"
+    },
+    {
+      "Title": "你適合慵懶旅行Style",
+      "description": "你喜歡和大自然接觸，或許對於人際關係感到疲憊，所以選擇在一間能享受寵物陪伴及親近大自然的房源，會是你最好的選擇。",
+      "HouseImg": "/assert/Double11/001.jpeg",
+      "HouseLink": "/House/SPY×FAMILY間諜家家酒"
+    },
+    {
+      "Title": "你適合熱鬧旅行Style",
+      "description": "你很重視與他人的來往交流，不喜歡一個人孤孤單單的生活，選擇能與人合宿、親友環繞的熱鬧房源，絕對是正確的。",
+      "HouseImg": "/assert/Double11/001.jpeg",
+      "HouseLink": "/House/SPY×FAMILY間諜家家酒"
+    },
+    {
+      "Title": "你適合忙碌旅行Style",
+      "description": "你很熱愛工作，只要一閒下來就會覺得日子太平淡無聊，渾身不對勁，因此最適合你的旅行風格是屋內含有辦公空間，讓你在生活與工作間自由切換。",
+      "HouseImg": "/assert/Double11/001.jpeg",
+      "HouseLink": "/House/SPY×FAMILY間諜家家酒"
+    }
+]

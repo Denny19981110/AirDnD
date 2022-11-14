@@ -1,0 +1,128 @@
+header {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+
+    ul {
+        margin-bottom: 0;
+        padding-left: 0;
+    }
+
+    a:hover {
+        color: #000;
+    }
+}
+
+.header-wrap {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .menu {
+    &>li+li {
+        margin-left: 16px;
+    }
+}
+
+header .logo-wrap {
+    width: 33.3333%;
+    .logo{
+        width: 100px;   
+    }
+}
+
+header .toggle-bar {
+    display: none;
+}
+
+header .toggle-menu {
+    width:unset ;
+}
+
+header .menu>li:hover {
+    background-color: #ddd;
+}
+
+header .main,
+header .menu li {
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+header .dropdownbox {
+    position: relative;
+    box-sizing: border-box;
+    &:hover ul {
+        display: block;
+    }
+}
+
+header .dropdownbox ul {
+    border-radius: 12px;
+    box-sizing: border-box;
+    display: none;
+    position: absolute;
+    z-index: 99;
+    background-color: #fff;
+    border: 1px solid #000;
+    top: 100%;
+    right: 0;
+    width: 200px;
+}
+header .dropdownbox ul>li{
+    padding:16px;
+}
+header .dropdownbox ul>li:hover{
+    background-color: #ddd;
+}
+@media screen and(max-width: 768px) {
+    .toggle-menu{
+        display: none;
+    }
+    .toggle-menu-active{
+        display: block;
+    }
+    .header-wrap {
+        position: relative;
+    }
+
+    header .toggle-bar {
+        display: block;
+    }
+
+    header .toggle-menu {
+        background-color: #fff;
+        z-index: 99;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 100%;
+    }
+
+    header .dropdownbox {
+        position: static;
+    }
+    header .dropdownbox ul {
+        position: static;
+        width: 100%;
+    }
+    header .menu {
+        li+li {
+            margin-left: 0px;
+        }
+    }
+    header .menu>li:last-child:hover{
+        background-color: #fff;
+    }
+    header .dropdownbox ul{
+        border: none;
+    }
+    .aside2 li{
+        margin-left: 12px;
+    }
+}

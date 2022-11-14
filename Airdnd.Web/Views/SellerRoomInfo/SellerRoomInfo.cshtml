@@ -1,0 +1,486 @@
+﻿@*@{
+	ViewData["Title"] = "SellerRoomInfo";
+}*@
+@model Airdnd.Web.ViewModels.RoomInfoViewModel
+
+
+<div class="container">
+	<div class="col-12 info-header">
+		<div class=" title">
+			<h1>
+				@Model.RoomName
+			</h1>
+		</div>
+		<div class="preview-link">
+			<ul>
+				<li class="">
+					<a href="#">
+						<span><i class="fa-solid fa-circle"></i></span>
+						<span>已發布</span>
+					</a>
+				</li>
+				<li class="">
+					<a href="#">
+						<span><i class="fa-solid fa-bolt"></i></span>
+						<span>已開啟即時預定功能</span>
+					</a>
+				</li>
+				<li class="wrap-link">
+					<a href="#" class="previrwRoom">預覽房源</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12 col-md-4 left-bar">
+			<nav id="navbar-forRoom" class=" flex-column align-items-stretch pe-4 border-end">
+				<nav class="nav nav-pills flex-column side-bar">
+					<a class="nav-link type-link" href="#item-1">房源詳情</a>
+					<nav class="nav nav-pills flex-column detail-nav">
+						<a class="nav-link ms-3 my-1" href="#aboutPic">相片</a>
+						<a class="nav-link ms-3 my-1" href="#aboutRoom">房源基本資訊</a>
+						<a class="nav-link ms-3 my-1" href="#aboutEquip">設備與服務</a>
+						<a class="nav-link ms-3 my-1" href="#aboutLocat">位置</a>
+						<a class="nav-link ms-3 my-1" href="#aboutRoomStyle">房源與房型</a>
+						<a class="nav-link ms-3 my-1" href="#aboutService">無障礙設施與服務</a>
+						<a class="nav-link ms-3 my-1" href="#aboutSecurity">房客安全</a>
+					</nav>
+					<a class="nav-link type-link" href="#">價格和可訂狀態</a>
+					<a class="nav-link type-link" href="#">政策和規則</a>
+					<a class="nav-link type-link" href="#">房客資訊</a>
+					<a class="nav-link type-link" href="#">房東搭檔</a>
+				</nav>
+			</nav>
+		</div>
+		<div class="col-12 col-md-8 main-context">
+			<div data-bs-spy="scroll" data-bs-target="#navbar-forRoom" data-bs-smooth-scroll="true"
+				class="scrollspy-example-2 " tabindex="0">
+				<div id="item-1" class="steps">
+					<div class="steps-context">
+						<div class="next-steps">
+							<span>後續步驟</span>
+							<!-- <div class="swiper-btn-group">
+							</div> -->
+							<div class="swiper-button-next swiper-navBtn"></div>
+							<div class="swiper-button-prev swiper-navBtn"></div>
+						</div>
+						<div class="slide-container swiper col-12  service-group">
+							<div class="slide-content">
+								<div class="card-wrapper swiper-wrapper">
+									<div class="card swiper-slide">
+										<div class="card-header">
+											<div class="icon-box">
+												<i class="fa-solid fa-camera"></i>
+											</div>
+											<div class="close-btn">
+												<i class="fa-solid fa-xmark"></i>
+											</div>
+										</div>
+										<div class="card-content">
+											<span>捕捉房源最美的一面</span>
+											<span>讓我們為你安排你所在地區的專業攝影師，展現房源最美的一面，吸引更多旅客的目光。</span>
+											<button class="button">透過電子郵件取得報價</button>
+										</div>
+									</div>
+									<div class=" card swiper-slide">
+										<div class="card-header">
+											<div class="icon-box">
+												<i class="fa-regular fa-calendar"></i>
+											</div>
+											<div class="close-btn">
+												<i class="fa-solid fa-xmark"></i>
+											</div>
+										</div>
+										<div class="card-content">
+											<span>開始提供長期住宿</span>
+											<span>
+												我們最近留意到，有越來越多房客尋找離家不遠的週租和長期住宿。
+												不妨考慮更新設定，開始接受長租預訂，既能為社區盡份心力，又能賺取更多收入。
+											</span>
+											<button class="button">開始</button>
+										</div>
+									</div>
+									<div class=" card swiper-slide">
+										<div class="card-header">
+											<div class="icon-box">
+												<i class="fa-solid fa-pen-nib"></i>
+											</div>
+											<div class="close-btn">
+												<i class="fa-solid fa-xmark"></i>
+											</div>
+										</div>
+										<div class="card-content">
+											<span>房源是否有專屬工作空間？</span>
+											<span>
+												這指的是房客能坐在舒服的椅子上，在專屬的書桌或桌子上工作。
+											</span>
+											<button class="button">是</button>
+											<button class="button">否</button>
+										</div>
+									</div>
+									<div class=" card swiper-slide">
+										<div class="card-header">
+											<div class="icon-box">
+												<i class="fa-solid fa-charging-station"></i>
+											</div>
+											<div class="close-btn">
+												<i class="fa-solid fa-xmark"></i>
+											</div>
+										</div>
+										<div class="card-content">
+											<span>你的房源有電動車充電設備嗎?</span>
+											<button class="button">是</button>
+											<button class="button">否</button>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<!-- <div class="swiper-button-next swiper-navBtn"></div>
+								<div class="swiper-button-prev swiper-navBtn"></div> -->
+							<!-- <div class="swiper-pagination"></div> -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="aboutPic">
+				<div class="editPhoto ">
+					<div class="editPhoto-title">
+						<h2 class="picH2">相片</h2>
+						<button class="edit-btn">
+							<a asp-route="RoomImage/{id?}" asp-route-id="@Model.Id">編輯<i class="fa-solid fa-chevron-right"></i></a>
+							
+						</button>
+					</div>
+
+					<div class="slide-container swiper media-scroller">
+						<div class="slide-img-content">
+							<div class="card-wrapper swiper-wrapper">
+								@foreach(var item in Model.Photos){
+									<div class="card img-card swiper-slide ">
+										<img src="@Url.Content(item)" alt="">
+									</div>
+								}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="aboutRoom" class="little-section">
+				<div class="roomBesicInfo">
+					<h2>房源基本資訊</h2>
+					<div class="room-title" id="roomTitle">
+						<div class="room-name hasFlex">
+							<span>房源標題</span>
+							<button v-on:click="FormRoomNameDisplay" class="edit-btn">
+								編輯
+							</button>
+						</div>
+						<div class="context">
+							<span>@Model.RoomName</span>
+						</div>
+						<form method="post" asp-action="UpdateRoomInfo"  v-show="!roomNameDisplay" class="editRoomNameForm editForm">
+							<div class="roomNameEdit">
+								<input class="editInput" type="text" v-model="roomName" name="RoomName">
+							</div>
+							<input name="Id" type="number" class="d-none" value="@Model.Id" />
+							<div class="editRoomName-buttons button-Group">
+								<button type="button" class="cancel-button" v-on:click="FormRoomNameDisplay">取消</button>
+								<button class="saveRoomName save" v-on:click="updateRoomName">更新</button>
+							</div>
+						</form>
+					</div>
+					<div class="room-Description" id="roomDescription">
+						<div class="descrip-name hasFlex">
+							<span>房源描述</span>
+							<button v-on:click="FormRoomDesDisplay" class="edit-btn">
+								編輯
+							</button>
+						</div>
+						<div class="context">
+							<span>@Model.Description</span>
+						</div>
+						<form method="post" asp-action="UpdateRoomInfo" v-show="!roomDesccriptDisplay" class="editRoomDesForm editForm">
+							<div class="roomTypeEdit">
+								<input name="Id" type="number" class="d-none" value="@Model.Id" />
+								<textarea type="text" v-model="roomDesccript" class="editInput" cols="40" rows="5" name="RoomDescription"></textarea>
+							</div>
+							<div class="button-Group">
+								<button class="cancel-button" type="button" v-on:click="FormRoomDesDisplay">取消</button>
+								<button class="saveRoomDesbtn save" type="submit" v-on:click="updateDescript">更新</button>
+							</div>
+						</form>
+					</div>
+					<div class="rentPeople hasFlex" id="setPeople">
+						<div class="people-number">
+							<span>房客人數</span>
+						</div>
+						<form method="post" asp-action="UpdateRoomInfo" class="calcNumber hasFlex">
+							<div>
+								<input name="Id" type="number" class="d-none" value="@Model.Id" />
+								<!-- 分別在兩個按鈕上監聽、綁定方法 -->
+								<button type="submit" class="decrement" v-on:click="decrement"><i class="fa-solid fa-minus"></i></button>
+								<span class="countPeople">{{people}}</span>
+								<input type="number" min="0" max="10" step="1" name="PeopleCount" v-model="people" class="d-none"/>
+								<button type="submit" class="increment" v-on:click="increment"><i class="fa-solid fa-plus"></i></button>	   
+							</div>
+						</form>
+					</div>
+					<div class="editLink ">
+						<div class="link-title hasFlex">
+							<span>自訂連結</span>
+							<button class="edit-btn">
+								編輯
+							</button>
+						</div>
+						<div class="context">
+							<span>
+								airdnd.com/
+							</span>
+						</div>
+					</div>
+					<div class="lang ">
+						<div class="lang-title hasFlex">
+							<span>語言</span>
+							<button class="edit-btn">
+								編輯
+							</button>
+						</div>
+						<div class="context">
+							<span>中文(繁體)(預設)</span>
+						</div>
+					</div>
+					<div class="status ">
+						<div class="status-title hasFlex">
+							<span>房源狀態</span>
+							<button class="edit-btn">
+								編輯
+							</button>
+						</div>
+						<div class="context">
+							<i class="fa-solid fa-circle"></i>
+							<span class="published">已發布 - </span>
+							<span>房客可以在搜尋結果中找到你的房源，且可以提出預訂申請或預訂日曆上開放的日期。</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="aboutEquip" class="little-section">
+				<div class="equipNservice hasFlex">
+					<h2>設備與服務</h2>
+					<button class="edit-btn">
+						編輯
+					</button>
+				</div>
+			</div>
+			<div id="aboutLocat" class="little-section">
+				<div class="address" id="address">
+					<h2>位置</h2>
+					<div class="address-info hasFlex">
+						<span>地址</span>
+						<button class="edit-btn" v-on:click="FromRoomAddressDisplay">
+							編輯
+						</button>
+					</div>
+					<div class="context">
+						<span>
+							@Model.Address
+						</span>
+					</div>
+					<form method="post" asp-action="UpdateRoomInfo" v-show="!roomAddressDisplay" class="editRoomAddressForm editForm">
+						<input name="Id" type="number" class="d-none" value="@Model.Id" />
+						<div class="roomAddressEdit">
+							<input name="Id" type="text" class="d-none" disabled value="@Html.Raw(Model.Id)" />
+							<input type="text" v-model="roomAddress" name="Address" class="editInput">
+						</div>
+						<div class="button-Group">
+							<button class="cancel-button" type="button" v-on:click="FromRoomAddressDisplay">取消</button>
+							<button class="save" type="submit" v-on:click="updateAddress">更新</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div id="aboutRoomStyle" class="little-section">
+				<div class="roomStyle">
+					<h2>房源與房型</h2>
+					<div class="style-name hasFlex">
+						<span>房源類型</span>
+						<button class="edit-btn">
+							編輯
+						</button>
+					</div>
+					<div class="context">
+						<span>臥室: @Model.BedRoom</span>
+						<span>床數 : @Model.Bed</span>
+						<span>衛浴 : @Model.BathRoom</span>
+						<span>其他區域 : 0</span>
+						<span>房客可能會共用部分區域</span>
+					</div>
+				</div>
+			</div>
+			<div id="aboutService" class="little-section">
+				<div class="barrierFree ">
+					<div class="info hasFlex">
+						<span>設施與服務</span>
+						<button class="edit-btn">
+							編輯
+						</button>
+					</div>
+				</div>
+			</div>
+			<div id="aboutSecurity" class="little-section">
+				<div class="safety">
+					<div class="info hasFlex">
+						<span>房客安全</span>
+						<button class="edit-btn">
+							編輯
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="submitOpinion">
+				<a href="#">提出意見</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+@section header{
+    @if (User.Identity.IsAuthenticated)
+    {
+        <partial name="_HeaderBackPartial" />
+    }
+    else
+    {
+        <partial name="_HeaderLoginSearchBarPartial " />
+    }
+}
+@section footer{
+	<partial name="_FooterDefaultPartial" />
+}
+
+@section topCSS{
+	<!-- Link Swiper's CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+	<link rel="stylesheet" href="~/css/Seller/RoomInfo/SellerRoomInfo.css">
+	<style>
+		.logo img{
+			height:unset;
+			max-height:unset;
+		}
+		.aside2{
+			align-items:center;
+		}
+	</style>
+}
+@section topJS{
+	<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+	<script src="~/lib/Vue/vue.js"></script>
+
+}
+
+ @section endJS{
+	 @*JS加法器具*@
+	<script src="~/js/shaack/bootstrap-input-spinner.js"></script>
+	<script>
+		$("input[type='number']").inputSpinner()
+	</script>
+	<script>
+		let roomName = "@Html.Raw(@Model.RoomName)";
+		let roomDesccript = "@Html.Raw(@Model.Description)";
+		let people = "@Html.Raw(@Model.People)";
+		let address = "@Html.Raw(@Model.Address)";
+		let id = "@Html.Raw(@Model.Id)";
+	</script>
+	<script src="~/js/SellerRoomInfo/SellerRoomInfoJS.js"></script>
+	
+	<script>
+
+		const roomTitles = new Vue({
+			el: '#roomTitle',
+			data:{
+				//RoomName
+				roomName:roomName,
+				roomNameDisplay:true,
+				id:id
+			},
+			methods:{
+				//for roomName
+				updateRoomName(){
+					if(this.roomName != ''){
+						roomName = this.roomName;
+						FormRoomNameDisplay()
+					}
+				},
+				FormRoomNameDisplay() {
+					this.roomNameDisplay = !this.roomNameDisplay
+				},
+			}
+		})
+		new Vue({
+			el:'#roomDescription',
+			data:{
+				//RoomDescription
+				roomDesccript:roomDesccript,
+				roomDesccriptDisplay:true,
+			},
+			methods:{
+				//for description
+				updateDescript(){
+					if(this.roomDesccript != ''){
+						roomDesccript = this.roomDesccript;
+						FormRoomDesDisplay()
+					}
+				},
+				FormRoomDesDisplay(){
+					this.roomDesccriptDisplay = !this.roomDesccriptDisplay;
+				}
+			}
+		})
+		//for addtress
+		new Vue({
+			el:'#address',
+			data:{
+				roomAddress:address,
+				roomAddressDisplay:true
+			},
+			methods:{
+				updateAddress(){
+					if(this.roomAddress != ''){
+						roomAddress = this.roomAddress;
+						FromRoomAddressDisplay();
+					}
+				},
+				FromRoomAddressDisplay(){
+					this.roomAddressDisplay = !this.roomAddressDisplay;
+				}
+			}
+		})
+		//for People
+		new Vue({
+			el:'#setPeople',
+			data:{
+				people: parseInt(people),
+				max:10,
+				min:1
+			},
+			methods:{
+				decrement() {
+					if (this.people > this.min) {
+						people = this.people--
+					}
+				},
+				increment() {
+					if (this.people < this.max) {
+						people = this.people++
+					}
+				}
+			}
+		})
+	</script>
+	
+	
+} 

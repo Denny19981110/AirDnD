@@ -1,0 +1,186 @@
+﻿<header id="searchbar-vue">
+	<div class="container header-wrap">
+		<div class="logo-wrap"><a class="logo" asp-controller="Home" asp-action="Index"><img src="~/Image/airdnd_logo.png" alt=""></a></div>
+
+		<!-- search bar -->
+		<div class="main search-bar" v-on:click="openSearchBar()">
+			<div class="btn-group">
+				<button class="btn location-btn" v-on:click="searchLoc()"><span class="r-line">任何地方</span></button>
+				<button class="btn date-btn" v-on:click="searchDate"><span class="r-line">任1週</span></button>
+				<button class="btn guest-btn" v-on:click="searchGuest()">
+					<span class="info-sub">新增人數</span>
+				</button>
+				<button class=" btn search-btn-icon" v-on:click="searchLoc">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</button>
+			</div>
+		</div>
+		<div class="md-btn-container">
+			<button class=" btn search-btn">
+				<i class="fa-solid fa-magnifying-glass" v-on:click="openSearchBar">搜尋</i>
+			</button>
+		</div>
+		<i onclick="toggleMenu()" class=" toggle-bar fa-solid fa-bars"></i>
+		<div class="toggle-menu d-md-flex align-items-md-center justify-content-md-end">
+
+
+			<ul class="aside d-md-flex menu">
+				<li><a asp-controller="Seller" asp-action="Index">切換至出租模式</a></li>
+				<li><i class="fa-solid fa-earth-asia"></i></li>
+				<li class="dropdownbox">
+					<i class="fa-solid fa-chevron-down"></i>User
+					<ul>
+						<li><a href="javascript:;">訊息</a></li>
+						<li><a href="javascript:;">通知</a></li>
+						<li><a asp-controller="Trip" asp-action="Index">旅程</a></li>
+						<li><a asp-controller="UserWishList" asp-action="UserWishList">心願單</a></li>
+						<li><a href="javascript:;">管理房源</a></li>
+						<li><a href="javascript:;">舉辦體驗</a></li>
+						<li><a href="javascript:;">推薦新房東</a></li>
+						<li><a asp-controller="UserAccountPage" asp-action="Index">帳號</a></li>
+						<li><a href="javascript:;">協助</a></li>
+						<li><a href="/Login/Logout">登出</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- large search bar -->
+
+	<form class="d-flex before search-bar-container" asp-controller="Search" asp-action="Search" method="get">
+		<div class="r-line search-box loc-box" v-on:click="searchLoc()">
+			<h2 class="location">請輸入目的地</h2>
+			<input type="input" placeholder="目的地" name="location" v-model=location v-on:keypress.enter="search">
+		</div>
+		<div class="r-line search-box date-box searchbar-checkin" v-on:click="searchDate()">
+			<h2 class="checkin">入住</h2>
+			<p type="date" class="info-sub checkin-date">{{checkInSelect}}</p>
+		</div>
+		<div class="r-line search-box date-box searchbar-checkout" v-on:click="searchDate()">
+			<h2 class="checkout">退房</h2>
+			<p type="date" class="info-sub checkout-date">{{checkOutSelect}}</p>
+		</div>
+		<div class="search-box traveler-box searchbar-traveler" v-on:click="searchGuest()">
+			<h2 class="checkout">旅客</h2>
+			<p class="info-sub guest-count" name="guest">{{guestCount}}</p>
+		</div>
+		<button type="button" class=" btn search-btn-icon search-btn" v-on:click="search">
+			<i class="fa-solid fa-magnifying-glass">搜尋</i>
+		</button>
+	</form>
+
+	<!-- search - loc -->
+	<div class="lightbox search-bar-floatbox loc" style="display: none;" v-on:click="lightboxClose">
+
+		<div class=" area d-flex location-area">
+			<div class="recent-container">
+				<div class="title-box">
+					<h3>近期搜尋紀錄</h3>
+				</div>
+				<div class="search-record-box">
+					<div class="per-record-box">
+						<div class="icon-box">
+							<i class="fa-solid fa-clock-rotate-left"></i>
+						</div>
+						<div class="info-box">
+							<h4 class="loc-info">
+								<span class="loc">台北</span>。住宿
+							</h4>
+							<p class="date-info">
+								<span class="date-start">9月31日</span>
+								<span class="date-end">10月2日</span>。
+								<span class="guest">2位</span>
+							</p>
+						</div>
+					</div>
+					<div class="per-record-box">
+						<div class="icon-box">
+							<i class="fa-solid fa-clock-rotate-left"></i>
+						</div>
+						<div class="info-box">
+							<h4 class="loc-info">
+								<span class="loc">台北</span>。住宿
+							</h4>
+							<p class="date-info">
+								<span class="date-start">9月31日</span>
+								<span class="date-end">10月2日</span>。
+								<span class="guest">2位</span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- search date -->
+	<div class="lightbox search-bar-floatbox calendar" style="display: none;" v-on:click="lightboxClose">
+		<div class="area calendar-area" id="calendar">
+			<div class="datepicker-trigger body-container">
+				<!-- 日曆 -->
+				<input type="hidden" id="searchbar-trigger" :value="time" placeholder="Select dates" readonly>
+				<airbnb-style-datepicker 
+				ref="monthWidth" :trigger-element-id="'searchbar-trigger'" :min-date="now" 
+				:date-one="date1" 
+				:date-two="date2" v-on:date-one-selected="function(val) { date1 = val }" v-on:date-two-selected="function(val) { date2 = val }" 
+				:inline="true" :show-action-buttons="false" :show-shortcuts-menu-trigger="false" 
+				>
+				</airbnb-style-datepicker>
+			</div>
+		</div>
+	</div>
+	<!-- search guest -->
+	<div class="lightbox search-bar-floatbox guest" style="display:none;" v-on:click="lightboxClose">
+		<div class=" area guest-area" id="guests">
+			<section class="counting-section adult-group">
+				<div class="info-box">
+					<h3 class="name">成人</h3>
+					<p class="info-sub">滿13歲</p>
+				</div>
+				<div class="function-box">
+					<button class="btn minus" :disabled="adultMinusDisabled" v-on:click="guest.adult--">
+						<i class="fa-solid fa-minus"></i>
+					</button>
+					<div class="display-counter">{{guest.adult}}</div>
+					<button class="btn add" :disabled="adultAddDisabled" v-on:click="guest.adult++">
+						<i class="fa-solid fa-plus"></i>
+					</button>
+				</div>
+
+			</section>
+			<section class="counting-section child-group">
+				<div class="info-box">
+					<h3 class="name">兒童</h3>
+					<p class="info-sub">2-12歲</p>
+				</div>
+				<div class="function-box">
+					<button class="btn minus" :disabled="childMinusDisabled" v-on:click="guest.child--">
+						<i class="fa-solid fa-minus"></i>
+					</button>
+					<div class="display-counter">{{guest.child}}</div>
+					<button class="btn add" v-bind:class="childAddDisabled" v-on:click="guest.child++">
+						<i class="fa-solid fa-plus"></i>
+					</button>
+				</div>
+
+			</section>
+			<section class="counting-section baby-group">
+				<div class="info-box">
+					<h3 class="name">嬰幼兒</h3>
+					<p class="info-sub">2歲以下</p>
+				</div>
+				<div class="function-box">
+					<button class="btn minus" :disabled="babyMinusDisabled" v-on:click="guest.baby--">
+						<i class="fa-solid fa-minus"></i>
+					</button>
+					<div class="display-counter">{{guest.baby}}</div>
+					<button class="btn add" :disabled="babyAddDisabled" v-on:click="guest.baby++">
+						<i class="fa-solid fa-plus"></i>
+					</button>
+				</div>
+
+			</section>
+
+		</div>
+	</div>
+</header>

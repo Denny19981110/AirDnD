@@ -1,0 +1,510 @@
+﻿@model int
+
+<header id="searchbar-vue" >
+	<div class="container header-wrap">
+		<div class="logo-wrap"><a class="logo"href="/"><img src="~/Image/airdnd_logo.png" alt=""></a></div>
+
+		<!-- search bar -->
+		<div class="main search-bar" v-on:click="openSearchBar()" v-cloak>
+			<div class="btn-group">
+				<button class="btn location-btn" v-on:click="searchLoc()"><span class="r-line" >{{currentLoc | toLocation}}</span></button>
+				<button class="btn date-btn" v-on:click="searchDate"><span class="r-line">{{currentTime}}</span></button>
+				<button class="btn guest-btn" v-on:click="searchGuest()">
+					<span class="info-sub">{{currentGuest}}</span>
+				</button>
+				<button class=" btn search-btn-icon" v-on:click="searchLoc">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</button>
+			</div>
+		</div>
+		<div class="md-btn-container">
+			<button class=" btn search-btn">
+				<i class="fa-solid fa-magnifying-glass" v-on:click="openSearchBar">搜尋</i>
+			</button>
+		</div>
+		<i onclick="toggleMenu()" class=" toggle-bar fa-solid fa-bars"></i>
+		<div class="toggle-menu d-md-flex align-items-md-center justify-content-md-end">
+
+			@if(Model == 0){ 
+				<partial name="~/Views/Partial/_NotLoginPartial.cshtml" />
+			}else{
+				<partial name="~/Views/Partial/_LoginPartial.cshtml" />
+			}
+
+		</div>
+	</div>
+	<!-- large search bar -->
+
+	<form class=" before search-bar-container" asp-controller="Search" asp-action="Search" method="get">
+		<div class="r-line search-box loc-box" v-on:click="searchLoc()">
+			<h2 class="location">請輸入目的地</h2>
+			<input type="text" placeholder="目的地" name="location" v-model=location v-on:keydown.enter.prevent>
+		</div>
+		<div class="r-line search-box date-box searchbar-checkin" v-on:click="searchDate()">
+			<h2 class="checkin">入住</h2>
+			<p type="date" class="info-sub checkin-date">{{checkInSelect}}</p>
+		</div>
+		<div class="r-line search-box date-box searchbar-checkout" v-on:click="searchDate()">
+			<h2 class="checkout">退房</h2>
+			<p type="date" class="info-sub checkout-date">{{checkOutSelect}}</p>
+		</div>
+		<div class="search-box guest-box searchbar-guest" v-on:click="searchGuest()">
+			<h2 class="checkout">旅客</h2>
+			<p class="info-sub guest-count" name="guest">{{guestCount}}</p>
+		</div>
+		<button type="button" class=" btn search-btn-icon search-btn" v-on:click.prevent="search">
+			<i class="fa-solid fa-magnifying-glass">搜尋</i>
+		</button>
+	</form>
+
+	<!-- search - loc -->
+	<div class="lightbox search-bar-floatbox loc" style="display: none;" v-on:click="lightboxClose">
+
+		<div class=" area d-flex location-area">
+			<div class="recent-container">
+				<div class="title-box">
+					<h3>近期搜尋紀錄</h3>
+				</div>
+				<div class="search-record-box">
+
+					<div class="per-record-box" v-for="item in history" v-on:click="searchHistory(item)">
+						<div class="icon-box">
+							<i class="fa-solid fa-clock-rotate-left"></i>
+						</div>
+						<div class="info-box">
+							<h4 class="loc-info">
+								<span class="loc">{{item.Location | toLocation}}</span>。住宿
+							</h4>
+							<p class="date-info">
+								<span class="date-start">{{item.Date | toDateRange}}</span>。								
+								<span class="guest">{{item.Guests | toGuest}}</span>
+							</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- search date -->
+	<div class="lightbox search-bar-floatbox calendar" style="display: none;" v-on:click="lightboxClose">
+		<div class="area calendar-area" id="calendar">
+			<div class="datepicker-trigger body-container">
+				<!-- 日曆 -->
+				<input type="hidden" id="searchbar-trigger" placeholder="Select dates" readonly>
+				<airbnb-style-datepicker ref="monthWidth" :trigger-element-id="'searchbar-trigger'" :min-date="now" :date-one="date1" :date-two="date2" v-on:date-one-selected="function(val) { date1 = val }" v-on:date-two-selected="function(val) { date2 = val }" :inline="true" :show-action-buttons="false" :show-shortcuts-menu-trigger="false">
+				</airbnb-style-datepicker>
+			</div>
+		</div>
+	</div>
+	<!-- search guest -->
+	<div class="lightbox search-bar-floatbox guest" style="display:none;" v-on:click="lightboxClose">
+		<div class=" area guest-area" id="guests">
+			<section class="counting-section adult-group">
+				<div class="info-box">
+					<h3 class="name">成人</h3>
+					<p class="info-sub">滿13歲</p>
+				</div>
+				<div class="function-box">
+					<button class="btn minus" :disabled="adultMinusDisabled" v-on:click="guest.adult--">
+						<i class="fa-solid fa-minus"></i>
+					</button>
+					<div class="display-counter">{{guest.adult}}</div>
+					<button class="btn add" :disabled="adultAddDisabled" v-on:click="guest.adult++">
+						<i class="fa-solid fa-plus"></i>
+					</button>
+				</div>
+
+			</section>
+			<section class="counting-section child-group">
+				<div class="info-box">
+					<h3 class="name">兒童</h3>
+					<p class="info-sub">2-12歲</p>
+				</div>
+				<div class="function-box">
+					<button class="btn minus" :disabled="childMinusDisabled" v-on:click="guest.child--">
+						<i class="fa-solid fa-minus"></i>
+					</button>
+					<div class="display-counter">{{guest.child}}</div>
+					<button class="btn add" :disabled="childAddDisabled" v-on:click="guest.child++">
+						<i class="fa-solid fa-plus"></i>
+					</button>
+				</div>
+
+			</section>
+			<section class="counting-section baby-group">
+				<div class="info-box">
+					<h3 class="name">嬰幼兒</h3>
+					<p class="info-sub">2歲以下</p>
+				</div>
+				<div class="function-box">
+					<button class="btn minus" :disabled="babyMinusDisabled" v-on:click="guest.baby--">
+						<i class="fa-solid fa-minus"></i>
+					</button>
+					<div class="display-counter">{{guest.baby}}</div>
+					<button class="btn add" :disabled="babyAddDisabled" v-on:click="guest.baby++">
+						<i class="fa-solid fa-plus"></i>
+					</button>
+				</div>
+
+			</section>
+
+		</div>
+	</div>
+</header>
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<!-- 確認Email是否存在 -->
+			<div id="step-checkEmail" >
+				<div class="position-relative">
+					<input id="closeBtn" type="button" class="btn-close position-absolute ms-3" data-bs-dismiss="modal" aria-label="Close" />
+					<h5 class="text-center mt-3" id="exampleModalLabel">登入或註冊</h5>
+				</div>
+				<hr />
+				<div class="modal-body">
+					<h3 class="login">Airdnd 歡迎你</h3>
+					<form id="checkEmailArea" class="mt-4">
+						<div class="form-floating mb-2">
+							<input v-bind:class="{ 'is-invalid': emailCheck.emailError }" v-model="email" type="email" name="Email" class="form-control" id="check-email" placeholder="電子郵件" inputmode="email" autocomplete="off" required>
+							<label for="floatingInput">電子郵件</label>
+							<div class="invalid-feedback">
+								{{ emailCheck.emailErrMsg }}
+							</div>
+						</div>
+                        <p class="lh-1 mt-0 loginp">我們會寄email，以確認你的電子信箱。 </p>
+						<div class="control rounded rounded-2 mb-4">
+							<button :disabled="!isVerify" type="submit" class="btn fw-bold" id="continuebtn">繼續</button>
+						</div>
+					</form>
+					<div class="row d-flex align-items-center justify-content-center">
+						<div class="line col-5"></div>
+						<span class="col-1 text-center or">或</span>
+						<div class="line col-5"></div>
+					</div>
+					<div class="btn fw-bold w-100 mt-3 lh-lg sso sso-fb" onclick="checkLoginState();">
+						<img src="~/img/Login-img/fb_icon.png" alt="Facebook" class="fb">
+						<p class="col-11 loginp">繼續使用Facebook登入</p>
+					</div>
+					<div id="google_login_btn" class="btn fw-bold w-100 mt-3 lh-lg sso sso-google" onclick="Google_Login()">
+						<img src="~/img/Login-img/Google__G__Logo.svg.png" alt="Google" class="google">
+						<p class="col-11 login-p">繼續使用Google登入</p>
+					</div>
+					<div class="btn fw-bold w-100 mt-3 lh-lg sso LineBtn">
+						<i class="fa-brands fa-line "></i>
+						<p class="col-11 login-p">繼續使用Line登入</p>
+					</div>
+					<div class="btn fw-bold w-100 mt-3 lh-lg sso">
+						<i class="fa-solid fa-envelope"></i>
+						<p class="col-11 login-p">使用信箱登入</p>
+					</div>
+
+				</div>
+			</div>
+			<!-- 密碼登入 -->
+			<div id="step-login" hidden>
+				<div class="position-relative">
+					<div class="position-absolute rounded rounded-circle icon d-flex">
+						<i class="fa-solid fa-chevron-left" id="prevLogin"></i>
+					</div>
+					<h5 class="modal-title text-center mt-3" id="exampleModalLabel">登入</h5>
+				</div>
+				<hr />
+				<div class="modal-body">
+					<form id="PasswordArea" action="#" class="mt-4 ">
+						<div class="form-floating mb-3">
+							<input v-bind:class="{ 'is-invalid': passwordError }" v-model="password" class="form-control d-flex" id="login-password" placeholder="密碼" spellcheck="false" type="password" autocomplete="off" required>
+							<label for="floatingInput">密碼</label>
+							<div class="invalid-feedback">
+								{{ passErrMsg }}
+							</div>
+							<span id="errorPassword" class="text-danger"></span>
+						</div>
+						<div class="control rounded rounded-2 mb-3">
+							<button type="submit" id="loginbtn" class="btn fw-bold">登入</button>
+						</div>
+					</form>
+					<div class="fg-password" id="forget-password-link">
+						<a href="#">
+							<p class="fw-bolder login-p">忘記密碼?</p>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- 註冊 -->
+			<div id="step-signup" hidden>
+				<div class="position-relative">
+					<div class="position-absolute rounded rounded-circle icon d-flex">
+						<i class="fa-solid fa-chevron-left" id="prevSignup"></i>
+					</div>
+					<h5 class="modal-title text-center mt-3" id="exampleModalLabel">完成註冊</h5>
+				</div>
+				<hr />
+				<div class="modal-body">
+					<form id="SigninArea" action="#" class="mt-4">
+						<div class="form-floating mb-0">
+							<input v-bind:class="{ 'is-invalid': firstNameError }" v-model="firstName" type="text" class="form-control f-name" id="first-name" placeholder="名字" required>
+							<label for="floatingInput">名字</label>
+							<div class="invalid-feedback">
+								{{ firstNameErrMsg }}
+							</div>
+						</div>
+						<div class="form-floating mb-2 l-name">
+							<input v-bind:class="{ 'is-invalid': lastNameError }" v-model="lastName" type="text" class="form-control l-name" id="last-name" placeholder="姓氏" required>
+							<label for="floatingInput">姓氏</label>
+							<div class="invalid-feedback">
+								{{ lastNameErrMsg }}
+							</div>
+						</div>
+						<p class="lh-1 mt-0 login-p">請確保與政府核發的身分證件上的姓名一致。</p>
+						<div class="form-floating mt-4 mb-2">
+							<input v-bind:class="{ 'is-invalid': birthDayError }" v-model="birthDay" required min="1900-01-01" type="date" class="form-control" id="birthday" autocomplete="off" placeholder="出生日期" value="">
+							<label for="floatingInput">生日</label>
+							<div class="invalid-feedback">
+								{{ birthDayErrMsg }}
+							</div>
+						</div>
+						<p class="lh-1 mt-0 login-p">您必須年滿18歲，才能註冊帳號。 我們不會將您的生日透露給其他Airdnd用戶。 </p>
+						<div class="form-floating mb-2">
+							<input class="form-control" id="email" placeholder="電子郵件" type="email" inputmode="email" autocomplete="off" required>
+							<label for="floatingInput">電子郵件</label>
+						</div>
+						<p class="lh-1 mt-0 login-p">我們會透過電子郵件傳送預訂確認和收據給您。 </p>
+						<div class="form-floating mb-2">
+							<input v-bind:class="{ 'is-invalid': SigninCheck.passwordError }" v-model="password" class="form-control" id="password" data-testid="email-signup-password" placeholder="密碼" type="password" autocomplete="off" required>
+							<label for="floatingInput">密碼</label>
+							<div class="invalid-feedback">
+								{{ SigninCheck.passErrMsg }}
+							</div>
+						</div>
+						<p class="login-p">選擇同意並繼續，即表示我同意 Airdnd 的<a href="#" class="d-inline">服務條款</a>、<a href="#" class="d-inline">支付服務條款</a>、<a href="#" class="d-inline">反歧視政策</a>和<a href="#" class="d-inline">隱私政策</a> </p>
+						<div class="control rounded rounded-2 mb-4">
+							<button :disabled="!isVerify" type="submit" id="signupbtn" class="btn fw-bold" data-bs-target="#sinup-next-steps" data-bs-toggle="modal">同意並繼續</button>
+						</div>
+					</form>
+					<hr class="w-100">
+					<div>
+						<p class=" login-p">Airdnd 會傳送用戶專屬優惠、激發旅遊靈感的素材、行銷電子郵件和推播通知給你。你可以隨時到「帳號設定」或直接在行銷通知中取消訂閱。</p>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						<label class="form-check-label" for="flexCheckDefault">
+							我不想收到有關 Airdnd 的行銷資訊。
+						</label>
+					</div>
+				</div>
+			</div>
+			<!-- 忘記密碼 -->
+			<div id="step-forgetPassword" hidden>
+				<div class="position-relative">
+					<div class="position-absolute rounded rounded-circle icon d-flex">
+						<i class="fa-solid fa-chevron-left" id="prevForgetPassword"></i>
+					</div>
+					<h5 class="modal-title text-center mt-3" id="exampleModalLabel">忘記密碼</h5>
+				</div>
+				<hr />
+				<div class="modal-body">
+					<div>
+						<p class="login-p">請輸入與您的帳號關聯的電子信箱地址，我們會透過電子郵件向您寄送重設密碼的連結。</p>
+					</div>
+					<form id="forgetPasswordArea" action="#" class="mt-3 mb-3">
+						<div class="form-floating mb-2">
+							<input v-bind:class="{ 'is-invalid': emailError }" v-model="email" name="EmailField" class="form-control" id="forget-password-email" placeholder="電子郵件" type="email" inputmode="email" autocomplete="off" required>
+							<label for="floatingInput">電子郵件</label>
+							<div class="invalid-feedback">
+								{{ emailErrMsg }}
+							</div>
+						</div>
+						<div class="control rounded rounded-1 mt-5">
+							<button type="submit" id="forgetPasswordbtn" class="btn fw-bold reset">傳送重設連結</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- 密碼重設信已寄送 -->
+			<div id="step-sendResetPassword" hidden>
+				<div class="position-relative">
+					<button type="button" class="btn-close position-absolute ms-3" data-bs-dismiss="modal" aria-label="Close"></button>
+					<h5 class="modal-title text-center mt-3">密碼重設信已寄送</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 註冊後 -->
+<div class="modal fade" id="sinup-next-steps" data-bs-backdrop="static" aria-hidden="true" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<!-- 承諾 -->
+			<div id="step-promise" >
+				<div class="modal-header promise ">
+					<img src="~/img/Login-img/airdnd_logo.png" alt="">
+					<button id="closeBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body promise">
+					<h2 class="mt-2 mb-2">我們的社區承諾</h2>
+					<h1 class="fs-4">Airdnd 希望打造一個「家在四方」的世界</h1>
+					<h2 class="mt-2 mb-2">為了實現這個理念，我們要求你承諾以下事項：</h2>
+					<div>
+						我承諾尊重 Airdnd 社區的所有成員，不分種族、宗教、國籍、族裔、膚色、身心障礙狀況、性別、性別認同、性取向或年齡，且不會妄加評斷或懷有偏見。
+					</div>
+					<div class="mt-3 mb-4">
+						<a href="#">了解詳情</a>
+					</div>
+					<h2 class="fw-bolder">Airdnd服務條款</h2>
+					<div class="d-flex">
+						<p>我也同意 <a class="d-inline" href="#">Airdnd的服務條款</a> 、 <a class="d-inline" href="#">支付服務條款</a> 、 <a class="d-inline" href="#">隱私政策</a>以及<a class="d-inline" href="#">反歧視政策。</a> </p>
+					</div>
+					<div class="control rounded rounded-2 mb-3">
+						<button type="submit" id="accept" class="btn fw-bold" data-bs-target="#promise-next-steps" data-bs-toggle="modal">同意並繼續</button>
+					</div>
+					<div class="control rounded rounded-2 mb-3">
+						<button id="cancelBtn" class="cancel btn fw-bold">拒絕</button>
+					</div>
+				</div>
+			</div>
+			<!-- 拒絕 -->
+			<div id="reject" hidden>
+				<div class="position-relative ">
+					<div class="position-absolute rounded rounded-circle icon d-flex m-3">
+						<i class="fa-solid fa-chevron-left" id="prevForgetPassword"></i>
+					</div>
+				</div>
+				<div class="modal-body promise mt-4">
+					<h4 class="mt-2 mb-2 ">你確定嗎？</h4>
+					<p>
+						拒絕Airdnd的社區承諾和服務條款，您便無法建立帳號。 您仍然可以瀏覽網站，但無法預訂。
+					</p>
+					<span class="fw-bolder mt-3 mb-2 fs-4">為什麼必須提供此資訊</span>
+					<p >
+						我們的社區承諾和服務條款旨在幫助Airdnd社區的所有成員更加了解我們對於彼此的期望。 進一步了解我們的 社區承諾 和 服務條款。
+					</p>
+					<span class="fw-bolder mt-3 mb-2 fs-4">如果您想要再次註冊</span>
+					<p >
+						如果日後改變主意，您隨時可以接受我們的服務條款和社區承諾，並完成Airdnd的帳號註冊流程。
+					</p>
+					<div class="control rounded rounded-2 mt-3 mb-3">
+						<button id="back-promise" class="btn fw-bold back">返回</button>
+					</div>
+					<div class="control rounded rounded-2 mb-3">
+						<button id="signupCancel" class="cancel btn fw-bold">取消註冊</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 建立個人資料 -->
+<div class="modal fade" id="promise-next-steps"  aria-hidden="true" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<!-- Buildprofile -->
+			<div id="step-signupProfile">
+				<div class="position-relative">
+					<input id="signupProfile-close" type="button" class="btn-close position-absolute ms-3" data-bs-dismiss="modal" aria-label="Close" />
+					<h5 class="modal-title text-center mt-3 fw-bolder" id="exampleModalLabel">建立個人資料</h5>
+				</div>
+				<hr />
+				<div class="modal-body">
+					<form class="mt-4 ">
+						<span class="d-flex justify-content-center mb-2">
+							<img class="signuplogo" src="~/img/Login-img/airdnd_logo.png" alt="airdnd">
+						</span>
+						<div class="text-center">
+							<h2>歡迎使用 Airdnd</h2>
+							<p>探索世界各地的住宿、當地餐廳和獨特體驗。</p>
+						</div>
+						<div class="control rounded rounded-2 ">
+							<input type="button" id="signup-continue-btn" value="繼續" class="btn fw-bold">
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- Buildprofile-phone -->
+			<div id="step-signup-phone" hidden>
+				<div class="position-relative">
+					<div  class="position-absolute rounded rounded-circle icon d-flex">
+						<i class="fa-solid fa-chevron-left" id="prev-buildprofile-phone"></i>
+					</div>
+					<h5 class="modal-title text-center mt-3" id="exampleModalLabel">建立個人資料</h5>
+				</div>
+				<hr />
+				<div class="modal-body">
+					<form id="phoneVerification">
+						<div class="text-center mb-4">
+							<span class="fw-bolder fs-5">
+								步驟 2 之 1
+							</span>
+							<h2 class="fw-bolder fs-3">請確認手機號碼</h2>
+							<p>以便房東、房客或Airdnd能與您聯絡。</p>
+						</div>
+						<div class="form-floating mb-2">
+							<input  v-bind:class="{ 'is-invalid': phoneError }" v-model="phone" name="phoneInputVerification" class="form-control" id="phoneInputVerification" placeholder="電話號碼" spellcheck="false" inputmode="tel" type="tel">
+							<label for="floatingInput">手機號碼</label>
+							<div class="invalid-feedback">
+								{{ phoneErrMsg }}
+							</div>
+						</div>
+						<p>我們會打電話或傳簡訊，以確認你的電話號碼。可能會產生一般簡訊和數據傳輸費用。</p>
+						<hr class="mt-0 mb-4">
+						<div class="form-check mb-5">
+							<input class="form-check-input " type="checkbox" value="" id="message">
+							<label class="form-check-label" for="message">
+								以簡訊傳送免費的Airdnd應用程式連結給我
+							</label>
+						</div>
+						<div class="control rounded rounded-2 ">
+							<input type="submit" id="signup-phone-btn" value="繼續" class="btn fw-bold">
+						</div>
+						<div class="finishlater d-flex justify-content-center mt-4">
+							<button id="finish-later-phone" type="button" class="rounded rounded-3">稍後再完成</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- SignupProfile-photo -->
+			<div id="step-signup-photo" hidden>
+				<div class="position-relative">
+					<div class="position-absolute rounded rounded-circle icon d-flex">
+						<i class="fa-solid fa-chevron-left" id="prev-buildprofile-phone"></i>
+					</div>
+					<h5 class="modal-title text-center mt-3" id="exampleModalLabel">建立個人資料</h5>
+				</div>
+				<hr />
+				<div class="modal-body">
+					<form enctype="multipart/form-data">
+						<div class="text-center mb-4">
+							<span class="fw-bolder">
+								步驟 2 之 2
+							</span>
+							<h2>新增個人資料相片</h2>
+							<p>選擇一張能看到你臉部的相片。預訂確認後，房東／體驗達人才會看到你的個人相片。</p>
+						</div>
+						<div class="photo d-flex justify-content-center mb-5 rounded-circle overflow-hidden mx-auto">
+							<img id="memberPhoto" class="w-100" src="~/img/Login-img/portrait.jpg" alt="portrait">
+						</div>
+						<label for="file-upload" class="w-100" id="upload-photo">
+							<div class="control rounded rounded-2 ">
+								<div class="position-absolute upload-icon d-flex mt-3 ms-3">
+									<i class="fa-regular fa-cloud-arrow-up "></i>
+								</div>
+								<a class="btn fw-bold signup-photo-btn">上傳照片</a>
+							</div>
+						</label>
+						<input id="file-upload" type="file" accept=".jpg, jpeg, .png" onchange="SignupPhoto()" hidden />
+						
+						<div class="control rounded rounded-2" id="signup-photo-btn" hidden>
+							<input type="submit" value="完成" class="btn fw-bold  signup-photo-btn">
+						</div>
+						<div class="finishlater d-flex justify-content-center mt-4">
+							<button id="finish-later-photo" type="button" class="rounded rounded-3">稍後再完成</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

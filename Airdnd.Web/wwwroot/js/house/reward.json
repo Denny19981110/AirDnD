@@ -1,0 +1,122 @@
+[
+    {
+     "id": 1,
+     "icon": "fa-paint-roller",
+     "title": "重新裝潢",
+     "description": "屋主近期重新裝潢，服務費加10%"
+    },
+    {
+     "id": 2,
+     "icon": "fa-wifi",
+     "title": "非常適合遠距工作",
+     "description": "配備高速 WiFi (296 Mbps)，以及專屬工作區域的獨立房間"
+    },
+    {
+     "id": 3,
+     "icon": "fa-thumbs-up",
+     "title": "精妙好評",
+     "description": "住過的人，87%都說讚"
+    },
+    {
+     "id": 4,
+     "icon": "fa-car-side",
+     "title": "免費停車",
+     "description": "這是該地區少數能免費停車的房源"
+    },
+    {
+     "id": 5,
+     "icon": "fa-paw",
+     "title": "狗派萬歲",
+     "description": "屋主養狗"
+    },
+    {
+     "id": 6,
+     "icon": "fa-martini-glass-citrus",
+     "title": "免費酒水",
+     "description": "屋主冰箱內的飲料都可以拿"
+    },
+    {
+     "id": 7,
+     "icon": "fa-map-location-dot",
+     "title": "在按摩浴缸中徹底放鬆",
+     "description": "這是該地區少數提供此設備的房源"
+    },
+    {
+     "id": 8,
+     "icon": "fa-face-smile",
+     "title": "賓至如歸",
+     "description": "超讚房東是經驗豐富、評價超高的房東，致力為房客提供最棒的住宿體驗"
+    },
+    {
+     "id": 9,
+     "icon": "fa-hand-sparkles",
+     "title": "窗明幾淨",
+     "description": "屋主的興趣是照三餐打掃"
+    },
+    {
+     "id": 10,
+     "icon": "fa-apple-whole",
+     "title": "潮到出水",
+     "description": "屋主都用IPhone14，而且是1024GB"
+    },
+    {
+     "id": 11,
+     "icon": "fa-percent",
+     "title": "旅遊補助",
+     "description": "本旅館符合政府旅遊補助配合店家"
+    },
+    {
+     "id": 12,
+     "icon": "fa-gamepad",
+     "title": "玩到天亮",
+     "description": "房間配有Switch,Xbox"
+    },
+    {
+     "id": 13,
+     "icon": "fa-heart",
+     "title": "知名設計",
+     "description": "房屋由知名設計師Angus.W設計"
+    },
+    {
+     "id": 14,
+     "icon": "fa-shop",
+     "title": "觀光勝地",
+     "description": "附近配有大型免稅賣場"
+    },
+    {
+     "id": 15,
+     "icon": "fa-earth-americas",
+     "title": "環保客房",
+     "description": "不使用一次性盥洗用品，續住不更換毛巾床單"
+    },
+    {
+     "id": 16,
+     "icon": "fa-cat",
+     "title": "貓奴樂園",
+     "description": "親貓空間，屋主生活起居離不開貓"
+    },
+    {
+     "id": 17,
+     "icon": "fa-house-laptop",
+     "title": "專門工作空間",
+     "description": "配備了 WiFi 的公共空間，適合用來工作"
+    },
+    {
+     "id": 18,
+     "icon": "fa-lock-open",
+     "title": "自助入住",
+     "description": "使用密碼鑰匙盒自助入住"
+    },
+    {
+     "id": 19,
+     "icon": "fa-location-dot",
+     "title": "絕佳位置",
+     "description": "最近有95%的房客給予房源位置5星評分"
+    },
+    {
+     "id": 20,
+     "icon": "fa-ice-cream",
+     "title": "胖吃胖吃",
+     "description": "24小時開放的點心吧"
+    }
+   ]

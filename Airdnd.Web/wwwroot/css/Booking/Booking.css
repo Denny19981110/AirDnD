@@ -1,0 +1,252 @@
+
+h1,h2,h3,h4,h5,h6,p
+span,tt,td,a{
+    font-family: 'Noto Serif TC', serif;
+    text-decoration: none;
+    color: black;
+}
+
+.border{
+    border: 1px solid  #dee2e6 ;
+    border-radius: 15px;
+}
+
+
+/* -------- title start -------- */
+.booking-title{
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.booking-title .title-icon i{
+    font-weight: 900;
+}
+.booking-title h2{
+    margin-left: 1.5rem;
+    margin-bottom: 0;
+}
+/* -------- title end -------- */
+
+/* -------- 主畫面 start -------- */
+
+.main-box{
+    display: flex;
+    margin-top: 3rem;
+    flex-direction: row-reverse;
+}
+
+form{
+    width:60%;
+}
+
+
+.order-detail-info{
+    width: 90%;
+    height: 100%;
+}
+.past-price {
+    display: flex;
+    padding: 1rem;
+}
+.pp-text p{
+    margin-bottom: 0;
+}
+.pp-icon{
+    font-size: 2rem;
+    margin-left: 1rem;
+    color: grey;
+}
+
+.detail-info{
+    margin-top: 2rem;
+}
+.order-payment{
+    border-top: 1px solid #dee2e6;
+    padding:2rem 0 0 0 ;
+}
+.op-select{
+    padding:0 3rem 0 0;
+}
+.order-dis{
+    padding: 2rem 0 2rem 0;
+    border-bottom: 1px solid #dee2e6;
+}
+.order-dis a{
+    text-decoration: underline;
+}
+
+.order-tel{
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #dee2e6;
+}
+.order-tel .tel-box{
+    margin-top: 2rem;
+    display: flex;
+}
+.order-tel .tb-text h5{
+    margin-bottom: 0;
+}
+    .order-tel .tel-btn {
+        display: block;
+        padding: 5px 15px;
+        margin-left: 1rem;
+        border-radius: 10px;
+        border: 1px solid black;
+        font-weight: 600;
+    }
+    .order-cancel {
+        margin-top: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #dee2e6;
+    }
+.order-cancel .oc-detail{
+    display: flex;
+}
+.order-cancel .oc-detail a{
+    text-decoration: underline;
+}
+.order-text{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.order-text .ot-link{
+    text-decoration: underline;
+    font-weight: 900;
+    cursor: pointer;
+}
+.order-button .ob-btn {
+    margin-bottom: 4.5rem;
+}
+    .order-button .ob-btn .od-confirm {
+        display: inline;
+        background-color: rgb(215,4,102);
+        
+        padding: 12px 22px;
+        color: white;
+        border-radius: 8px;
+    }
+/* -------- 主畫面 end -------- */
+
+
+
+/* -------- sticky start -------- */
+.order-info{
+    width: 40%;
+    /*margin-left: 45px;*/
+    position: sticky;
+    height: 100%;
+    top:4rem;
+    padding: 1rem;
+}
+
+.oi-card {
+    display: flex;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+}
+.oi-card .oic-pic{
+    width: 120px ;
+}
+.oi-card .oic-pic img{
+    height: 100%;
+    border-radius: 10px;
+}
+.oi-card .oic-text{
+    display: flex;
+    flex-direction: column;
+    font-size: 9px;
+    justify-content:space-between;
+}
+.oi-card .oic-text p{
+    margin-bottom: 1rem;
+}
+.oi-card .oic-rating{
+    display: flex;
+    align-items: center;
+    font-size: 8px;
+}
+.oi-card .oic-rating p{
+    margin-bottom: 0;
+    margin-left: 0.5rem;
+}
+
+.oi-text{
+    display: flex;
+    padding:1.5rem 0;
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+}
+.oi-text p{
+    margin:0;
+}
+.oi-detail .od-title{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.oi-detail .od-title h4{
+    margin: 0;
+}
+
+.oi-detail .od-item{
+    display: flex;
+    padding-bottom: 0.5rem;
+    justify-content: space-between;
+}
+.oi-detail{
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.oi-total{
+    margin-bottom: 0.5rem;
+}
+.oi-total .oit-item{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+.oi-total .oit-item span{
+    font-weight: 800;
+}
+@media screen and (max-width: 992px) {
+    .oi-card {
+        display:flex;
+        flex-direction: column;
+    }
+
+        .oi-card .oic-pic {
+            width: 100%;
+        }
+}
+@media screen and (max-width: 768px){
+    .main-box{
+        display: block;
+    }
+    .order-detail-info{
+        width: 100%;
+    }
+    .order-info{
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 3rem;
+        position: relative;
+        top: 0;
+    }
+    form {
+        width: 100%;
+    }
+    /*.oi-card{
+        flex-direction:column;
+    }
+   .oi-card .oic-pic {
+      width: 100%;
+   }*/
+}
+/* -------- sticky end -------- */
+
+
+

@@ -1,0 +1,140 @@
+﻿@using Airdnd.Web.ViewModels
+@using Airdnd.Core.enums
+
+@{
+    ViewData["Title"] = "登入與安全";
+}
+ 
+
+@section topCSS{
+    <link rel="stylesheet" href="~/css/Member/Safety.css">
+}
+@section linkJS{
+    <script src="~/lib/axios/axios.min.js"></script>
+    <script src="~/lib/Vue/vue.js"></script>
+    <!-- MemberJS -->
+    <script src="~/js/Member/Safety.js"></script>
+}
+
+@section header{
+    @if (User.Identity.IsAuthenticated)
+    {
+        <partial name="_HeaderEmptyPartial" />
+    }
+    else
+    {
+        <partial name="_HeaderLoginPartial" />
+    }
+}
+@section footer{
+    <partial name="_FooterDefaultPartial" />
+}
+
+    <section class="container ">
+        <div class="row">
+            <!-- 標題&導引列 -->
+            <div class="guide-title mb-5">
+                <nav class="guide d-flex ms-4">
+                    <a href="/UserAccountPage/Index" class="me-3">帳號</a>
+                    <i class="fa-solid fa-angle-right me-3 "></i>
+                    <p>登入與安全性</p>
+                </nav>
+                <h1 class="ms-3">登入與安全性</h1>
+            </div>
+            <div class="container d-flex">
+                <!-- 資料區塊 -->
+                <div class="safety-container col-8 pe-4">
+                    <div class="form-group" id="passwordArea">
+                        <div class="mt-5 mb-5">
+                            <h2>登入</h2>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-10">
+                                <h4>密碼</h4>
+                                <p v-if="isRead">{{updated}}</p>
+                            </div>
+                            <button v-on:click="editPasswordChange" v-if="isRead" class="password-edit btn fw-bolder edit mt-0 border-0" id="password-edit password">編輯</button>
+                            <button v-on:click="editPasswordChange" v-if="isEdit" class="password-edit btn fw-bolder edit mt-0 border-0" id="cancel password">取消</button>
+                        </div>
+                        <div class="row col-10" v-if="isEdit">
+                            <div class="form-group">
+                                <div>
+                                    <label for="passWord" class="d-block">舊密碼</label>
+                                    <input id="passWord" type="password" class="form-control" v-bind:class="{ 'is-invalid': passwordError }" v-model="password">(至少6位，小於15位，必須包含大小寫和數字)
+                                    <div class="invalid-feedback">
+                                        {{ passErrMsg }}
+                                    </div>
+                                </div>
+                                <div class=" my-4">
+                                    <label for="newPassWord" class="d-block">新密碼</label>
+                                    <input id="newPassWord" type="password" class="form-control" name="newPassword" v-bind:class="{ 'is-invalid': newPasswordError }" v-model="newPassword">(至少6位，小於15位，必須包含大小寫和數字)
+                                    <div class="invalid-feedback">
+                                        {{ newPassErrMsg }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="checkPassWord" class="d-block">確認密碼</label>
+                                    <input id="checkPassWord" type="password" name="checkPassword" class="form-control" name="checkPassword" v-bind:class="{ 'is-invalid': checkPasswordError }" v-model="checkPassword">(至少6位，小於15位，必須包含大小寫和數字)
+                                    <div class="invalid-feedback">
+                                        {{ checkPassErrMsg }}
+                                    </div>
+                                </div>
+                            </div>
+                            <button v-on:click="editPassword" type="button" id="password-archive" class="btn btn-dark m-2 ps-3 pe-3 pt-2 pb-2 col-2">儲存</button>
+                        </div>
+                    </div>
+                    <hr>
+                    <section>
+                        <div class="mt-5 mb-5">
+                            <h2>社群帳號</h2>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-10">
+                                <h4>Facebook</h4>
+                                <p>已連結</p>
+                            </div>
+                            <div class="col-2">
+                                <a class="btn btn- fw-bolder j">連結</a>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex">
+                            <div class="col-10">
+                                <h4>Google</h4>
+                                <p>未連結</p>
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn- fw-bolder ">連結</button>
+                            </div>
+                        </div>
+                    </section>
+                    <hr>
+                </div>
+
+                <!-- 其他介紹 -->
+                <section class="presentation col-4 p-4 rounded rounded-4 border border-2">
+                    <div class="shield">
+                        <div>
+                            <img src="~/img/Member/Shield.jpg" alt="" class="shield">
+                            <h3>讓你的帳號更加安全</h3>
+                            <h4>你的帳號安全： 中等</h4>
+                            <p>我們不斷致力提升Airdnd用戶的安全性。 正因如此，我們會檢查每個帳號，盡可能確保所有人的資料都安全無虞。</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div>
+            <div class="mt-5 mb-5">
+                <h2>帳號</h2>
+            </div>
+            <div class="d-flex">
+                <div class="col-10">
+                    <p>停用你的帳號</p>
+                </div>
+                <div>
+                    <button id="deactivate" class="btn btn- fw-bolder justify-content-end m-0 border-0">停用</button>
+                </div>
+            </div>
+        </div>
+    </section>

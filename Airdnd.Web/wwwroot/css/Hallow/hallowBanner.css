@@ -1,0 +1,175 @@
+@font-face {
+  font-family: "Halloween";
+  src: url("./halloween.woff");
+}
+.halloween.banner-wrap {
+  height: 150px;
+  position: relative;
+}
+
+.halloween.of {
+  overflow: hidden;
+}
+
+.halloween .banner-container {
+  position: absolute;
+}
+.halloween img {
+  width: 100%;
+}
+.halloween .banner-container-txt {
+  font-family: "Halloween";
+  color: #ede7e8;
+  text-shadow: 5px 5px 40px #cc0000;
+  font-size: 4em;
+  line-height: 150px;
+  white-space: nowrap;
+}
+.halloween .dynamic-text {
+  position: relative;
+}
+.halloween .dynamic-text:before {
+  content: "";
+  position: absolute;
+  height: 4em;
+  width: 100%;
+  bottom: calc(50% - 40px);
+  left: 0;
+  background-color: #29252f;
+  -webkit-animation: typing 3s steps(7) infinite, blink 0.5s steps(7) infinite;
+          animation: typing 3s steps(7) infinite, blink 0.5s steps(7) infinite;
+}
+.halloween .rb {
+  bottom: 0;
+  right: 0;
+}
+.halloween .rb p {
+  font-family: "Halloween";
+  color: #ede7e8;
+  text-shadow: 4px 4px 40px #fff;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+}
+.halloween .rt {
+  border-radius: 50%;
+  width: 30px;
+  background-color: #3e3b49;
+  top: -15px;
+  right: 0px;
+  border-right: 4px solid #cecccf;
+}
+.halloween .rt p {
+  margin: 0 auto;
+  font-family: "Halloween";
+  color: #ff6666;
+  font-size: 1em;
+  line-height: 30px;
+}
+.halloween .close {
+  cursor: pointer;
+}
+
+@-webkit-keyframes typing {
+  40%, 60% {
+    left: 100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes typing {
+  40%, 60% {
+    left: 100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+@-webkit-keyframes blink {
+  from {
+    border-left: solid 3px red;
+  }
+  to {
+    border-left: solid 3px transparent;
+  }
+}
+@keyframes blink {
+  from {
+    border-left: solid 3px red;
+  }
+  to {
+    border-left: solid 3px transparent;
+  }
+}
+.dynamic-text-wrapper {
+  position: relative;
+  top: 0px;
+  -webkit-animation: moveup 12s steps(4) infinite;
+          animation: moveup 12s steps(4) infinite;
+}
+
+@-webkit-keyframes moveup {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -600px;
+  }
+}
+
+@keyframes moveup {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -600px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .halloween .banner-container-txt {
+    font-size: 3em;
+  }
+  .halloween .halloween .dynamic-text:before {
+    height: 1.5em;
+    bottom: calc(50% - 30px);
+  }
+}
+@media screen and (max-width: 991px) {
+  .halloween .banner-container-txt {
+    font-size: 2em;
+  }
+  .halloween .halloween .dynamic-text:before {
+    height: 1.5em;
+    bottom: calc(50% - 20px);
+  }
+}
+@media screen and (max-width: 768px) {
+  .halloween .banner-container-txt {
+    font-size: 1.8em;
+  }
+  .halloween .halloween .dynamic-text:before {
+    height: 1.5em;
+    bottom: calc(50% - 20px);
+  }
+}
+@media screen and (max-width: 520px) {
+  .halloween .banner-container-txt {
+    font-size: 1.5em;
+  }
+  .halloween .halloween .dynamic-text:before {
+    height: 1.5em;
+    bottom: calc(50% - 20px);
+  }
+}
+@media screen and (max-width: 440px) {
+  .halloween .banner-container-txt {
+    font-size: 1.2em;
+    line-height: 150px;
+    white-space: nowrap;
+  }
+  .halloween .halloween .dynamic-text:before {
+    height: 1.5em;
+    bottom: calc(50% - 12px);
+  }
+}/*# sourceMappingURL=hallowBanner.css.map */

@@ -1,0 +1,78 @@
+﻿@model Airbnb.ViewModel.UserProfileViewModel
+
+
+@section topCSS{
+    <link rel="stylesheet" href="~/css/Login/Login.css">
+    <link rel="stylesheet" href="~/css/EditPhoto/EditPhoto.css" />
+}
+    @section linkJS{
+    <script src="~/js/login/login.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/UserProfileIndex/EditPhoto.js"></script>
+    
+
+}
+
+@section header{
+    @if (User.Identity.IsAuthenticated)
+    {
+        <partial name="_HeaderEmptyPartial" />
+    }
+    else
+    {
+        <partial name="_HeaderLoginSearchBarPartial " />
+    }
+}
+
+
+<div class="container">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="UserProfile" asp-action="UserProfileIndex">個人資料</a></li>
+            <li class="breadcrumb-item active" aria-current="page">個人相片</li>
+        </ol>
+
+    </nav>
+    <h1 class="title">
+        個人資料相片
+    </h1>
+    <div class="card col-md-8 col-lg-6">
+        <div class="card-title">
+            <h2>個人相片</h2>
+        </div>
+        <div class="img-wrapper">
+            <div class="card-img">
+                    <form method="post" action="/UserProfile/RemoveUserPhoto" class="img-box">
+                    <input name="id" value="@Model.User.Id" type="text" class="d-none"/>
+                    <img src="@Url.Content(Model.User.Image)" class="card-img-middle" alt="...">
+                        <button type="submit" class="icon-box deleteImgBtn">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                    <div class="cover-box">
+                        <img src="@Url.Content(Model.User.Image)" class="card-img-middle" alt="...">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                提供清晰的臉部相片，能讓其他房東／體驗達人或房客／參加者對您有初步印象。
+                Airbnb要求所有房東／體驗達人都必須提供個人相片。 我們不會要求房客／參加者提供個人相片，但房東／體驗達人可以提出此要求。
+                但即使房東／體驗達人要求提供個人相片，也只會在預訂確認之後才會看到房客／參加者的相片。
+            </p>
+            <form method="post" enctype="multipart/form-data"  action="/UserProfile/UpdatePhoto" class="update-photo">
+                <input type="file" accept="image/*" id="update-photo-input" name="File">
+                <label for="update-photo-input" class="btn update-label">從電腦上傳檔案</label>
+                <span class="text-danger d-block">@(!Model.IsSuccess ? Model.Message : string.Empty)</span>
+                <button type="submit" class="btn submitBtn" disabled>Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+         
+@section footer{
+    <partial name="_FooterDefaultPartial" />
+}
+

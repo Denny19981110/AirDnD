@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Airdnd.Web</title>
+    @*CSS RESET*@
+    <link rel="stylesheet" href="~/css/CSS_reset/reset.css" />
+    @*bootstrap*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*fontawesome*@
+    <script src="~/lib/font-awesome/js/fontawesome.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.css" />
+    @*google font*@
+    <link rel="stylesheet" href="~/css/fonts/fonts.css"/>
+    @*CSS*@
+    <link rel="stylesheet" href="~/css/_UserCommon/layout.css" />
+    <meta name="robots" content="noindex">
+</head>
+<body>
+
+<header>
+    <div class="container header-wrap">
+        <div class="logo-wrap"><div class="logo"><img src="~/css/_common_img/airdnd_logo.png" alt=""></div></div>
+        <i onclick="toggleMenu()" class=" toggle-bar fa-solid fa-bars"></i>
+        <div class="toggle-menu d-md-flex align-items-md-center justify-content-md-between">
+            @*<div class="main">SEARCH</div>*@
+            <ul class="aside d-md-flex menu">
+                <li><a href="javascript:;">切換至出租模式</a></li>
+                <li><i class="fa-solid fa-earth-asia"></i></li>
+                <li class="dropdownbox">
+                    <i class="fa-solid fa-chevron-down"></i>User
+                    <ul>
+                        <li><a href="javascript:;">訊息</a></li>
+                        <li><a href="javascript:;">通知</a></li>
+                        <li><a asp-controller="Trip" asp-action="Index">旅程</a></li>
+                        <li><a asp-controller="UserWishList" asp-action="UserWishList">心願單</a></li>
+                        <hr class="mb-1 mt-1">
+                        <li><a href="javascript:;">管理房源</a></li>
+                        <li><a href="javascript:;">舉辦體驗</a></li>
+                        <li><a href="javascript:;">推薦新房東</a></li>
+                        <li><a asp-controller="UserAccountPage" asp-action="Index">帳號</a></li>
+                        <hr class="mb-1 mt-1">
+                        <li><a href="javascript:;">協助</a></li>
+                        <li><a href="/Login/Logout">登出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-top d-md-flex">
+            <div class="container mt-3 mt-md-0 ">
+                <p class="title">用戶支援</p>
+                <a href="javascript:;">說明中心</a>
+                <a href="javascript:;">AirCover</a>
+                <a href="javascript:;">安全資訊</a>
+                <a href="javascript:;">支援身心障礙人士</a>
+                <a href="javascript:;">退訂選項</a>
+                <a href="javascript:;">我們的新冠肺炎因應措施</a>
+                <a href="javascript:;">回報社區問題</a>
+            </div>
+            <div class="container mt-3 mt-md-0">
+                <p class="title">社區</p>
+                <a href="javascript:;">Airbnb.org：救災住宿</a>
+                <a href="javascript:;">支援阿富汗難民</a>
+                <a href="javascript:;">消弭歧視</a>
+            </div>
+            <div class="container mt-3 mt-md-0">
+                <p class="title">出租房源</p>
+                <a href="javascript:;">開始出租／舉辦體驗</a>
+                <a href="javascript:;">專為房東提供的 AirCover</a>
+                <a href="javascript:;">瀏覽待客資源</a>
+                <a href="javascript:;">前往我們的社區論壇</a>
+                <a href="javascript:;">落實負責任出租和舉辦體驗的方法</a>
+            </div>
+            <div class="container mt-3 mt-md-0">
+                <p class="title">Airbnb
+                <p>
+                    <a href="javascript:;">Airbnb 新聞中心</a>
+                    <a href="javascript:;">了解新功能</a>
+                    <a href="javascript:;">來自 Airbnb 創辦人的信</a>
+                    <a href="javascript:;">工作機會</a>
+                    <a href="javascript:;">投資人</a>
+            </div>
+        </div>
+        <div class="footer-bottom d-md-flex justify-content-md-between">
+            <div class="d-flex align-content-center bfa">
+                <p><i class="fa-regular fa-copyright"></i>2022 Airbnb, Inc</p>
+                <a href="javascript:;">隱私</a>
+                <a href="javascript:;">相關條款</a>
+                <a href="javascript:;">網站地圖</a>
+            </div>
+            <div class="d-flex">
+                <div class="d-flex">
+                    <p><i class="fa-solid fa-earth-asia"></i>繁體中文 (TW)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/common.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("endJS",false)
+</body>
+</html>

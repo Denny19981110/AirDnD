@@ -1,0 +1,141 @@
+h1,h2,h3,h4,h5,h6,p
+span,tt,td,a{
+    font-family: 'Noto Serif TC', serif;
+    text-decoration: none;
+    color: black;
+}
+.trip-title{
+    margin-top: 3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.border{
+    border: 1px solid  #dee2e6 ;
+    border-radius: 15px;
+}
+
+ /* --------- no trip start ---------  */
+.no-trip{
+    padding-bottom: 3rem;
+    border-bottom: 1px solid #dee2e6;
+    display:none;
+}
+.no-trip h4{
+    margin-top: 2rem;
+}
+.no-trip p{
+    padding-bottom: 1rem;
+}
+.no-trip .nt-btn{
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid black;
+    font-weight: 700;
+    width:100px;
+}
+.no-trip-info{
+    border-top: 1px solid #dee2e6;
+    font-size: 14px;
+    padding-top: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 5rem;
+}
+.no-trip-info a{
+    text-decoration: underline;
+    font-weight: 500;
+}
+ /* --------- no trip end ---------  */
+
+ /* --------- trip start ---------  */
+
+#unpay{
+     display:flex;
+     flex-direction:column-reverse;
+ }
+
+.trip-container{
+    margin-top: 2rem;
+    width: 100%;
+    
+}
+.trip-container h4{
+    margin-bottom: 2rem;
+}
+
+.trip-button{
+    background-color: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+    margin-bottom:3rem;
+    width:100%;
+}
+
+.trip-container .t-item{
+    display: flex;
+    width:100%;
+    max-width: 1000px;
+    max-height: 250px;
+    box-shadow: 0 5px 10px #ccc;
+}
+.trip-container .t-item p{
+    margin: 0;
+}
+.trip-container .t-text-context{
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #dee2e6;
+    margin-right: 0; 
+    text-align: start;
+}
+.trip-container .t-info{
+    display: flex;
+}
+.t-info .t-date{
+    width: 30%;
+}
+.t-info .t-location{
+    width: 70%;
+}
+.t-info .t-location p{
+    padding-left: 1rem;
+}
+.t-text{
+    padding: 2rem;
+}
+
+.t-pic{
+    overflow: hidden;
+    border-radius: 0 10px 10px 0;
+}
+.t-pic img{
+    width: 450px;
+}
+
+@media (max-width: 768px){
+    .t-item{
+        flex-direction: column-reverse;
+    }
+    .trip-container .t-item{
+        max-width: 1000px;
+        max-height:none;
+    }
+    .t-location p{ 
+        text-overflow: ellipsis;
+    }
+    .t-pic{
+        overflow:auto;
+        border-radius: 10px 10px 0 0;
+    }
+    .t-pic img{
+        width: 100%;
+    }
+}
+ /* --------- trip end ---------  */
+
+
+
+
+
+

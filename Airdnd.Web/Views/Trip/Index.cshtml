@@ -1,0 +1,172 @@
+﻿@using Airdnd.Web.ViewModels.Trip
+@model IEnumerable<TripViewModel>
+@{
+    ViewData["Title"] = "Trip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    int counter = 0;
+}
+
+
+<div class="container">
+    
+    <div class="trip-title">
+        <h2>旅程</h2>
+    </div>
+
+    <div class="main-box">
+        
+        <div id="notrip" class="no-trip" style="display:none">
+            <h4>還沒預訂任何旅程！</h4>
+            <p>該拿出行李箱，開始規劃下一趟冒險之旅了</p>
+            <a href="#" class="nt-btn">開始搜尋</a>
+        </div>
+        
+        <!--尚未付款的預定  -->
+        <div  class="unpay-trip" >
+            <div id="unpay" class="trip-container">
+                <div>
+                    @foreach (var item in Model)
+                    {
+                        @if (item.Status == 0)
+                        {
+                            counter++;
+                            <button type="button" class="trip-button" onclick="location.href='/Booking/Rebook?Id=@item.orderId'">
+                                <div class="t-item border">
+                                    <div class="t-text col-12 col-md-7">
+                                        <div class="t-text-context">
+                                            <h3>@item.ListingName</h3>
+                                            <p>@item.ListingDetail</p>
+                                        </div>
+                                        <div class="t-info">
+                                            <div class="t-date">
+                                                <p>@((item.Startdate).ToString("MM/dd/yyyy"))</p>
+                                                <p>~</p>
+                                                <p>@((item.Enddate).ToString("MM/dd/yyyy"))</p>
+                                            </div>
+                                            <div class="t-location">
+                                                <p>@item.Address</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="t-pic col-12 col-md-5">
+                                        <img src="@Url.Content(item.PhotoUrl)">
+                                    </div>
+                                </div>
+                            </button>
+                        }
+                    }
+                </div>
+                @if(counter >0){
+                <h4>您有尚未完成付款的預定</h4>
+                }
+            </div>
+
+        </div>
+
+
+        <!-- 即將開始預訂 -->
+        
+        <div class="current-trip">
+            <div class="trip-container">
+                <h4>即將開始的預定</h4>
+                @foreach (var item in Model)
+                {
+                    @if(item.Status ==1)
+                    {
+                        <button type="button" class="trip-button">
+                            <div class="t-item border">
+                                <div class="t-text col-12 col-md-7">
+                                    <div class="t-text-context">
+                                        <h3>@item.ListingName</h3>
+                                        <p>@item.ListingDetail</p>
+                                    </div>
+                                    <div class="t-info">
+                                        <div class="t-date">
+                                            <p>@((item.Startdate).ToString("MM/dd/yyyy"))</p>
+                                            <p>~</p>
+                                                <p>@((item.Enddate).ToString("MM/dd/yyyy"))</p>
+                                        </div>
+                                        <div class="t-location">
+                                            <p>@item.Address</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="t-pic col-12 col-md-5">
+                                        <img src="@Url.Content(item.PhotoUrl)">
+                                </div>
+                            </div>
+                        </button>
+                    }
+                }
+                
+
+            </div>
+
+        </div>
+
+
+
+        <!-- 過去預定 -->
+        <div class="past-trip">
+            <div class="trip-container">
+                <h4>你去過的地方</h4>
+                @foreach (var item in Model)
+                {
+                    if(item.Status == 2)
+                    {
+                        <button type="button" class="trip-button">
+                            <div class="t-item border">
+                                <div class="t-text col-12 col-md-7">
+                                    <div class="t-text-context">
+                                        <h3>@item.ListingName</h3>
+                                        <p>@item.ListingDetail</p>
+                                    </div>
+                                    <div class="t-info">
+                                        <div class="t-date">
+                                            <p>@((item.Startdate).ToString("MM/dd/yyyy"))</p>
+                                            <p>~</p>
+                                            <p>@((item.Enddate).ToString("MM/dd/yyyy"))</p>
+                                        </div>
+                                        <div class="t-location">
+                                            <p>@item.Address</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="t-pic col-12 col-md-5">
+                                    <img src="@Url.Content(item.PhotoUrl)">
+                                </div>
+                            </div>
+                        </button>
+                    }
+                }
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="no-trip-info">
+            <span>在這裡找不到預訂？</span>
+            <a href="#">前往說明中心</a>
+        </div>
+    </div>
+
+
+</div>
+@section header{
+    <partial name="_HeaderEmptyPartial" />
+}
+    @section footer{
+    <partial name="_FooterDefaultPartial" />
+}
+
+
+@section TopCSS
+    {
+    <link href="~/css/Trip/Trip.css" rel="stylesheet" />
+}

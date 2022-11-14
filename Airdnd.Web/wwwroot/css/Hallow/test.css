@@ -1,0 +1,200 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    background-image: url("../../assert/Double11/bg001.jpeg");
+}
+
+@font-face {
+  font-family: "Double11";
+  src: url("../../assert/Double11/GenJyuuGothicX-Monospace-Bold.woff");
+}
+h1, div, a, p {
+    font-family: "Double11";
+    color: #fff;
+}
+
+.wrap {
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: sepia(30%);
+          backdrop-filter: sepia(30%);
+}
+
+.d-flex-colomn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.anl {
+  font-size: 16px;
+  text-align: end;
+}
+
+.btn-style {
+  font-family: Double11;
+  font-size: 24px;
+  border: none;
+}
+
+.option {
+  cursor: pointer;
+}
+.option i {
+  opacity: 0;
+}
+
+.activedOption,
+.option:hover {
+  background-color: #a4221b;
+}
+.activedOption i,
+.option:hover i {
+  opacity: 1;
+}
+
+.cardBlood {
+  font-size: 30px;
+}
+
+.content-wrap {
+  flex-grow: 1;
+}
+
+.borderBlood {
+  border-radius: 1em;
+  border: 3px solid #a4221b;
+  overflow: hidden;
+}
+
+.ais {
+  justify-content: space-between;
+}
+
+.img-wrap {
+  overflow: hidden;
+}
+
+#btnStart i {
+  opacity: 0;
+}
+
+#btnStart:hover i {
+  opacity: 1;
+}
+
+.btn-color {
+    color: #e5555a;
+    border: 2px solid #e5555a;
+    background: #fff;
+}
+
+.btn-color-2 {
+  text-align: center;
+  background: radial-gradient(ellipse at center, #e04d45 0%, #a4221b 30%, transparent 70%);
+}
+
+.btn-color-2:hover {
+  color: #fff;
+}
+
+.btn-color:hover {
+    box-shadow: 0 12px 16px 0 rgba(255, 255, 255, 0.1), 0 17px 24px 0 rgba(255, 255, 255, 0.1);
+    text-shadow: 1px 1px 16px rgba(255, 255, 255, 0.5);
+    color: #fff;
+    //background: radial-gradient(ellipse at center, #e5555a 0%, #000 100%);
+    background-color: #a4221b;
+}
+
+.d-flex-row {
+  display: flex;
+}
+
+.d-flex-wrap {
+  flex-wrap: wrap;
+}
+
+.d-jb {
+  justify-content: space-between;
+}
+
+.w-48 {
+  width: 48%;
+}
+
+.w-80 {
+  width: 80%;
+}
+
+.fz {
+  font-size: 3em;
+}
+
+.pl-0 {
+  padding-left: 0;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+.ml-16 {
+  margin-left: 16px;
+}
+
+.mr-16 {
+  margin-right: 16px;
+}
+
+.mr-32 {
+  margin-right: 32px;
+}
+
+.p-8 {
+  padding: 8px;
+}
+
+.p-16 {
+  padding: 16px;
+}
+
+@media screen and (max-width: 991px) {
+  .ais {
+    justify-content: start;
+  }
+  .d-flex-md-col {
+    flex-direction: column;
+  }
+  .d-md-block {
+    display: block;
+  }
+  .img-wrap {
+    height: 50%;
+    overflow: hidden;
+  }
+  .img-wrap > img {
+    margin-top: -50%;
+    width: 100%;
+  }
+  .mr-md-0 {
+    margin-right: 0;
+  }
+  .btn-style {
+    font-size: 24px;
+  }
+  .cardBlood {
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 525px) {
+  .fz {
+    font-size: 24px;
+  }
+  .btn-style {
+    font-size: 18px;
+  }
+  .cardBlood {
+    font-size: 16px;
+  }
+}/*# sourceMappingURL=test.css.map */

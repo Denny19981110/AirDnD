@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "CreateRoomSourceIndex";
+}
+
+<div class="index">
+    <div class="row">
+        <div class="question col-12 col-md-6 d-flex justify-content-center align-items-center">
+            <img src="https://res.cloudinary.com/dziprrwvg/image/upload/v1667197794/Host_Premiere_Event_PostEvent_Hero1_yhpfmu.png"
+                alt="">
+            <div class="name">
+                <div class="pic"> <img src="https://a0.muscache.com/pictures/03077a3c-d04f-4136-999f-9b579772597d.jpg">
+                </div>
+                <h1>Airbnb 執行長 Brian Chesky</h1>
+            </div>
+        </div>
+        <div class="options col-12 col-md-6 d-flex flex-column justify-content-between">
+            <div class="top d-flex justify-content-end p-5 align-items-center">
+                <a asp-controller="Seller" asp-action="Index">退出</a>
+            </div>
+            <div class="content d-flex flex-column justify-content-center align-items-center mx-auto">
+                <h2>成為房東只需 10 個簡單步驟</h2>
+                <p>加入之後，我們會全程為你提供協助。</p>
+
+            </div>
+            <div class="buttom d-flex p-5 align-items-center">
+                <a asp-controller="RoomSource" asp-action="Form">馬上開始!</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section topCSS{
+<link rel="stylesheet" href="~/css/CreateRoomSource/CreateRoomSource.css" />
+}

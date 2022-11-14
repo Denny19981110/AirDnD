@@ -1,0 +1,102 @@
+﻿@model Airdnd.Web.ViewModels.RoomInfoViewModel
+@section topCSS{
+    <link rel="stylesheet" href="~/css/Login/Login.css">
+    <link rel="stylesheet" href="~/css/Seller/RoomInfo/RoomImagePage.css" />
+}
+@section linkJS{
+    <script src="~/js/login/login.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/Sortable/Sortable.min.js"></script>
+    <script src="~/js/SellerRoomInfo/app.js"></script>
+    <script src="~/js/SellerRoomInfo/RoomImagePage.js"></script>
+}
+
+@section header{
+    @if (User.Identity.IsAuthenticated)
+    {
+        <partial name="_HeaderBackPartial" />
+    }
+    else
+    {
+        <partial name="_HeaderLoginSearchBarPartial " />
+    }
+}
+
+    <div class="container">
+        <div class="col-12 info-header">
+            <div class=" title">
+                <h1>
+                    @Model.RoomName
+                </h1>
+            </div>
+            <div class="preview-link">
+                <ul>
+                    <li class="">
+                        <a href="#">
+                            <span><i class="fa-solid fa-circle"></i></span>
+                            <span>已發布</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="#">
+                            <span><i class="fa-solid fa-bolt"></i></span>
+                            <span>已開啟即時預定功能</span>
+                        </a>
+                    </li>
+                    <li class="wrap-link">
+                        <a href="#" class="previrwRoom">預覽房源</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-4 left-bar">
+                <nav id="navbar-forRoom" class=" flex-column align-items-stretch pe-4 border-end">
+                    <nav class="nav nav-pills flex-column side-bar">
+                    </nav>
+                    <nav class="nav nav-pills flex-column detail-nav">
+                        <a class="nav-link ms-3 my-1" asp-route="RoomInfo/{id?}" asp-route-id="@Model.Id"><i class="fa-solid fa-angle-left"></i>相片</a>
+                        <a class="nav-link ms-3 my-1" href="#aboutRoom">所有照片</a>
+                    </nav>
+                </nav>
+            </div>
+            <div class="col-12 col-md-8 main-context">
+                <div data-bs-spy="scroll" data-bs-target="#navbar-forRoom" data-bs-smooth-scroll="true"
+                 class="scrollspy-example-2 " tabindex="0">
+                </div>
+                <form method="post" class="row" enctype="multipart/form-data" action="/SellerRoomInfo/UploadAllImage" id="aboutPic">
+                    <input name="Id" type="number" class="d-none" value="@Model.Id" />
+                    <div class="editPhoto ">
+                        <div class="editPhoto-title">
+                            <h2 class="picH2">所有相片</h2>
+                            <button type="submit" class="edit-btn submitBtn">
+                                上傳照片
+                            </button>
+                        </div>
+                        <span>拖放相片即可更改順序。</span>
+                    </div>
+                    <div class="container image-wraper">
+                        <div class="row" id="gridDemo">
+                            @foreach(var file in Model.Photos){
+                            <div class="col-12 col-md-6 col-lg-4 img-box grid-square">
+                                <img src="@Url.Content(file)" alt="">
+                                <div class="deleteBtn">X</div>
+                                <input type="text" id="file" value="@file" name="photos" class="d-none uploadfile" multiple>
+                            </div>
+                            }
+                        <label class="col-12 col-md-6 col-lg-4 img-box grid-square" for="files">
+                                <img src="https://res.cloudinary.com/dbp76raxc/image/upload/v1664720899/upload-icon-30_nuphkb.png" alt="">
+                         </label>
+                        <input type="file" accept="image/*" id="files" name="File" class="d-none" multiple>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+@section footer{
+    <partial name="_FooterDefaultPartial" />
+}

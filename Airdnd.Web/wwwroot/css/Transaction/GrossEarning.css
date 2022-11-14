@@ -1,0 +1,190 @@
+
+h1,h2,h3,h4,h5,h6,p
+span,tt,td,a{
+    font-family: 'Noto Serif TC', serif;
+    text-decoration: none;
+    color: black;
+}
+
+shadow{
+    box-shadow:  rgba(0,0,0,.15)
+}
+
+.main-box{
+    max-width: 1200px;
+}
+
+/* ---------- 新增收款方式start ---------- */
+.payment-notify{
+    padding:1rem;
+    border: 1px solid  #dee2e6 ;
+    border-radius: 15px;
+}
+
+.payment-notify-text{
+    display: flex;
+}
+
+.payment-notify-text i{
+    position: relative;
+    top: 10px;
+    left: 15px;
+    color: white;
+}
+.pn-icon-container{
+    background-color: #E07912;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+}
+
+.pn-text-container{
+    padding-left: 15px;
+}
+.payment-notify p{
+    color:#717171;
+    margin-bottom: 0;
+}
+.payment-notify .pn-new{
+    font-weight: 700;
+    color: black;
+}
+
+
+
+.payment-notify-link{
+    padding-left: 58px;
+    margin-top: 1rem;
+}
+.payment-notify a{
+    font-weight: 500;
+    color: black;
+}
+.pn-start{
+    padding: 10px 15px;
+    margin-left: 1rem;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+.payment-notify a{
+    display:inline;
+}
+
+/* ---------- 新增收款方式end ----------*/
+
+.transaction-title{
+    margin-top: 3rem;
+}
+
+/* ---------- 交易紀錄導覽列 start ----------*/
+.nav-tab{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 0;
+    border-bottom: 1px solid  #dee2e6;
+}
+.nav-tab a{
+    margin-right: 1rem;
+    padding-bottom: 22px;
+    display:inline;
+}
+.nav-tab .nav-ttl {
+    border-bottom: 2px solid #008489;
+}
+
+/* ---------- 交易紀錄導覽列 end ---------- */
+
+
+
+
+
+/* ---------- 主程式 start ---------- */
+.date-group-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.date-group{
+    display: flex;
+}
+.month{
+    display: flex;
+    align-items: center;
+}
+.date-group select{
+    padding: 0.5rem;
+    margin:0.5rem;  
+}
+.date-group .text{
+    align-items: center;
+    padding:  1rem 0;
+}
+.date-group .text span{
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+
+/* ---------- 主程式 end ---------- */
+
+
+
+
+.order-group .order-item {
+    display: flex;
+    margin-top: 2rem;
+}
+
+    .order-item .text {
+        display: flex;
+        justify-content: space-between;
+        margin: 1rem;
+    }
+
+        .order-item .text .text-date {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .order-item .text .text-price h5 {
+            font-weight: 700;
+        }
+
+    .order-item .pic {
+        width: 180px;
+    }
+
+        .order-item .pic img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+@media screen and (max-width: 768px) {
+    .order-item .pic {
+        display: none;
+    }
+}
+
+
+
+
+
+/* ---------- 查無資料 start ---------- */
+.error-notify{
+    border: 1px solid #dee2e6 ;
+    margin-top: 4rem;
+}
+.en-textbox{
+    padding-left: 30px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+.en-textbox p{
+    margin: 0;
+}
+.en-textbox .error-title{
+    font-size: 1.1rem ;
+}
+/* ---------- 查無資料 end ---------- */
+
+

@@ -1,0 +1,226 @@
+﻿@using Airdnd.Web.ViewModels
+@using Microsoft.AspNetCore.Http
+@model SearchViewModel
+
+@{
+	ViewData["Title"] = ViewBag.searchKeyword;
+	var seohelp = (SeoHelpDto)ViewData["seohelp"];
+	int userId = ViewBag.userId;
+	var listings = Model.ResultListings;
+	var itemLength = ViewBag.resultCount;
+	var modelLoc = listings.Select(l => new { l.ListingName, l.Location, l.PriceGet }).ToList();
+	var filterData = Json.Serialize(Model.Filter);
+	var searchData = Json.Serialize(ViewBag.SearchData);
+
+	int currentPage = Model.CurrentPage;
+	int pages = Model.PageCount;
+	IQueryCollection queries = ViewBag.queries;
+}
+@section metatags {
+	<meta name='description' content='@seohelp.Description' />
+}
+	@section OpenGraph {
+	<meta property="og:url" content="@seohelp.WebAddress" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content=@seohelp.Title />
+	<meta property="og:description" content=@seohelp.Description />
+	<meta property="og:image" content="@Url.Content(seohelp.Image)" />
+}
+
+	<div class="full-container">
+		<div class="container-set">
+
+			<section class="head-section">
+				<div class="result-display">
+					<h2><span class="result">@itemLength</span>間住宿</h2>
+				</div>
+				<div class="button-container">
+					<button type="button" class="filter-button">
+						<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;height:14px;width:14px;fill:currentColor" aria-hidden="true" role="presentation" focusable="false">
+							<path d="M5 8c1.306 0 2.418.835 2.83 2H14v2H7.829A3.001 3.001 0 1 1 5 8zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6-8a3 3 0 1 1-2.829 4H2V4h6.17A3.001 3.001 0 0 1 11 2zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z">
+							</path>
+						</svg>
+						<span class="filter-span">篩選條件</span>
+					</button>
+				</div>
+			</section>
+			<section class="item-section">
+				<div class="pull-icon"></div>
+				<div class="card-group row">
+				@foreach( var item in listings )
+				{
+					string likeCheck;
+					@if( item.IsWish == true )
+					{
+						likeCheck = "like-check";
+					}
+					else
+					{
+						likeCheck = string.Empty;
+					}
+					<div class="col-lg-6 col-md-12 col-sm-6 col-12 card-container">
+						<div class="like-btn @likeCheck" data-id="@item.Id">
+							<i class="fa-solid fa-heart"></i>
+						</div>
+						<a href="/House/@(item.ListingName)">
+							<div class="hot-product-marker img-box">
+								<div class="btn-box">
+								</div>
+								<div class="swiper img-swiper">
+									<div class="swiper-wrapper">
+
+										@foreach( var img in item.ImgPath )
+										{
+											<div class="swiper-slide">
+												<img data-src="@Url.Content(img)" class="swiper swiper-lazy item-img">
+												<div class="swiper-lazy-preloader swiper-lazy-preloader-Airbnb"></div>
+											</div>
+										}
+
+									</div>
+									<div class="swiper-button-next"></div>
+									<div class="swiper-button-prev"></div>
+									<div class="swiper-pagination"></div>
+								</div>
+							</div>
+							<div class="info-group">
+								<p class="info">
+									<span class="item-loc">位於@(item.County)的@(item.PropertyTitle)</span>
+									<span class="info-sub item-name">@item.ListingName</span>
+									<span class="info-sub item-beds">@(item.Rooms.Beds)張床</span>
+									<span class="item-price">$@(item.PriceGet)&nbsp;TWD&nbsp;晚</span>
+									<span class="item-rate"><i class="fa-solid fa-star"></i>&nbsp;@(item.Rating)</span>
+								</p>
+							</div>
+						</a>
+					</div>
+
+				}
+			</div>
+			<form id="pagination">
+				@if( queries != null )
+				{
+					@foreach( var item in queries )
+					{
+						if( item.Key != "page" )
+						{
+							<input name="@item.Key" value="@item.Value" type="hidden">
+						}
+					}
+				}
+				@if( pages > 1 )
+				{
+					<ul class="pagination">
+
+						@for( int i = 1;i <= pages;i++ )
+						{
+
+							if( i == currentPage )
+							{
+								<li class="page current-page disabled">
+									<button class="page-link" name="page" value="@i" tabindex="-1">@i</button>
+								</li>
+							}
+							else
+							{
+								<li class="page other-page">
+									<button class="page-link" type="submit" name="page" value="@i">@i</button>
+								</li>
+							}
+						}
+
+					</ul>
+				}
+
+			</form>
+		</section>
+	</div>
+	<section class="map-section">
+		<button class="btn btn-hide-products btn-hide-l">
+			<i class="fa-solid fa-arrow-right-to-bracket"></i>
+		</button>
+		<button class="btn btn-hide-products btn-hide-m">
+			<i class="fa-solid fa-map-location"></i>
+		</button>
+		<div class="map-container" id="map"></div>
+	</section>
+
+</div>
+
+@{
+	await Html.RenderPartialAsync("~/Views/Partial/_WishlistPartial.cshtml", userId);
+	await Html.RenderPartialAsync("~/Views/Partial/_FilterVuePartial.cshtml");
+}
+
+@section header{
+	<partial name="_HeaderSearchBarPartial" model="userId" />
+	}
+
+	@section footer{
+	<partial name="_FooterDefaultPartial" />
+}
+	@section linkCSS{
+	<!-- css-->
+	<link rel="stylesheet" href="~/lib/Swiper/swiper-bundle.min.css" />
+	<!-- leaflet map -->
+	<link rel="stylesheet" href="~/lib/leaflet/leaflet.css" />
+	<link rel="stylesheet" href="~/lib/leaflet/MarkerCluster.Default.css" />
+	<link rel="stylesheet" href="https://unpkg.com/vue-airbnb-style-datepicker@2.1.0/dist/vue-airbnb-style-datepicker.min.css">
+}
+	@section topCSS{
+	<link rel="stylesheet" href="~/css/Search/Search.css">
+	<link rel="stylesheet" href="~/css/SearchBar/SearchBar.css">
+	<link rel="stylesheet" href="~/css/Login/Login.css">
+	<link rel="stylesheet" href="~/css/Partial/Lightbox.css">
+	<link rel="stylesheet" href="~/css/Partial/Filter.css" />
+}
+	@section linkJS{
+	<!-- Swiper -->
+	<script src="~/lib/Swiper/swiper-bundle.min.js"></script>
+	<!-- jquery -->
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<!-- leaflet -->
+	<script src="~/lib/Vue/vue.js"></script>
+	<script src="https://unpkg.com/vue-airbnb-style-datepicker@2.1.0/dist/vue-airbnb-style-datepicker.min.js"></script>
+	<script src="~/lib/leaflet/leaflet.js"></script>
+	<script src="~/lib/leaflet/leaflet.markercluster.js"></script>
+	<script src="~/js/Home/lightbox.js"></script>
+	<script src="~/js/Search/Search.js"></script>
+
+	<script src="~/js/login/login.js"></script>
+}
+
+	@section endJS{
+	<script>
+		const userId = @userId
+
+			var swiper = new Swiper(".img-swiper",
+			{
+				preloadImages: false,
+				lazy: {
+					enabled: true,
+					loadPrevNext: true,
+					loadPrevNextAmount: 1,
+				},
+				loop: false,
+				spaceBetween: 30,
+				centeredSlides: true,
+				pagination: {
+					el: ".swiper-pagination",
+					clickable: true,
+				},
+				navigation: {
+					nextEl: ".swiper-button-next",
+					prevEl: ".swiper-button-prev",
+				},
+			});
+
+		let locGroup = []
+		let searchData = JSON.parse('@Html.Raw(searchData)')
+		locGroup = JSON.parse('@Html.Raw(Json.Serialize(modelLoc))')
+		const dataObj = JSON.parse('@Html.Raw(filterData)')
+	</script>
+	<script src="~/js/Home/FilterVue.js"></script>
+	<script src="~/js/Search/map.js"></script>
+	<script src="~/js/Common/SearchBar.js"></script>
+}
